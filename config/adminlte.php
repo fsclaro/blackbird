@@ -14,9 +14,9 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
-    'title_prefix' => '',
-    'title_postfix' => '',
+    'title' => 'Blackbird',
+    'title_prefix' => '{',
+    'title_postfix' => '}',
 
     /*
     |--------------------------------------------------------------------------
@@ -30,12 +30,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Black</b>bird',
+    'logo_img' => 'img/logo-sm.png',
     'logo_img_class' => 'brand-image-xl',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'Blackbird',
 
     /*
     |--------------------------------------------------------------------------
@@ -53,7 +53,7 @@ return [
     'layout_boxed' => null,
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => null,
-    'layout_fixed_footer' => null,
+    'layout_fixed_footer' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -112,7 +112,7 @@ return [
     |
     */
 
-    'right_sidebar' => false,
+    'right_sidebar' => true,
     'right_sidebar_icon' => 'fas fa-cogs',
     'right_sidebar_theme' => 'dark',
     'right_sidebar_slide' => true,
@@ -133,17 +133,11 @@ return [
     */
 
     'use_route_url' => false,
-
     'dashboard_url' => 'home',
-
     'logout_url' => 'logout',
-
     'login_url' => 'login',
-
     'register_url' => 'register',
-
     'password_reset_url' => 'password/reset',
-
     'password_email_url' => 'password/email',
 
     /*
@@ -179,78 +173,93 @@ return [
             'topnav' => true,
         ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text'  => 'Dashboard',
+            'icon'  => 'fas fa-fx fa-tachometer-alt',
+            // 'route' => 'home',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'header' => 'ADMINISTRAÇÃO DO SITE',
+            // 'can' => 'site_management',
         ],
-        ['header' => 'account_settings'],
+
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text' => 'Gestão de Acesso',
+            'icon' => 'fas fa-fx fa-compass',
+            'icon_color' => 'yellow',
+            // 'can' => 'access_management',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Usuários',
+                    'icon'    => 'fas fa-fx fa-users',
+                    // 'can'   => 'user_access',
+                    // 'route' => 'admin.users.index',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'text'    => 'Papéis',
+                    'icon'    => 'fas fa-fx fa-user-tag',
+                    // 'can'     => 'role_access',
+                    // 'route' => 'admin.roles.index',
                 ],
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text'    => 'Permissões',
+                    'icon'    => 'fas fa-fx fa-key',
+                    // 'can'   => 'permission_access',
+                    // 'route' => 'admin.permissions.index',
                 ],
             ],
         ],
-        ['header' => 'labels'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-        ],
-        [
-            'text'       => 'warning',
+            'text'    => 'Parametrização',
+            'icon'    => 'fas fa-fx fa-cubes',
             'icon_color' => 'yellow',
+            // 'can'     => 'parameter_access',
+            'submenu' => [
+                [
+                    'text'  => 'Parâmetros',
+                    'icon'  => 'fas fa-fx fa-database',
+                    // 'can'   => 'parameter_access',
+                    // 'route' => 'admin.parameters.index',
+                ],
+                [
+                    'text'  => 'Valores',
+                    'icon'  => 'fas fa-fx fa-bullhorn',
+                    // 'can'   => 'parameter_content',
+                    // 'route' => 'admin.parameters.content',
+                ],
+            ],
         ],
         [
-            'text'       => 'information',
-            'icon_color' => 'aqua',
+            'text'    => 'Suporte',
+            'icon'    => 'fas fa-fx fa-user-secret',
+            'icon_color' => 'yellow',
+            // 'can'     => 'support_access',
+            'submenu' => [
+                [
+                    'text' => 'Histórico de Acesso',
+                    'icon' => 'fas fa-fx fa-flag',
+                ],
+                [
+                    'text'   => 'Log Viewer',
+                    'icon'   => 'fas fa-fx fa-eye',
+                    // 'can'    => 'log_viewer_access',
+                    'route'  => 'log-viewer::dashboard',
+                    'target' => '_blank',
+                ],
+                [
+                    'text'   => 'Route Viewer',
+                    'icon'   => 'fas fa-fx fa-eye',
+                    // 'can'    => 'route_viewer_access',
+                    'route'  => 'route-viewer::index',
+                    'target' => '_blank',
+                ],
+                [
+                    'text'   => 'Telescope',
+                    'icon'   => 'fas fa-fx fa-binoculars',
+                    // 'can'    => 'telescope_viewer_access',
+                    'route'  => 'telescope',
+                    'target' => '_blank',
+                ],
+            ],
         ],
     ],
 

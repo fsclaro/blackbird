@@ -1,19 +1,27 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', env('APP_NAME','Blackbird'))
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Dashboard</h1>
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <h5><i class="fas fa-tachometer-alt"></i> Dashboard</h5>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+            {{ Breadcrumbs::render('dashboard') }}
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div>
 @stop
 
 @section('content')
+<div class="container-fluid">
     <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <p class="mb-0">You are logged in!</p>
-                </div>
-            </div>
-        </div>
+        @widget('UsersCount')
+        @widget('PermissionsCount')
+        @widget('RolesCount')
+        @widget('SettingsCount')
     </div>
+</div>
 @stop

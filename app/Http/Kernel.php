@@ -35,8 +35,9 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
+            \App\Http\Middleware\AuthGates::class,
 
+        ],
         'api' => [
             'throttle:60,1',
             'bindings',
@@ -61,6 +62,16 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+        /*
+         * ========================================================================
+         * Third Party Middleware
+         * Objective: Verify who can access the resources of support menu
+         * Resources: Log-Viewer, Route-Viewer, Telescope
+         * ========================================================================
+         */
+        'can.access.logviewer'   => \App\Http\Middleware\CanAccessLogViewer::class,
+        'can.access.routeviewer' => \App\Http\Middleware\CanAccessRouteViewer::class,
     ];
 
     /**

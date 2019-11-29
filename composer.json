@@ -18,11 +18,11 @@
         "jeroennoten/laravel-adminlte": "^3.0",
         "laravel/framework": "^6.2",
         "laravel/socialite": "^4.3",
-        "laravel/telescope": "^2.1",
         "laravel/tinker": "^1.0",
         "realrashid/sweet-alert": "^3.0",
         "spatie/laravel-backup": "^6.7",
         "spatie/laravel-medialibrary": "^7.14",
+        "spatie/laravel-sluggable": "^2.2",
         "yajra/laravel-datatables-oracle": "^9.7"
     },
     "require-dev": {

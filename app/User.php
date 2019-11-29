@@ -2,38 +2,86 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Auth;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use Notifiable;
+    use SoftDeletes, Notifiable, HasMediaTrait;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'active',
+        'skin',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'remember_token',
+        'email_verified_at',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $dates = [
+        'updated_at',
+        'created_at',
+        'deleted_at',
+        'email_verified_at',
+    ];
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function identities()
+    {
+        return $this->hasMany('App\SocialIdentity');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+
+    public function getAvatar($id)
+    {
+        $avatar = User::find($id)->getMedia('avatars');
+
+        if (count($avatar) <= 0) {
+            return false;
+        }
+
+        $urlAvatar = $avatar[0]->getFullUrl();
+
+        return $urlAvatar;
+    }
+
+    public function getRolesNames()
+    {
+        $roles = Auth::user()->roles;
+
+        foreach ($roles as $key => $value) {
+            $title[] = $value->title;
+        }
+
+        return $title;
+    }
+
+    public function getFirstRoleName()
+    {
+        $roles = Auth::user()->roles[0];
+
+        return $roles->title;
+    }
 }

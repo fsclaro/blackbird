@@ -224,6 +224,17 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        /*
+         * ------------------------------------------------------------------------
+         * Third-party packages
+         * ------------------------------------------------------------------------
+         */
+        'Gravatar'   => Creativeorange\Gravatar\Facades\Gravatar::class,
+        'Alert'      => RealRashid\SweetAlert\Facades\Alert::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+
     ],
 
 ];

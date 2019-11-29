@@ -53,7 +53,7 @@ return [
     'layout_boxed' => null,
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => null,
-    'layout_fixed_footer' => false,
+    'layout_fixed_footer' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -90,10 +90,10 @@ return [
     |
     */
 
-    'sidebar_mini' => true,
-    'sidebar_collapse' => false,
+    'sidebar_mini' => false,
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => false,
-    'sidebar_collapse_remember' => false,
+    'sidebar_collapse_remember' => true,
     'sidebar_collapse_remember_no_transition' => true,
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
@@ -112,7 +112,7 @@ return [
     |
     */
 
-    'right_sidebar' => true,
+    'right_sidebar' => false,
     'right_sidebar_icon' => 'fas fa-cogs',
     'right_sidebar_theme' => 'dark',
     'right_sidebar_slide' => true,
@@ -167,44 +167,44 @@ return [
     */
 
     'menu' => [
-        [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
-        ],
+        // [
+        //     'text' => 'pesquisar',
+        //     'search' => true,
+        //     'topnav' => true,
+        // ],
         [
             'text'  => 'Dashboard',
             'icon'  => 'fas fa-fx fa-tachometer-alt',
-            // 'route' => 'home',
+            'route' => 'home',
         ],
         [
             'header' => 'ADMINISTRAÇÃO DO SITE',
-            // 'can' => 'site_management',
+            'can' => 'site_management',
         ],
 
         [
             'text' => 'Gestão de Acesso',
             'icon' => 'fas fa-fx fa-compass',
             'icon_color' => 'yellow',
-            // 'can' => 'access_management',
+            'can' => 'access_management',
             'submenu' => [
                 [
                     'text' => 'Usuários',
                     'icon'    => 'fas fa-fx fa-users',
-                    // 'can'   => 'user_access',
-                    // 'route' => 'admin.users.index',
+                    'can'   => 'user_access',
+                    'route' => 'admin.users.index',
                 ],
                 [
                     'text'    => 'Papéis',
                     'icon'    => 'fas fa-fx fa-user-tag',
-                    // 'can'     => 'role_access',
-                    // 'route' => 'admin.roles.index',
+                    'can'     => 'role_access',
+                    'route' => 'admin.roles.index',
                 ],
                 [
                     'text'    => 'Permissões',
                     'icon'    => 'fas fa-fx fa-key',
-                    // 'can'   => 'permission_access',
-                    // 'route' => 'admin.permissions.index',
+                    'can'   => 'permission_access',
+                    'route' => 'admin.permissions.index',
                 ],
             ],
         ],
@@ -212,19 +212,19 @@ return [
             'text'    => 'Parametrização',
             'icon'    => 'fas fa-fx fa-cubes',
             'icon_color' => 'yellow',
-            // 'can'     => 'parameter_access',
+            'can'     => 'setting_access',
             'submenu' => [
                 [
                     'text'  => 'Parâmetros',
                     'icon'  => 'fas fa-fx fa-database',
-                    // 'can'   => 'parameter_access',
-                    // 'route' => 'admin.parameters.index',
+                    'can'   => 'setting_access',
+                    'route' => 'admin.settings.index',
                 ],
                 [
                     'text'  => 'Valores',
                     'icon'  => 'fas fa-fx fa-bullhorn',
-                    // 'can'   => 'parameter_content',
-                    // 'route' => 'admin.parameters.content',
+                    'can'   => 'setting_content',
+                    'route' => 'admin.settings.content',
                 ],
             ],
         ],
@@ -232,31 +232,26 @@ return [
             'text'    => 'Suporte',
             'icon'    => 'fas fa-fx fa-user-secret',
             'icon_color' => 'yellow',
-            // 'can'     => 'support_access',
+            'can'     => 'support_access',
             'submenu' => [
                 [
                     'text' => 'Histórico de Acesso',
                     'icon' => 'fas fa-fx fa-flag',
+                    'can' => 'historic_access',
+                    // 'route' => '',
                 ],
                 [
                     'text'   => 'Log Viewer',
                     'icon'   => 'fas fa-fx fa-eye',
-                    // 'can'    => 'log_viewer_access',
+                    'can'    => 'log_viewer_access',
                     'route'  => 'log-viewer::dashboard',
                     'target' => '_blank',
                 ],
                 [
                     'text'   => 'Route Viewer',
                     'icon'   => 'fas fa-fx fa-eye',
-                    // 'can'    => 'route_viewer_access',
+                    'can'    => 'route_viewer_access',
                     'route'  => 'route-viewer::index',
-                    'target' => '_blank',
-                ],
-                [
-                    'text'   => 'Telescope',
-                    'icon'   => 'fas fa-fx fa-binoculars',
-                    // 'can'    => 'telescope_viewer_access',
-                    'route'  => 'telescope',
                     'target' => '_blank',
                 ],
             ],
@@ -300,23 +295,28 @@ return [
     'plugins' => [
         [
             'name' => 'Datatables',
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js',
+                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.20/datatables.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js',
                 ],
                 [
                     'type' => 'css',
                     'asset' => false,
-                    'location' => '//cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css',
+                    'location' => '//cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css',
                 ],
             ],
         ],
         [
             'name' => 'Select2',
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -332,7 +332,7 @@ return [
         ],
         [
             'name' => 'Chartjs',
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -343,7 +343,7 @@ return [
         ],
         [
             'name' => 'Sweetalert2',
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -354,12 +354,12 @@ return [
         ],
         [
             'name' => 'Pace',
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'css',
                     'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css',
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css',
                 ],
                 [
                     'type' => 'js',

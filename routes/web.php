@@ -11,16 +11,52 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/login');
 
-Auth::routes();
+Route::redirect('/home', '/admin');
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
-Route::get('/home', function() {
+Route::get('/home', function () {
     return view('home');
 })->name('home')->middleware('auth');
+
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+
+Route::group(
+    [
+        'prefix'     => 'admin',
+        'as'         => 'admin.',
+        'namespace'  => 'Admin',
+        'middleware' => ['auth'],
+    ],
+    function () {
+        /* Rota para a tela do dashboard */
+        Route::get('/', 'HomeController@index')->name('home');
+
+        /* Rotas da tabela de permissões */
+        Route::resource('permissions', 'PermissionController');
+
+        /* Rotas da tabela de papéis */
+        Route::resource('roles', 'RoleController');
+
+        /* Rotas da tabela de usuários */
+        Route::resource('users', 'UserController');
+        Route::get('users/delete/avatar/{user}', 'UserController@deleteAvatar')->name('users.delete.avatar');
+        Route::get('users/profile/{user}', 'UserController@changeProfile')->name('users.profile');
+        Route::put('users/profile/update/{user}', 'UserController@updateProfile')->name('users.update.profile');
+        Route::post('users/active', 'UserController@activeUsers')->name('users.active');
+        Route::post('users/desactive', 'UserController@desactiveUsers')->name('users.desactive');
+        Route::post('users/deleteusers', 'UserController@deleteUsers')->name('users.deleteusers');
+
+        /* Rotas da tabela de parâmetros */
+        Route::get('settings/content', 'SettingController@getContent')->name('settings.content');
+        Route::post('settings/content/save', 'SettingController@saveContent')->name('settings.savecontent');
+        Route::resource('settings', 'SettingController');
+    }
+);

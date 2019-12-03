@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Vulcano')
+@section('title', 'Blackbird')
 
 @section('content_header')
 <span style="font-size:20px"> <i class="fas fa-fw fa-bullhorn"></i> Define valores dos Parâmetros</span>

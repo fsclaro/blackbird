@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Vulcano')
+@section('title', 'Blackbird')
 
 @section('content_header')
 <span style="font-size:20px"> <i class="fas fa-fw fa-user-tag"></i> Exibe detalhes do Papel</span>

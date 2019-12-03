@@ -23,7 +23,11 @@ return [
     |
     */
 
-    'view' => 'breadcrumbs::bootstrap4',
+//    'view' => 'breadcrumbs::bootstrap4',
+    'view' => 'partials.breadcrumbs',
+    'show_icon' => false,
+    'icon' => 'fas fa-tachometer-alt',
+    'icon_color' => 'text-gray',
 
     /*
     |--------------------------------------------------------------------------

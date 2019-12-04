@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
 use App\User;
+use Socialite;
 use App\Setting;
 use App\SocialIdentity;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-use Socialite;
-use Auth;
-
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -50,7 +49,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        if ($user && !$user->active) {
+        if ($user && ! $user->active) {
             alert()
                 ->error('Acesso Negado', 'Este usuário não está ativo no sistema.')
                 ->width('40rem');
@@ -92,6 +91,7 @@ class LoginController extends Controller
             Session::put($setting->name, $setting->content);
         }
     }
+
     public function redirectToProvider($provider)
     {
         return Socialite::driver($provider)->redirect();
@@ -107,9 +107,9 @@ class LoginController extends Controller
 
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
+
         return redirect($this->redirectTo);
     }
-
 
     public function findOrCreateUser($providerUser, $provider)
     {
@@ -122,7 +122,7 @@ class LoginController extends Controller
         } else {
             $user = User::whereEmail($providerUser->getEmail())->first();
 
-            if (!$user) {
+            if (! $user) {
                 $user = User::create([
                     'email' => $providerUser->getEmail(),
                     'name'  => $providerUser->getName(),

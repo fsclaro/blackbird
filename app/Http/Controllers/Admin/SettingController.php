@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use Gate;
+use Session;
 use App\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSettingRequest;
 use App\Http\Requests\UpdateSettingRequest;
-use Session;
 
 class SettingController extends Controller
 {
@@ -158,7 +158,7 @@ class SettingController extends Controller
             try {
                 Setting::where('name', $fields[$i]['name'])
                     ->update([
-                        'content' => $fields[$i]['content']
+                        'content' => $fields[$i]['content'],
                     ]);
             } catch (\Throwable $th) {
                 $errors++;

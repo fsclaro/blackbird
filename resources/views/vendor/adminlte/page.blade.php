@@ -95,13 +95,13 @@
             @endif
                 <ul class="navbar-nav ml-auto @if(config('adminlte.layout_topnav') || View::getSection('layout_topnav'))order-1 order-md-3 navbar-no-expand @endif">
                     @yield('content_top_nav_right')
+
                     @if(Auth::user())
                         <li class="nav-item">
-                            <a class="nav-link" href="#"
-                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                            >
+                            <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fa fa-fw fa-power-off"></i> {{ __('adminlte::adminlte.log_out') }}
                             </a>
+
                             <form id="logout-form" action="{{ $logout_url }}" method="POST" style="display: none;">
                                 @if(config('adminlte.logout_method'))
                                     {{ method_field(config('adminlte.logout_method')) }}
@@ -110,6 +110,7 @@
                             </form>
                         </li>
                     @endif
+
                     @if(config('adminlte.right_sidebar'))
                         <li class="nav-item">
                             <a class="nav-link" href="#" data-widget="control-sidebar" @if(!config('adminlte.right_sidebar_slide')) data-controlsidebar-slide="false" @endif @if(config('adminlte.right_sidebar_scrollbar_theme', 'os-theme-light') != 'os-theme-light') data-scrollbar-theme="{{config('adminlte.right_sidebar_scrollbar_theme')}}" @endif @if(config('adminlte.right_sidebar_scrollbar_auto_hide', 'l') != 'l') data-scrollbar-auto-hide="{{config('adminlte.right_sidebar_scrollbar_auto_hide')}}" @endif>
@@ -139,6 +140,24 @@
             @endif
             <div class="sidebar">
                 <nav class="mt-2">
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            @if(Auth::user()->getAvatar(Auth::user()->id))
+                                <img src="{{ Auth::user()->getAvatar(Auth::user()->id) }}" class="img-circle elevation-2" alt="User Image">
+                            @else
+                                @if (Gravatar::exists(Auth::user()->email))
+                                    <img src="{{ Gravatar::get(Auth::user()->email) }}" class="img-circle elevation-2" alt="User Image">
+                                @else
+                                    <img src="{{ asset('img/avatar/no-photo.png') }}" class="img-circle elevation-2" alt="User Image">
+                                @endif
+                            @endif
+                        </div>
+
+                        <div class="info">
+                            <a href="{{ route('admin.users.profile', Auth::user()->id) }}" class="d-block">{{ auth()->user()->name }}</a>
+                        </div>
+                    </div>
+
                     <ul class="nav nav-pills nav-sidebar flex-column {{config('adminlte.classes_sidebar_nav', '')}}" data-widget="treeview" role="menu" @if(config('adminlte.sidebar_nav_animation_speed') != 300) data-animation-speed="{{config('adminlte.sidebar_nav_animation_speed')}}" @endif @if(!config('adminlte.sidebar_nav_accordion')) data-accordion="false" @endif>
                         @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
                     </ul>

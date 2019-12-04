@@ -10,12 +10,12 @@ class SocialIdentity extends Model
 {
     use SoftDeletes;
 
-    protected $table = "social_identities";
+    protected $table = 'social_identities';
 
     protected $fillable = [
         'user_id',
         'provider_name',
-        'provider_id'
+        'provider_id',
     ];
 
     protected $dates = [

@@ -3,7 +3,7 @@
 @section('title', 'Blackbird')
 
 @section('content_header')
-<span style="font-size:20px"> <i class="fas fa-fw fa-user"></i> Editar dados do Usuário</span>
+<span style="font-size:20px"> <i class="fas fa-fw fa-users"></i> Cadastro de Usuários</span>
 {{ Breadcrumbs::render('users_edit') }}
 @stop
 
@@ -16,7 +16,7 @@
 
     <div class="card">
         <div class="card-header">
-            Dados do usuário
+            <i class="fas fa-user-edit"></i>Edição dos dados do usuário
         </div>
 
         <div class="card-body">
@@ -44,13 +44,13 @@
                             <div class="row">&nbsp;</div>
 
                             <div class="btn-group-sm center-block" role="group">
-                                <div class="btn btn-success div-avatar">
+                                <div class="btn btn-flat btn-success div-avatar">
                                     <input type="file" id="avatar" name="avatar" class="input-avatar" onchange="changeAvatar(event);">
                                     <span><i class="fas fa-fx fa-camera"></i> Nova Foto</span>
                                 </div>
 
                                 @if($canDeleteAvatar)
-                                <a href="{{ route('admin.users.delete.avatar', $user) }}" class="btn btn-danger"><i class="fas fa-fx fa-trash"></i> Excluir Foto</a>
+                                <a href="{{ route('admin.users.delete.avatar', $user) }}" class="btn btn-flat btn-danger"><i class="fas fa-fx fa-trash"></i> Excluir Foto</a>
                                 @endif
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }} col-md-5">
+                            <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }} col-md-6">
                                 <label for="title">Senha</label>
                                 <input type="password" id="password" name="password" class="form-control" value="" placeholder="A senha deve ter pelo menos 8 caracteres">
                                 <small class="text-info">Deixe o campo da senha em branco caso não queira alterá-la</small>
@@ -123,34 +123,16 @@
                         </div>
 
                         <div class="row">
-                            <div class="form-group {{ $errors->has('active') ? 'has-error' : '' }} col-md-4">
-                                <label for="skin">Aparência da Interface</label>
-                                <select id="skin" name="skin" class="form-control">
-                                    <option value=>Selecione uma das opções...</option>
-                                    @foreach($skins as $key => $caption)
-                                    <option value="{{ $key }}" @if($user->skin == $key) selected @endif>{{ $caption }}</option>
-                                    @endforeach
-                                </select>
-
-                                @if($errors->has('active'))
-                                <p class="help-block">
-                                    {{ $errors->first('active') }}
-                                </p>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group {{ $errors->has('roles') ? 'has-error' : '' }} col-md-12">
+                            <div class="form-group {{ $errors->has('roles') ? 'has-error' : '' }} col-md-10">
                                 <label for="roles">Papéis
                                     <span class="text-red">*</span>
                                 </label>
 
-                                <a class="btn btn-primary btn-sm" id="select-all" onclick="return selectAll();">
+                                <a class="btn btn-flat btn-primary btn-sm" id="select-all" onclick="return selectAll();">
                                     <span class="text-white"><i class="fas fa-check-double"></i> Selecionar Todos</span>
                                 </a>
 
-                                <a class="btn btn-danger btn-sm" id="deselect-all" onclick="return deselectAll();">
+                                <a class="btn btn-flat btn-danger btn-sm" id="deselect-all" onclick="return deselectAll();">
                                     <span class="text-white"><i class="fas fa-undo"></i> Desmarcar Todos</span>
                                 </a>
 
@@ -178,8 +160,8 @@
         </div> <!-- panel-body -->
 
         <div class="card-footer">
-            <a href="{{ route('admin.users.index') }}" class="btn btn-default"><i class="fas fa-fx fa-reply"></i> Voltar</a>
-            <button type="submit" class="btn btn-success"><i class="fas fa-fx fa-save"></i> Salvar</button>
+            <a href="{{ route('admin.users.index') }}" class="btn btn-flat btn-default"><i class="fas fa-fx fa-reply"></i> Voltar</a>
+            <button type="submit" class="btn btn-flat btn-success"><i class="fas fa-fx fa-save"></i> Salvar</button>
         </div> <!-- panel-footer -->
     </div> <!-- panel panel-default -->
 </form>

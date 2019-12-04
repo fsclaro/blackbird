@@ -1,18 +1,18 @@
 <!-- left side -->
-@if(\Session::get('footer_left'))
-    {{ \Session::get('footer_left') }}
+@if(Session::get('footer_left'))
+    {!! Session::get('footer_left') !!}
 @else
 <span>
     Copyright © 2019 by <a href="https://github.com/fsclaro/blackbird">
-    <span class="text-bold">Blackbird</span></a>.
+    <span class="text-bold">Black</span>bird</a>.
 </span> Todos os direitos reservados.
 @endif
 
 <!-- right side -->
-@if(\Session::get('footer_right'))
-    {{ \Session::get('footer_right') }}
-@else
 <div class="float-right hidden-xs">
-    <b>Versão: </b> 1.0.0
-</div>
+@if(\Session::get('footer_right'))
+    {!! Session::get('footer_right') !!}
+@else
+    <b>Versão: </b>1.0.0
 @endif
+</div>

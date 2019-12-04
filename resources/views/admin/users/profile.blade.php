@@ -3,7 +3,7 @@
 @section('title', 'Blackbird')
 
 @section('content_header')
-<span style="font-size:20px"> <i class="fas fa-fw fa-user"></i> Edita os seus dados</span>
+<span style="font-size:20px"> <i class="fas fa-fw fa-users"></i> Cadastro de Usuários</span>
 {{ Breadcrumbs::render('users_profile') }}
 @stop
 

@@ -20,7 +20,7 @@ class AuthGates
     {
         $user = Auth::user();
 
-        if (!app()->runningInConsole() && $user) {
+        if (! app()->runningInConsole() && $user) {
             $roles = Role::with('permissions')->get();
 
             foreach ($roles as $role) {

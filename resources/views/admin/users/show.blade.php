@@ -3,60 +3,46 @@
 @section('title', 'Blackbird')
 
 @section('content_header')
-<span style="font-size:20px"> <i class="fas fa-fw fa-user"></i> Exibe detalhes do Usuário</span>
+<span style="font-size:20px"> <i class="fas fa-fw fa-users"></i> Cadastro de Usuários</span>
 {{ Breadcrumbs::render('users_show') }}
 @stop
 
 @section('content')
-<div class="panel panel-default">
-    <div class="panel-heading">
-        Detalhes do usuário
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-database"></i> Detalhes dos dados do usuário
     </div>
-    <div class="panel-body">
+
+    <div class="card-body">
+        <div class="container">
         <table class="table table-bordered table-striped">
             <tbody>
                 <tr>
-                    <th class="col-sm-2">
-                        ID
-                    </th>
-                    <td>
-                        {{ $user->id }}
-                    </td>
+                    <td style="width:18%">ID</td>
+                    <td>{{ $user->id }}</td>
                 </tr>
                 <tr>
-                    <th class="col-sm-2">
-                        Nome do Usuário
-                    </th>
-                    <td>
-                        {{ $user->name }}
-                    </td>
+                    <th>Nome do Usuário</th>
+                    <td>{{ $user->name }}</td>
                 </tr>
                 <tr>
-                    <th class="col-sm-2">
-                        E-mail
-                    </th>
-                    <td>
-                        {{ $user->email }}
-                    </td>
+                    <th>E-mail</th>
+                    <td>{{ $user->email }}</td>
                 </tr>
 
                 <tr>
-                    <th class="col-sm-2">
-                        Usuário Ativo?
-                    </th>
+                    <th>Usuário Ativo?</th>
                     <td>
                         @if($user->active)
-                        <span class="label label-success">Sim</span>
+                        <span class="badge badge-success">Sim</span>
                         @else
-                        <span class="label label-danger">Não</span>
+                        <span class="badge badge-danger">Não</span>
                         @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <th class="col-sm-2">
-                        Foto
-                    </th>
+                    <th>Foto</th>
                     <td>
                         @if($user->getAvatar($user->id))
                         <img src="{{ $user->getAvatar($user->id) }}" id="img-avatar" name="img-avatar" width="50px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
@@ -71,37 +57,46 @@
                 </tr>
 
                 <tr>
-                    <th class="col-sm-2">
-                        Papéis
-                    </th>
+                    <th>Papéis</th>
                     <td>
                         @foreach($user->roles as $key => $role)
-                        <span class="label label-primary">{{ $role->title }}</span>
+                        <span class="badge badge-primary">{{ $role->title }}</span>
                         @endforeach
                     </td>
                 </tr>
 
+                @if(!$user->password)
                 <tr>
-                    <th class="col-sm-2">
-                        Criado em
-                    </th>
+                    <th>Senha de Acesso</th>
                     <td>
-                        {{ $user->created_at->format("d/m/Y H:i:s") }}
+                        <span class="text-red text-bold">Atenção: Este usuário não possui senha definida</span>
+                    </td>
+                </tr>
+                @endif
+                <tr>
+                    <th>Criado em</th>
+                    <td>
+                        @if($user->created_at)
+                        {{ $user->created_at->format('d/m/Y h:i') }}
+                        @endif
                     </td>
                 </tr>
 
                 <tr>
-                    <th class="col-sm-2">
-                        Atualizado em
-                    </th>
+                    <th>Atualizado em</th>
                     <td>
-                        {{ $user->updated_at->format("d/m/Y H:i:s") }}
+                        @if($user->updated_at)
+                        {{ $user->updated_at->format('d/m/Y h:i') }}
+                        @endif
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        </div>
     </div>
-    <div class="panel-footer">
+
+    <div class="card-footer">
         <a href="{{ route('admin.users.index') }}" class="btn btn-default"><i class="fas fa-fx fa-reply"></i> Voltar</a>
     </div>
 </div>

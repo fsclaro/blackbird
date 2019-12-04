@@ -3,7 +3,7 @@
 @section('title', 'Blackbird')
 
 @section('content_header')
-<span style="font-size:20px"> <i class="fas fa-fw fa-users"></i> Relação de Usuários</span>
+<span style="font-size:20px"> <i class="fas fa-fw fa-users"></i> Cadastro de Usuários</span>
 {{ Breadcrumbs::render('users_access') }}
 @stop
 
@@ -78,8 +78,11 @@
                     @foreach($users as $key => $user)
                     <tr data-entry-id="{{ $user->id }}">
                         <td>
+                            @if($user->id != auth()->user()->id)
                             <input type="checkbox" name="ids[]" id="ids[]" class="checkbox" value="{{ $user->id }}">
+                            @endif
                         </td>
+
                         <td>
                             {{ $user->id }}
                         </td>
@@ -122,17 +125,21 @@
                             </a>
                             @endcan
 
+                            @if ($user->id != auth()->user()->id)
                             @can("user_edit")
                             <a class="btn btn-xs btn-warning" href="{{ route('admin.users.edit', $user->id) }}">
                                 <i class="fas fa-fx fa-pencil-alt"></i>
                             </a>
                             @endcan
+                            @endif
 
+                            @if ($user->id != auth()->user()->id)
                             @can("user_delete")
                             <a href="javascript;" onclick="deleteRecord(event,{{ $user->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                             @endcan
+                            @endif
                         </td>
                     </tr>
                     @endforeach

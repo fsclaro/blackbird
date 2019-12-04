@@ -15,10 +15,11 @@
 
 <div class="card">
     <div class="card-header">
-        <div class="float-left">
 
+
+        <div class="float-left">
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-info btn-flat dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bolt"></i> Ações
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -28,19 +29,32 @@
                     <a class="dropdown-item" href="#" onclick="proccess(3);"><i class="fas fa-fw fa-user-times"></i> Excluir Selecionados</a>
                 </div>
             </div>
-
         </div>
 
         <div class="float-right">
-            <a class="btn btn-primary" href="{{ route('admin.users.index') }}">
-                <i class="glyphicon glyphicon-refresh"></i> Atualizar a Tela
-            </a>
 
-            @can('user_create')
-            <a class="btn btn-success" href="{{ route('admin.users.create') }}">
-                <i class="fas fa-plus"></i> Adicionar Novo Usuário
-            </a>
-            @endcan
+            <div class="btn-group">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-print"></i> Relatórios
+                    </button>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                        <a class="dropdown-item" href="#">Relatório 1</a>
+                        <div class="dropdown-divider"> </div>
+                        <a class="dropdown-item" href="#">Relatório 2</a>
+                    </div>
+                </div>
+
+                <a class="btn btn-primary btn-flat" href="{{ route('admin.users.index') }}">
+                    <i class="fas fa-sync"></i> Atualizar a Tela
+                </a>
+
+                @can('user_create')
+                <a class="btn btn-success btn-flat" href="{{ route('admin.users.create') }}">
+                    <i class="fas fa-plus"></i> Adicionar Novo Usuário
+                </a>
+                @endcan
+
+            </div>
         </div>
     </div>
     <div class="card-body">
@@ -83,10 +97,10 @@
                         </td>
 
                         <td>
-                            @if($user->active)
-                            <span class="label label-success">Sim</span>
+                            @if($user->active == 1)
+                            <span class="badge badge-success">Sim</span>
                             @else
-                            <span class="label label-danger">Não</span>
+                            <span class="badge badge-danger">Não</span>
                             @endif
                         </td>
                         <td>

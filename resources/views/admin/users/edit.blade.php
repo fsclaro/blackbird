@@ -147,11 +147,11 @@
                                 </label>
 
                                 <a class="btn btn-primary btn-sm" id="select-all" onclick="return selectAll();">
-                                    <i class="fas fa-check-double"></i> Selecionar Todos
+                                    <span class="text-white"><i class="fas fa-check-double"></i> Selecionar Todos</span>
                                 </a>
 
                                 <a class="btn btn-danger btn-sm" id="deselect-all" onclick="return deselectAll();">
-                                    <i class="fas fa-undo"></i> Desmarcar Todos
+                                    <span class="text-white"><i class="fas fa-undo"></i> Desmarcar Todos</span>
                                 </a>
 
                                 <select name="roles[]" id="roles" class="select2 form-control" multiple="multiple">

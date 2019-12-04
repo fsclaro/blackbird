@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Requests\MassDestroyUserRequest;
+//use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\UpdateProfileUserRequest;
 use Illuminate\Support\Facades\Auth;
+use Hash;
 
 class UserController extends Controller
 {
@@ -116,6 +117,9 @@ class UserController extends Controller
         abort_unless(\Gate::allows('user_edit'), 403);
 
         try {
+            if($request->password != "") {
+                $request->merge(['password', Hash::make($request->password) ]);
+            }
             $user->update($request->all());
             $user->roles()->sync($request->input('roles', []));
 

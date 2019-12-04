@@ -25,3 +25,7 @@
     </div>
 </div>
 @stop
+
+@section('footer')
+@include('vendor.adminlte.footer')
+@stop

@@ -50,7 +50,7 @@ class PermissionsTableSeeder extends Seeder
 
         // Área de suporte
         Permission::insert(['title' => 'Acessar área de suporte', 'slug' => 'support_access']);
-        Permission::insert(['title' => 'Acessar histórico de acesso', 'slug' => 'historic_access']);
+        Permission::insert(['title' => 'Acessar log de atividades', 'slug' => 'log_access']);
         Permission::insert(['title' => 'Acessar Log-Viewer', 'slug' => 'log_viewer_access']);
         Permission::insert(['title' => 'Acessar Route-Viewer', 'slug' => 'route_viewer_access']);
     }

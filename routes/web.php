@@ -53,5 +53,8 @@ Route::group(
         Route::get('settings/content', 'SettingController@getContent')->name('settings.content');
         Route::post('settings/content/save', 'SettingController@saveContent')->name('settings.savecontent');
         Route::resource('settings', 'SettingController');
+
+        /* Rotas da tabela de logs de atividades */
+        Route::resource('logs', 'LogsController')->except(['create', 'edit','update', 'store']);
     }
 );

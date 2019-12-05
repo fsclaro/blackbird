@@ -235,10 +235,10 @@ return [
             'can'     => 'support_access',
             'submenu' => [
                 [
-                    'text' => 'Histórico de Acesso',
+                    'text' => 'Log de Atividades',
                     'icon' => 'fas fa-fx fa-flag',
-                    'can' => 'historic_access',
-                    // 'route' => '',
+                    'can' => 'log_access',
+                    'route' => 'admin.logs.index',
                 ],
                 [
                     'text'   => 'Log Viewer',

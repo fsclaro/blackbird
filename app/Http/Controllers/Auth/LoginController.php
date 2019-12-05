@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use App\User;
+use App\Logs;
 use Socialite;
 use App\Setting;
 use App\SocialIdentity;
@@ -71,6 +72,7 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             // Carrega para a Sessão os valores da tabela de parâmetros
             $this->loadSettings();
+            Logs::registerLog(url()->current(), 'Fez login no sistema');
 
             return $this->sendLoginResponse($request);
         }

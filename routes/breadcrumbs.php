@@ -109,3 +109,17 @@ Breadcrumbs::for('settings_content', function ($trail) {
     $trail->parent('settings_access');
     $trail->push('Valores');
 });
+
+// ================================================================================
+// Logs
+// ================================================================================
+
+Breadcrumbs::for('logs_access', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Log de Atividades', route('admin.logs.index'));
+});
+
+Breadcrumbs::for('logs_show', function ($trail) {
+    $trail->parent('logs_access');
+    $trail->push('Detalhes');
+});

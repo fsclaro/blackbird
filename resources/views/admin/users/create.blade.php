@@ -49,9 +49,9 @@
                                 <input type="text" id="name" name="name" class="form-control" value="{{ old('name', '') }}">
 
                                 @if($errors->has('name'))
-                                <p class="help-block">
+                                <small class="form-text text-red text-bold">
                                     {{ $errors->first('name') }}
-                                </p>
+                                </small>
                                 @endif
                             </div>
                         </div>
@@ -64,9 +64,9 @@
                                 <input type="text" id="email" name="email" class="form-control" value="{{ old('email', '') }}">
 
                                 @if($errors->has('email'))
-                                <p class="help-block">
+                                <small class="form-text text-red text-bold">
                                     {{ $errors->first('email') }}
-                                </p>
+                                </small>
                                 @endif
                             </div>
                         </div>
@@ -84,9 +84,9 @@
                                 </select>
 
                                 @if($errors->has('active'))
-                                <p class="help-block">
+                                <small class="form-text text-red text-bold">
                                     {{ $errors->first('active') }}
-                                </p>
+                                </small>
                                 @endif
                             </div>
                         </div>
@@ -95,13 +95,12 @@
                             <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }} col-md-6">
                                 <label for="title">Senha</label>
                                 <input type="password" id="password" name="password" class="form-control" value="" placeholder="A senha deve ter pelo menos 8 caracteres">
-                                <small class="text-info">Deixe o campo da senha em branco caso não queira alterá-la</small>
 
                                 @if($errors->has('password'))
-                                <p class="help-block">
+                                <small class="form-text text-red text-bold">
                                     @endif
                                     {{ $errors->first('password') }}
-                                </p>
+                                </small>
                             </div>
                         </div>
 
@@ -126,9 +125,9 @@
                                 </select>
 
                                 @if($errors->has('roles'))
-                                <p class="help-block">
+                                <small class="form-text text-red text-bold">
                                     {{ $errors->first('roles') }}
-                                </p>
+                                </small>
                                 @endif
                             </div>
                         </div>
@@ -143,6 +142,10 @@
         </div> <!-- panel-footer -->
     </div> <!-- panel panel-default -->
 </form>
+@stop
+
+@section('footer')
+@include('vendor.adminlte.footer')
 @stop
 
 @section('css')

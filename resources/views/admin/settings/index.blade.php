@@ -3,34 +3,34 @@
 @section('title', 'Blackbird')
 
 @section('content_header')
-<span style="font-size:20px"> <i class="fas fa-fw fa-database"></i> Relação de Parâmetros</span>
-{{ Breadcrumbs::render('parameters_access') }}
+<span style="font-size:20px"> <i class="fas fa-database"></i> Relação de Parâmetros</span>
+{{ Breadcrumbs::render('settings_access') }}
 @stop
 
 @section('content')
 
 <div class="row">
-    @widget('ParametersCount')
+    @widget('SettingsCount')
 </div>
 
-<div class="panel panel-default">
-    <div class="panel-heading clearfix">
+<div class="card">
+    <div class="card-header">
 
-        <div class="pull-right">
-            <a class="btn btn-primary btn-sm" href="{{ route('admin.parameters.index') }}">
-                <i class="glyphicon glyphicon-refresh"></i> Atualizar a Tela
+        <div class="float-right">
+            <a class="btn btn-primary btn-flat btn-sm" href="{{ route('admin.settings.index') }}">
+                <i class="fas fa-sync"></i> Atualizar a Tela
             </a>
 
-            @can('parameter_create')
-            <a class="btn btn-success btn-sm" href="{{ route('admin.parameters.create') }}">
+            @can('setting_create')
+            <a class="btn btn-success btn-flat btn-sm" href="{{ route('admin.settings.create') }}">
                 <i class="fas fa-plus"></i> Adicionar Novo Parâmetro
             </a>
             @endcan
         </div>
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable" id="parameter-table">
+            <table class=" table table-bordered table-striped table-hover datatable" id="setting-table">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -41,42 +41,36 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($parameters as $key => $parameter)
-                    <tr data-entry-id="{{ $parameter->id }}">
+                    @foreach($settings as $key => $setting)
+                    <tr data-entry-id="{{ $setting->id }}">
+                        <td>{{ $setting->id }}</td>
+                        <td>{{ $setting->description }}</td>
+                        <td>{{ $setting->name }}</td>
                         <td>
-                            {{ $parameter->id }}
-                        </td>
-                        <td>
-                            {{ $parameter->description }}
-                        </td>
-                        <td>
-                            {{ $parameter->name }}
-                        </td>
-                        <td>
-                            @if($parameter->type == "text") Texto @endif
-                            @if($parameter->type == "number") Número @endif
-                            @if($parameter->type == "email") Email @endif
-                            @if($parameter->type == "textarea") Área de Texto @endif
-                            @if($parameter->type == "wysiwyg") Wysiwyg @endif
-                            @if($parameter->type == "datepicker") Data/Hora @endif
-                            @if($parameter->type == "radio") Rádio @endif
-                            @if($parameter->type == "select") Seleção @endif
+                            @if($setting->type == "text") Texto @endif
+                            @if($setting->type == "number") Número @endif
+                            @if($setting->type == "email") Email @endif
+                            @if($setting->type == "textarea") Área de Texto @endif
+                            @if($setting->type == "wysiwyg") Wysiwyg @endif
+                            @if($setting->type == "datepicker") Data/Hora @endif
+                            @if($setting->type == "radio") Rádio @endif
+                            @if($setting->type == "select") Seleção @endif
                         </td>
                         <td class="text-left">
-                            @can("parameter_show")
-                            <a class="btn btn-xs btn-primary" href="{{ route('admin.parameters.show', $parameter->id) }}">
+                            @can("setting_show")
+                            <a class="btn btn-xs btn-primary" href="{{ route('admin.settings.show', $setting->id) }}">
                                 <i class="fas fa-fx fa-eye"></i>
                             </a>
                             @endcan
 
-                            @can("parameter_edit")
-                            <a class="btn btn-xs btn-warning" href="{{ route('admin.parameters.edit', $parameter->id) }}">
+                            @can("setting_edit")
+                            <a class="btn btn-xs btn-warning" href="{{ route('admin.settings.edit', $setting->id) }}">
                                 <i class="fas fa-fx fa-pencil-alt"></i>
                             </a>
                             @endcan
 
-                            @can("parameter_delete")
-                            <a href="javascript;" onclick="deleteRecord(event,{{ $parameter->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
+                            @can("setting_delete")
+                            <a href="javascript;" onclick="deleteRecord(event,{{ $setting->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                             @endcan
@@ -88,8 +82,10 @@
         </div>
     </div>
 </div>
+@stop
 
-
+@section('footer')
+@include('vendor.adminlte.footer')
 @stop
 
 @section('css')
@@ -98,7 +94,7 @@
 @section('js')
 <script>
     $(function() {
-        $("#parameter-table").DataTable({
+        $("#setting-table").DataTable({
             lengthMenu: [
                 [10, 20, 50, 100, 200, -1],
                 [10, 20, 50, 100, 200, "Todos"]
@@ -106,8 +102,7 @@
             language: {
                 url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
             },
-            columns: [
-                {
+            columns: [{
                     width: "40px"
                 }, // id
                 null, // description
@@ -127,7 +122,7 @@
 
         var dataId = id;
         var token = "{{ csrf_token() }}";
-        var url = "{{ url('admin/parameters') }}" + '/' + id;
+        var url = "{{ url('admin/settings') }}" + '/' + id;
 
         Swal.fire({
             type: 'warning',

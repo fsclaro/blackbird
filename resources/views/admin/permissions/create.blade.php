@@ -3,7 +3,7 @@
 @section('title', 'Blackbird')
 
 @section('content_header')
-<span style="font-size:20px"> <i class="fas fa-fw fa-key"></i> Adicionar Nova Permissão</span>
+<span style="font-size:20px"> <i class="fas fa-key"></i> Cadastro de Permissões</span>
 {{ Breadcrumbs::render('permissions_create') }}
 @stop
 
@@ -11,12 +11,12 @@
 <form method="post" action="{{ route('admin.permissions.store') }}" enctype="multipart/form-data">
     @csrf
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            Cadastramento de uma nova permissão
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-new"></i> Cadastramento de uma nova permissão
         </div>
 
-        <div class="panel-body">
+        <div class="card-body">
             <div class="row">
                 <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }} col-md-12">
                     <label for="title">Descrição da permissão
@@ -25,9 +25,9 @@
                     <input type="text" id="title" name="title" class="form-control" value="{{ old('title', isset($permission) ? $permission->title : '') }}">
 
                     @if($errors->has('title'))
-                    <p class="help-block">
+                    <small class="form-text text-red text-bold">
                         {{ $errors->first('title') }}
-                    </p>
+                    </small>
                     @endif
                 </div>
             </div>
@@ -35,24 +35,28 @@
             <div class="row">
                 <div class="form-group {{ $errors->has('slug') ? 'has-error' : '' }} col-md-12">
                     <label for="slug">Slug</label>
-                    <input type="text" id="slug" name="slug" class="form-control" value="{{ old('slug', isset($permission) ? $permission->slug : '') }}">
+                    <input type="text" id="slug" name="slug" class="form-control" value="{{ old('slug', isset($permission) ? $permission->slug : '') }}" placeholder="Se você deixar este campo em branco, o sistema gerará automáticamente o slug desta permissão.">
 
                     @if($errors->has('slug'))
-                    <p class="help-block">
+                    <small class="form-text text-red text-bold">
                         {{ $errors->first('slug') }}
-                    </p>
+                    </small>
                     @endif
                 </div>
             </div>
         </div> <!-- panel-body -->
 
-        <div class="panel-footer">
+        <div class="card-footer">
             <a href="{{ route('admin.permissions.index') }}" class="btn btn-default"><i class="fas fa-fx fa-reply"></i> Voltar</a>
             <button type="submit" class="btn btn-success"><i class="fas fa-fx fa-save"></i> Salvar</button>
         </div> <!-- panel-footer -->
 
     </div> <!-- panel panel-default -->
 </form>
+@stop
+
+@section('footer')
+@include('vendor.adminlte.footer')
 @stop
 
 @section('css')

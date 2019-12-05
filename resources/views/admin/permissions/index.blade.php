@@ -3,7 +3,7 @@
 @section('title', 'Blackbird')
 
 @section('content_header')
-<span style="font-size:20px"> <i class="fas fa-fw fa-key"></i> Listar Permissões</span>
+<span style="font-size:20px"> <i class="fas fa-key"></i> Cadastro de Permissões</span>
 {{ Breadcrumbs::render('permissions_access') }}
 @stop
 
@@ -13,22 +13,21 @@
     @widget('PermissionsCount')
 </div>
 
-<div class="panel panel-default">
-    <div class="panel-heading clearfix">
-
-        <div class="pull-right">
-            <a class="btn btn-primary btn-sm" href="{{ route('admin.permissions.index') }}">
-                <i class="glyphicon glyphicon-refresh"></i> Atualizar a Tela
+<div class="card">
+    <div class="card-header">
+        <div class="float-right">
+            <a class="btn btn-flat btn-primary btn-sm" href="{{ route('admin.permissions.index') }}">
+                <i class="fas fa-sync"></i> Atualizar a Tela
             </a>
 
             @can('permission_create')
-            <a class="btn btn-success btn-sm" href="{{ route('admin.permissions.create') }}">
+            <a class="btn btn-flat btn-success btn-sm" href="{{ route('admin.permissions.create') }}">
                 <i class="fas fa-plus"></i> Adicionar Nova Permissão
             </a>
             @endcan
         </div>
     </div>
-    <div class="panel-body">
+    <div class="card-body">
         <div class="table-responsive">
             <table class=" table table-bordered table-striped table-hover datatable" id="permission-table">
                 <thead>
@@ -77,7 +76,10 @@
         </div>
     </div>
 </div>
+@stop
 
+@section('footer')
+@include('vendor.adminlte.footer')
 @stop
 
 @section('css')
@@ -94,8 +96,7 @@
             language: {
                 url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
             },
-            columns: [
-                {
+            columns: [{
                     width: "40px"
                 }, // id
                 null, // title

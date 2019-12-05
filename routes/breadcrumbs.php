@@ -82,12 +82,12 @@ Breadcrumbs::for('users_profile', function ($trail) {
 });
 
 // ================================================================================
-// Parameters
+// Settings
 // ================================================================================
 
 Breadcrumbs::for('settings_access', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push('Configurações', route('admin.settings.index'));
+    $trail->push('Parâmetros', route('admin.settings.index'));
 });
 
 Breadcrumbs::for('settings_create', function ($trail) {

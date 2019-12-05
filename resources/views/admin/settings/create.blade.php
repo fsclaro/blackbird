@@ -3,31 +3,31 @@
 @section('title', 'Blackbird')
 
 @section('content_header')
-<span style="font-size:20px"> <i class="fas fa-fw fa-database"></i> Adicionar Novo Parâmetro</span>
-{{ Breadcrumbs::render('parameters_create') }}
+<span style="font-size:20px"> <i class="fas fa-database"></i> Relação de Parâmetros</span>
+{{ Breadcrumbs::render('settings_create') }}
 @stop
 
 @section('content')
-<form method="post" action="{{ route('admin.parameters.store') }}" enctype="multipart/form-data">
+<form method="post" action="{{ route('admin.settings.store') }}" enctype="multipart/form-data">
     @csrf
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            Cadastramento de um novo parâmetro
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-new"></i> Cadastramento de um novo parâmetro
         </div>
 
-        <div class="panel-body">
+        <div class="card-body">
             <div class="row">
                 <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }} col-md-12">
                     <label for="description">Descrição do Parâmetro
                         <span class="text-red">*</span>
                     </label>
-                    <input type="text" id="description" name="description" class="form-control" value="{{ old('description', isset($parameter) ? $parameter->description : '') }}">
+                    <input type="text" id="description" name="description" class="form-control" value="{{ old('description', isset($setting) ? $setting->description : '') }}">
 
                     @if($errors->has('description'))
-                    <p class="help-block">
+                    <small class="form-text text-red text-bold">
                         {{ $errors->first('description') }}
-                    </p>
+                    </small>
                     @endif
                 </div>
             </div>
@@ -35,12 +35,12 @@
             <div class="row">
                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }} col-md-12">
                     <label for="name">Slug</label>
-                    <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($parameter) ? $parameter->name : '') }}" placeholder="Se preferir, deixe em branco para que o sistema gere automáticamente">
+                    <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($setting) ? $setting->name : '') }}" placeholder="Se preferir, deixe em branco para que o sistema gere automaticamente">
 
                     @if($errors->has('name'))
-                    <p class="help-block">
+                    <small class="form-text text-red text-bold">
                         {{ $errors->first('name') }}
-                    </p>
+                    </small>
                     @endif
                 </div>
             </div>
@@ -64,9 +64,9 @@
                     </select>
 
                     @if($errors->has('type'))
-                    <p class="help-block">
+                    <small class="form-text text-red text-bold">
                         {{ $errors->first('type') }}
-                    </p>
+                    </small>
                     @endif
                 </div>
             </div>
@@ -74,12 +74,12 @@
             <div class="row">
                 <div class="form-group {{ $errors->has('dataenum') ? 'has-error' : '' }} col-md-12">
                     <label for="dataenum">Radio / Seleção</label>
-                    <input type="text" id="dataenum" name="dataenum" class="form-control" value="{{ old('dataenum', isset($parameter) ? $parameter->dataenum : '') }}" placeholder="Exemplo: valor1,valor2,valor3...">
+                    <input type="text" id="dataenum" name="dataenum" class="form-control" value="{{ old('dataenum', isset($setting) ? $setting->dataenum : '') }}" placeholder="Exemplo: valor1,valor2,valor3...">
 
                     @if($errors->has('dataenum'))
-                    <p class="help-block">
+                    <small class="form-text text-red text-bold">
                         {{ $errors->first('dataenum') }}
-                    </p>
+                    </small>
                     @endif
                 </div>
             </div>
@@ -87,19 +87,19 @@
             <div class="row">
                 <div class="form-group {{ $errors->has('helper') ? 'has-error' : '' }} col-md-12">
                     <label for="helper">Texto de Ajuda</label>
-                    <input type="text" id="helper" name="helper" class="form-control" value="{{ old('helper', isset($parameter) ? $parameter->helper : '') }}" placeholder="Texto que será exibido abaixo do campo para orientações">
+                    <input type="text" id="helper" name="helper" class="form-control" value="{{ old('helper', isset($setting) ? $setting->helper : '') }}" placeholder="Texto que será exibido abaixo do campo para orientações">
 
                     @if($errors->has('helper'))
-                    <p class="help-block">
+                    <small class="form-text text-red text-bold">
                         {{ $errors->first('helper') }}
-                    </p>
+                    </small>
                     @endif
                 </div>
             </div>
         </div> <!-- panel-body -->
 
-        <div class="panel-footer">
-            <a href="{{ route('admin.parameters.index') }}" class="btn btn-default"><i class="fas fa-fx fa-reply"></i> Voltar</a>
+        <div class="card-footer">
+            <a href="{{ route('admin.settings.index') }}" class="btn btn-default"><i class="fas fa-fx fa-reply"></i> Voltar</a>
             <button type="submit" class="btn btn-success"><i class="fas fa-fx fa-save"></i> Salvar</button>
         </div> <!-- panel-footer -->
 
@@ -107,8 +107,17 @@
 </form>
 @stop
 
+@section('footer')
+@include('vendor.adminlte.footer')
+@stop
+
 @section('css')
 @stop
 
 @section('js')
+<script>
+    $(function() {
+        $("#type").select2();
+    });
+</script>
 @stop

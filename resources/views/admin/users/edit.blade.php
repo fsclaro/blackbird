@@ -66,9 +66,9 @@
                                 <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($user) ? $user->name : '') }}">
 
                                 @if($errors->has('name'))
-                                <p class="help-block">
+                                <small class="form-text text-red text-bold">
                                     {{ $errors->first('name') }}
-                                </p>
+                                </small>
                                 @endif
                             </div>
                         </div>
@@ -81,9 +81,9 @@
                                 <input type="text" id="email" name="email" class="form-control" value="{{ old('email', isset($user) ? $user->email : '') }}">
 
                                 @if($errors->has('email'))
-                                <p class="help-block">
+                                <small class="form-text text-red text-bold">
                                     {{ $errors->first('email') }}
-                                </p>
+                                </small>
                                 @endif
                             </div>
                         </div>
@@ -101,9 +101,9 @@
                                 </select>
 
                                 @if($errors->has('active'))
-                                <p class="help-block">
+                                <small class="form-text text-red text-bold">
                                     {{ $errors->first('active') }}
-                                </p>
+                                </small>
                                 @endif
                             </div>
                         </div>
@@ -115,10 +115,10 @@
                                 <small class="text-info">Deixe o campo da senha em branco caso não queira alterá-la</small>
 
                                 @if($errors->has('password'))
-                                <p class="help-block">
-                                    @endif
+                                <small class="form-text text-red text-bold">
                                     {{ $errors->first('password') }}
-                                </p>
+                                </small>
+                                @endif
                             </div>
                         </div>
 
@@ -145,18 +145,15 @@
                                 </select>
 
                                 @if($errors->has('roles'))
-                                <p class="help-block">
+                                <small class="form-text text-red text-bold">
                                     {{ $errors->first('roles') }}
-                                </p>
+                                </small>
                                 @endif
                             </div>
                         </div>
                     </div> <!-- col-sm-9 -->
-
                 </div>
-
             </div>
-
         </div> <!-- panel-body -->
 
         <div class="card-footer">
@@ -165,6 +162,10 @@
         </div> <!-- panel-footer -->
     </div> <!-- panel panel-default -->
 </form>
+@stop
+
+@section('footer')
+@include('vendor.adminlte.footer')
 @stop
 
 @section('css')

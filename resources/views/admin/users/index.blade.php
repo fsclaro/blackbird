@@ -15,11 +15,9 @@
 
 <div class="card">
     <div class="card-header">
-
-
         <div class="float-left">
             <div class="dropdown">
-                <button class="btn btn-info btn-flat dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-info btn-flat btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bolt"></i> Ações
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -33,33 +31,20 @@
 
         <div class="float-right">
 
-            <div class="btn-group">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-secondary btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-print"></i> Relatórios
-                    </button>
-                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                        <a class="dropdown-item" href="#">Relatório 1</a>
-                        <div class="dropdown-divider"> </div>
-                        <a class="dropdown-item" href="#">Relatório 2</a>
-                    </div>
-                </div>
+            <a class="btn btn-primary btn-flat btn-sm" href="{{ route('admin.users.index') }}">
+                <i class="fas fa-sync"></i> Atualizar a Tela
+            </a>
 
-                <a class="btn btn-primary btn-flat" href="{{ route('admin.users.index') }}">
-                    <i class="fas fa-sync"></i> Atualizar a Tela
-                </a>
-
-                @can('user_create')
-                <a class="btn btn-success btn-flat" href="{{ route('admin.users.create') }}">
-                    <i class="fas fa-plus"></i> Adicionar Novo Usuário
-                </a>
-                @endcan
-
-            </div>
+            @can('user_create')
+            <a class="btn btn-success btn-flat btn-sm" href="{{ route('admin.users.create') }}">
+                <i class="fas fa-plus"></i> Adicionar Novo Usuário
+            </a>
+            @endcan
         </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped table-hover datatable" id="users-table">
+            <table class="table table-striped table-bordered table-hover datatable" id="users-table">
                 <thead class="thead-light">
                     <tr>
                         <th>
@@ -95,7 +80,7 @@
 
                         <td>
                             @foreach($user->roles as $key => $role)
-                            <span class="label label-primary">{{ $role->title }}&nbsp;</span>
+                            <span class="badge badge-secondary">{{ $role->title }}&nbsp;</span>
                             @endforeach
                         </td>
 
@@ -177,7 +162,10 @@
                 null, // email
                 null, // papéis
                 null, // ativo
-                null, // avatar
+                {
+                    orderable: false,
+                    searchable: false,
+                }, // avatar
                 {
                     orderable: false,
                     searchable: false,

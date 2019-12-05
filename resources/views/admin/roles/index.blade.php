@@ -3,7 +3,7 @@
 @section('title', 'Blackbird')
 
 @section('content_header')
-<span style="font-size:20px"> <i class="fas fa-fw fa-user-tag"></i> Listar Papéis</span>
+<span style="font-size:20px"> <i class="fas fa-user-tag"></i> Cadastro de Papéis</span>
 {{ Breadcrumbs::render('roles_access') }}
 @stop
 
@@ -12,25 +12,25 @@
     @widget('RolesCount')
 </div>
 
-<div class="panel panel-default">
-    <div class="panel-heading clearfix">
-
-        <div class="pull-right">
-            <a class="btn btn-primary btn-sm" href="{{ route('admin.roles.index') }}">
-                <i class="glyphicon glyphicon-refresh"></i> Atualizar a Tela
+<div class="card">
+    <div class="card-header">
+        <div class="float-right">
+            <a class="btn btn-flat btn-primary btn-sm" href="{{ route('admin.roles.index') }}">
+                <i class="fas fa-sync"></i> Atualizar a Tela
             </a>
 
             @can('role_create')
-            <a class="btn btn-success btn-sm" href="{{ route('admin.roles.create') }}">
+            <a class="btn btn-flat btn-success btn-sm" href="{{ route('admin.roles.create') }}">
                 <i class="fas fa-plus"></i> Adicionar Novo Papel
             </a>
             @endcan
         </div>
     </div>
-    <div class="panel-body">
+
+    <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable" id="roles-table">
-                <thead>
+            <table class="table table-striped table-bordered table-hover datatable" id="roles-table">
+                <thead class="thead-light">
                     <tr>
                         <th>ID</th>
                         <th>Papéis</th>
@@ -49,7 +49,7 @@
                         </td>
                         <td>
                             @foreach($role->permissions as $key => $permission)
-                            <span class="label label-primary">{{ $permission->title }}&nbsp;</span>
+                            <span class="badge badge-primary">{{ $permission->title }}&nbsp;</span>
                             @endforeach
                         </td>
                         <td class="text-left">
@@ -80,6 +80,10 @@
 </div>
 @stop
 
+@section('footer')
+@include('vendor.adminlte.footer')
+@stop
+
 @section('css')
 @stop
 
@@ -94,8 +98,7 @@
             language: {
                 url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
             },
-            columns: [
-                {
+            columns: [{
                     width: "40px"
                 }, // id
                 {

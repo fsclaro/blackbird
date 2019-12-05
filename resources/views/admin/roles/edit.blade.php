@@ -3,7 +3,7 @@
 @section('title', 'Blackbird')
 
 @section('content_header')
-<span style="font-size:20px"> <i class="fas fa-fw fa-user-tag"></i> Edita o Papel</span>
+<span style="font-size:20px"> <i class="fas fa-fw fa-user-tag"></i> Cadastro de Papéis</span>
 {{ Breadcrumbs::render('roles_edit') }}
 @stop
 
@@ -12,12 +12,12 @@
     @csrf
     @method('PUT')
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            Edita um papel
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-edit"></i> Edição dos dados de um papél
         </div>
 
-        <div class="panel-body">
+        <div class="card-body">
             <div class="row">
                 <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }} col-md-12">
                     <label for="title">Descrição do papel
@@ -26,9 +26,9 @@
                     <input type="text" id="title" name="title" class="form-control" value="{{ old('title', isset($role) ? $role->title : '') }}">
 
                     @if($errors->has('title'))
-                    <p class="help-block">
+                    <small class="form-text text-red text-bold">
                         {{ $errors->first('title') }}
-                    </p>
+                    </small>
                     @endif
                 </div>
             </div>
@@ -37,8 +37,8 @@
                 <div class="form-group {{ $errors->has('permissions') ? 'has-error' : '' }} col-md-12">
                     <label for="permissions">Permissões
                         <span class="text-red">*</span>
-                        <a class="btn btn-success btn-sm" id="select-all" onclick="return selectAll();"><i class="fas fa-fx fa-check-double"></i> Selecionar Todas</a>
-                        <a class="btn btn-danger btn-sm" id="deselect-all" onclick="return deselectAll();"><i class="fas fa-fx fa-undo"></i> Desmarcar Todas</a>
+                        <a class="btn btn-flat btn-success btn-sm text-white" id="select-all" onclick="return selectAll();"><i class="fas fa-fx fa-check-double"></i> Selecionar Todas</a>
+                        <a class="btn btn-flat btn-danger btn-sm text-white" id="deselect-all" onclick="return deselectAll();"><i class="fas fa-fx fa-undo"></i> Desmarcar Todas</a>
                     </label>
                     <select name="permissions[]" id="permissions" class="select2 form-control" multiple="multiple">
                         @foreach($permissions as $id => $permissions)
@@ -48,20 +48,24 @@
                         @endforeach
                     </select>
                     @if($errors->has('permissions'))
-                    <p class="help-block">
+                    <small class="form-text text-red text-bold">
                         {{ $errors->first('permissions') }}
-                    </p>
+                    </small>
                     @endif
                 </div>
             </div>
         </div>
 
-        <div class="panel-footer">
-            <a href="{{ route('admin.roles.index') }}" class="btn btn-default"><i class="fas fa-fx fa-reply"></i> Voltar</a>
-            <button type="submit" class="btn btn-success"><i class="fas fa-fx fa-save"></i> Salvar</button>
+        <div class="card-footer">
+            <a href="{{ route('admin.roles.index') }}" class="btn btn-flat btn-default"><i class="fas fa-fx fa-reply"></i> Voltar</a>
+            <button type="submit" class="btn btn-flat btn-success"><i class="fas fa-fx fa-save"></i> Salvar</button>
         </div>
     </div>
 </form>
+@stop
+
+@section('footer')
+@include('vendor.adminlte.footer')
 @stop
 
 @section('css')

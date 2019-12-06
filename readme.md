@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/fsclaro/blackbird/blob/master/public/img/logos/project_logo.png" width="320px">
+<img src="https://github.com/fsclaro/blackbird/blob/master/public/img/front-page.png">
 </p>
 
 [![Latest Stable Version](https://poser.pugx.org/fsclaro/blackbird/v/stable)](https://packagist.org/packages/fsclaro/blackbird)

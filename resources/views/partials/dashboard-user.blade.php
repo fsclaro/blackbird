@@ -1,4 +1,4 @@
-<div class="col-md-3">
+<div class="col-md-4">
     <div class="card card-primary card-outline">
         <div class="card-body box-profile">
             <div class="text-center">

@@ -72,7 +72,7 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             // Carrega para a Sessão os valores da tabela de parâmetros
             $this->loadSettings();
-            Logs::registerLog(url()->current(), 'Fez login no sistema');
+            Logs::registerLog('Fez <span class="text-red text-bold">login</span> no sistema');
 
             return $this->sendLoginResponse($request);
         }
@@ -84,6 +84,19 @@ class LoginController extends Controller
 
         return $this->sendFailedLoginResponse($request);
     }
+
+
+    public function logout(Request $request)
+    {
+        Logs::registerLog('Fez <span class="text-red text-bold">logout</span> do sistema');
+
+        $this->guard()->logoutCurrentDevice();
+
+        $request->session()->invalidate();
+
+        return $this->loggedOut($request) ?: redirect('/');
+    }
+
 
     public function loadSettings()
     {

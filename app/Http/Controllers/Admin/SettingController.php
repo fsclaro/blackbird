@@ -52,9 +52,9 @@ class SettingController extends Controller
         try {
             $setting = Setting::create($request->all());
 
-            alert()->success('Configuração criada com sucesso!')->toToast('top-end');
+            alert()->success('Parâmetro criado com sucesso!')->toToast('top-end');
 
-            Logs::registerLog(url()->current(), 'Cadastrou um novo parâmetro do sistema.');
+            Logs::registerLog('Cadastrou um novo parâmetro do sistema.');
 
         } catch (\Throwable $th) {
             alert()->error('Ocorreu um erro. Este registro não foi criado.')->toToast('top-end');
@@ -73,6 +73,7 @@ class SettingController extends Controller
     {
         abort_unless(\Gate::allows('setting_show'), 403);
 
+        Logs::registerLog('Visualizou os detalhes de um parâmetro do sistema.');
         return view('admin.settings.show', compact('setting'));
     }
 
@@ -103,6 +104,7 @@ class SettingController extends Controller
         try {
             $setting->update($request->all());
             $setting->save();
+            Logs::registerLog('Alterou dados de um parâmetro do sistema.');
             alert()->success('Configuração alterado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu um erro. As alterações não foram salvas')->toToast('top-end');
@@ -123,9 +125,10 @@ class SettingController extends Controller
 
         try {
             $setting->delete();
+            Logs::registerLog('Excluiu um parâmetro do sistema.');
             alert()->success('Configuração excluído com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
-            alert()->error('Este Configuração não pode ser excluído')->toToast('top-end');
+            alert()->error('Este Parâmetro não pode ser excluído')->toToast('top-end');
         }
 
         return back();
@@ -171,9 +174,10 @@ class SettingController extends Controller
 
         if ($errors == 0) {
             $this->updateSession();
-            alert()->success('Configuraçãos atualizados com sucesso!')->toToast('top-end');
+            alert()->success('Parâmetros atualizados com sucesso!')->toToast('top-end');
+            Logs::registerLog('Alterou os valores dos parâmetros do sistema.');
         } else {
-            alert()->error('Algum Configuração não pôde ser atualizado')->toToast('top-end');
+            alert()->error('Algum Parâmetro não pôde ser atualizado')->toToast('top-end');
         }
 
         return redirect()->route('admin.settings.index');

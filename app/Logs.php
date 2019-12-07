@@ -34,11 +34,30 @@ class Logs extends Model
         return $this->belongsTo('App\User');
     }
 
-    public static function registerLog($url = null, $description = null, $details = null)
+     public static function getIP()
     {
-        $ip = $_SERVER["REMOTE_ADDR"];
+         //se possível, obtém o endereço ip da máquina do cliente
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip=$_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            //verifica se o ip está passando pelo proxy
+            $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip=$_SERVER['REMOTE_ADDR'];
+        }
+
+        return $ip;
+    }
+
+    public static function registerLog($description = null, $details = null, $url = null)
+    {
+        $ip = self::getIP();
         $useragent = $_SERVER["HTTP_USER_AGENT"];
         $user = auth()->user()->id;
+
+        if(null == $url) {
+            $url = url()->current();
+        }
 
         Logs::create([
             'ipaddress' => $ip,
@@ -55,12 +74,11 @@ class Logs extends Model
         if($nroRecords > 0) {
             $logs = Logs::where('user_id', auth()->user()->id)
                 ->orderBy('created_at', 'desc')
-                ->take($nroRecords)
-                ->get();
+                ->paginate($nroRecords);
         } else {
             $logs = Logs::where('user_id', auth()->user()->id)
                 ->orderBy('created_at', 'desc')
-                ->get();
+                ->paginate(5);
         }
 
         return $logs;

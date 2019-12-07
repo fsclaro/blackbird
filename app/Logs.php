@@ -53,9 +53,14 @@ class Logs extends Model
 
     public static function getUserLogs($nroRecords=null) {
         if($nroRecords > 0) {
-            $logs = Logs::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->limit($nroRecords);
+            $logs = Logs::where('user_id', auth()->user()->id)
+                ->orderBy('created_at', 'desc')
+                ->take($nroRecords)
+                ->get();
         } else {
-            $logs = Logs::where('user_id', auth()->user()->id);
+            $logs = Logs::where('user_id', auth()->user()->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
         }
 
         return $logs;

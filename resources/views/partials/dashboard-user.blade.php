@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-lg-4">
     <div class="card card-primary card-outline">
         <div class="card-body box-profile">
             <div class="text-center">
@@ -17,42 +17,44 @@
             <ul class="list-group list-group-unbordered mb-3">
                 <li class="list-group-item">
                     <b>Email</b>
-                    <a class="float-right">{{ auth()->user()->myEmail() }}</a>
+                    <span class="float-right">{{ auth()->user()->myEmail() }}</span>
                 </li>
                 <li class="list-group-item">
                     @if(auth()->user()->numRoles() <= 0) <b>Papéis</b>
-                        <a class="float-right text-red">Sem papéis atribuídos</a>
+                        <span class="float-right text-red">Sem papéis atribuídos</span>
                         @endif
 
                         @if(auth()->user()->numRoles() == 1)
                         <b>Papel</b>
-                        <a class="float-right"><span class="badge badge-primary">{{ auth()->user()->getFirstRoleName() }}</span>
-                        </a>
+                        <span class="float-right">
+                            <span class="badge badge-primary">{{ auth()->user()->getFirstRoleName() }}</span>
+                        </span>
                         @endif
 
                         @if(auth()->user()->numRoles() > 1)
                         <b>Papéis</b>
-                        <a class="float-right">
+                        <span class="float-right">
                             @php $roles = auth()->user()->getRolesNames(); @endphp
-                            @for($i=0;$i<count($roles);$i++) <span class="badge badge-primary">{{ $roles[$i] }}</span>
-                                @endfor
-                        </a>
+                            @for($i=0;$i<count($roles);$i++)
+                            <span class="badge badge-primary">{{ $roles[$i] }}</span>
+                            @endfor
+                        </span>
                         @endif
                 </li>
                 <li class="list-group-item">
                     <b>Cadastrado em</b>
                     @if(auth()->user()->created_at)
-                    <a class="float-right">{{ auth()->user()->created_at->format("d/m/Y") }}</a>
+                    <span class="float-right">{{ auth()->user()->created_at->format("d/m/Y") }}</span>
                     @else
-                    <a class="float-right">Não informada</a>
+                    <span class="float-right text-red">Não informada</span>
                     @endif
                 </li>
                 <li class="list-group-item">
                     <b>Última atualização</b>
                     @if(auth()->user()->updated_at)
-                    <a class="float-right">{{ auth()->user()->updated_at->format("d/m/Y") }}</a>
+                    <span class="float-right">{{ auth()->user()->updated_at->format("d/m/Y") }}</span>
                     @else
-                    <a class="float-right">Não informada</a>
+                    <span class="float-right text-red">Não informada</span>
                     @endif
                 </li>
             </ul>

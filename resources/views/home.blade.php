@@ -27,11 +27,14 @@
     <div class="row">
         @widget('LogsCount')
     </div>
-
     @include("partials.dashboard-profile")
+
 </div>
 @stop
 
 @section('footer')
 @include('vendor.adminlte.footer')
+@stop
+
+@section('js')
 @stop

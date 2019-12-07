@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSettingRequest;
 use App\Http\Requests\UpdateSettingRequest;
+use App\Logs;
 
 class SettingController extends Controller
 {
@@ -52,6 +53,9 @@ class SettingController extends Controller
             $setting = Setting::create($request->all());
 
             alert()->success('Configuração criada com sucesso!')->toToast('top-end');
+
+            Logs::registerLog(url()->current(), 'Cadastrou um novo parâmetro do sistema.');
+
         } catch (\Throwable $th) {
             alert()->error('Ocorreu um erro. Este registro não foi criado.')->toToast('top-end');
         }

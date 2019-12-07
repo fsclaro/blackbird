@@ -40,5 +40,6 @@
 <script src="{{ asset('js/app.js') }}"></script>
 @endif
 
+@include('sweetalert::alert')
 </body>
 </html>

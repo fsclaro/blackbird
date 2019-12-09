@@ -29,7 +29,7 @@
                         <th>ID</th>
                         <th>IP</th>
                         <th>Usuário</th>
-                        <th>Descrição</th>
+                        <th>Ação</th>
                         <th>Data</th>
                         <th>Ações</th>
                     </tr>
@@ -47,7 +47,7 @@
                             {{ $log->user->name }}
                         </td>
                         <td>
-                            {!! $log->description !!}
+                            {!! $log->action !!}
                         </td>
                         <td>
                             @if($log->created_at)

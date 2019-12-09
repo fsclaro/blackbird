@@ -46,8 +46,10 @@ class LogsController extends Controller
         abort_unless(\Gate::allows('log_access'), 403);
 
         try {
+            $log = Logs::find($id);
             Logs::where('id', $id)->delete();
-            Logs::registerLog('Excluiu um log do sistema.');
+
+            Logs::registerLog('Excluiu um log de ID ' . $log->id . ' do sistema.');
             alert()->success('Log excluído com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Este log não pode ser excluído')->toToast('top-end');

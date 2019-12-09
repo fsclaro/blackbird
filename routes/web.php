@@ -39,6 +39,8 @@ Route::group(
 
         /* Rotas da tabela de papéis */
         Route::resource('roles', 'RoleController');
+        Route::post('roles/clone', 'RoleController@clone')->name('roles.clone');
+        Route::post('roles/deleteroles', 'RoleController@deleteRoles')->name('roles.deleteroles');
 
         /* Rotas da tabela de usuários */
         Route::resource('users', 'UserController');

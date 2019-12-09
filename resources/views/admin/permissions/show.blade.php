@@ -32,6 +32,8 @@
                     <td>
                         @if($permission->created_at)
                         {{ $permission->created_at->format("d/m/Y H:i:s") }}
+                        @else
+                        <span class="text-red">Informação não disponível</span>
                         @endif
                     </td>
                 </tr>
@@ -40,6 +42,8 @@
                     <td>
                         @if($permission->updated_at)
                         {{ $permission->updated_at->format("d/m/Y H:i:s") }}
+                        @else
+                        <span class="text-red">Informação não disponível</span>
                         @endif
                     </td>
                 </tr>

@@ -78,6 +78,8 @@
                         <td>
                             @if($user->created_at)
                             {{ $user->created_at->format('d/m/Y h:i') }}
+                            @else
+                            <span class="text-red">Informação não disponível</span>
                             @endif
                         </td>
                     </tr>
@@ -87,12 +89,13 @@
                         <td>
                             @if($user->updated_at)
                             {{ $user->updated_at->format('d/m/Y h:i') }}
+                            @else
+                            <span class="text-red">Informação não disponível</span>
                             @endif
                         </td>
                     </tr>
                 </tbody>
             </table>
-
         </div>
     </div>
 

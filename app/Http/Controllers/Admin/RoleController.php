@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Logs;
+use Illuminate\Http\Request;
+use Auth;
+use Carbon\Carbon;
 
 class RoleController extends Controller
 {
@@ -88,14 +91,53 @@ class RoleController extends Controller
         abort_unless(\Gate::allows('role_delete'), 403);
 
         try {
+            $role = Role::find($id);
             Role::where('id', $id)->delete();
 
-            Logs::registerLog('Excluiu um papel do sistema.');
+            Logs::registerLog('Excluiu o papel com o ID ' . $role->id . ' e nome ' . $role->title);
             alert()->success('Papel excluído com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
-            alert()->error('Este papel não pode ser excluída')->toToast('top-end');
+            alert()->error('Este papel não pode ser excluído')->toToast('top-end');
         }
 
         return back();
     }
+
+
+    public function clone(Request $request)
+    {
+        abort_unless(\Gate::allows('role_clone'), 403);
+
+        $ids = $request->data;
+        for ($i = 0; $i < count($ids); $i++) {
+            $role = Role::find($ids[$i]);
+            $permissions = $role->permissions;
+
+            $newRole = [
+                'title' => $role->title . " cópia",
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ];
+
+            $role = Role::create($newRole);
+            $role->permissions()->sync($permissions);
+
+            Logs::registerLog('Clonou o papel <span class="text-red text-bold">' . $role->title .
+                '</span> com o nome <span class="text-red text-bold">' . $role->title . " cópia</span>");
+        }
+    }
+
+    public function deleteRoles(Request $request)
+    {
+        abort_unless(\Gate::allows('role_delete'), 403);
+
+        $ids = $request->data;
+        for ($i = 0; $i < count($ids); $i++) {
+            $role = Role::find($ids[$i]);
+            Role::where('id', $ids[$i])->delete();
+            Logs::registerLog('Excluiu o papel <span class="text-red text-bold">' . $role->title . '</span>');
+        }
+    }
+
+
 }

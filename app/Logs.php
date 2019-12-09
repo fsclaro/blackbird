@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use GuzzleHttp\Client;
 
 class Logs extends Model
 {
@@ -14,9 +15,10 @@ class Logs extends Model
 
     protected $fillable = [
         'ipaddress',
+        'externalip',
         'useragent',
         'url',
-        'description',
+        'action',
         'details',
         'user_id',
         'created_at',
@@ -49,11 +51,12 @@ class Logs extends Model
         return $ip;
     }
 
-    public static function registerLog($description = null, $details = null, $url = null)
+    public static function registerLog($action = null, $details = null, $url = null)
     {
         $ip = self::getIP();
         $useragent = $_SERVER["HTTP_USER_AGENT"];
         $user = auth()->user()->id;
+        $externalIp = file_get_contents('https://api.ipify.org');
 
         if(null == $url) {
             $url = url()->current();
@@ -61,12 +64,12 @@ class Logs extends Model
 
         Logs::create([
             'ipaddress' => $ip,
+            'externalip' => $externalIp,
             'useragent' => $useragent,
             'url' => $url,
-            'description' => $description,
+            'action' => $action,
             'details' => $details,
             'user_id' => $user,
-            'created_at' => Carbon::now()
         ]);
     }
 

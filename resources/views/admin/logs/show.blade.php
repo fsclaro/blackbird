@@ -19,13 +19,22 @@
                     <th style="width:18%">ID</th>
                     <td>{{ $log->id }}</td>
                 </tr>
+
                 <tr>
-                    <th style="width:18%">Endereço IP</th>
-                    <td>{{ $log->ipaddress }}</td>
+                    <th style="width:18%">Usuário</th>
+                    <td>{{ $log->user->name }}</td>
                 </tr>
 
                 <tr>
-                    <th style="width:18%">User Agent</th>
+                    <th style="width:18%">Endereço IP</th>
+                    <td>
+                        <span class="text-blue">Local:</span> {{ $log->ipaddress }} -
+                        <span class="text-blue">Externo:</span> {{ $log->externalip ?? "não definido" }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th style="width:18%">Navegador</th>
                     <td>{{ $log->useragent }}</td>
                 </tr>
 
@@ -35,8 +44,8 @@
                 </tr>
 
                 <tr>
-                    <th style="width:18%">Descrição</th>
-                    <td>{{ $log->description }}</td>
+                    <th style="width:18%">Ação</th>
+                    <td>{{ $log->action }}</td>
                 </tr>
 
                 <tr>
@@ -44,16 +53,14 @@
                     <td>{{ $log->details }}</td>
                 </tr>
 
-                <tr>
-                    <th style="width:18%">Usuário</th>
-                    <td>{{ $log->user->name }}</td>
-                </tr>
 
                 <tr>
-                    <th style="width:18%">Criado em</th>
+                    <th style="width:18%">Ocorrido em</th>
                     <td>
                         @if($log->created_at)
                         {{ $log->created_at->format("d/m/Y H:i:s") }}
+                        @else
+                        <span class="text-red">Informação não disponível</span>
                         @endif
                     </td>
                 </tr>

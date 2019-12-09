@@ -14,6 +14,20 @@
 
 <div class="card">
     <div class="card-header">
+                <div class="float-left">
+            <div class="dropdown">
+                <button class="btn btn-info btn-flat btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bolt"></i> Ações
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" onclick="process(1);"><i class="fas fa-fw fa-clone"></i> Clonar Papéis</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" onclick="process(2);"><i class="fas fa-fw fa-user-tag"></i> Excluir Papéis</a>
+
+                </div>
+            </div>
+        </div>
+
         <div class="float-right">
             <a class="btn btn-flat btn-primary btn-sm" href="{{ route('admin.roles.index') }}">
                 <i class="fas fa-sync"></i> Atualizar a Tela
@@ -32,6 +46,10 @@
             <table class="table table-striped table-bordered table-hover datatable" id="roles-table">
                 <thead class="thead-light">
                     <tr>
+                        <th>
+                            <input type="checkbox" class="checkbox" name="chk-roles" id="chk-roles" onchange="changeCheckbox();">
+                        </th>
+
                         <th>ID</th>
                         <th>Papéis</th>
                         <th>Permissões</th>
@@ -41,6 +59,10 @@
                 <tbody>
                     @foreach($roles as $key => $role)
                     <tr data-entry-id="{{ $role->id }}">
+                        <td>
+                            <input type="checkbox" name="ids[]" id="ids[]" class="checkbox" value="{{ $role->id }}">
+                        </td>
+
                         <td>
                             {{ $role->id }}
                         </td>
@@ -98,7 +120,12 @@
             language: {
                 url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
             },
-            columns: [{
+            columns: [
+                {
+                    orderable: false,
+                    searchable: false,
+                }, // checkbox
+                {
                     width: "40px"
                 }, // id
                 {
@@ -111,8 +138,20 @@
                     width: "90px"
                 }, // actions buttons
             ],
+            order: [
+                [1, "asc"]
+            ]
         });
     });
+
+    function changeCheckbox() {
+        var checkBox = document.getElementById('chk-roles');
+        var allCheckBox = document.getElementsByName('ids[]');
+
+        for (let i = 0; i < allCheckBox.length; i++) {
+            allCheckBox[i].checked = checkBox.checked;
+        }
+    }
 
     function deleteRecord(e, id) {
         e.preventDefault();
@@ -171,5 +210,150 @@
             }
         });
     };
+
+    function process(type) {
+        var ids = document.getElementsByName('ids[]');
+
+        var count = 0;
+        var arrIds = new Array();
+        for (let i = 0; i < ids.length; i++) {
+            if (ids[i].checked) {
+                arrIds[count] = ids[i].value;
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            Swal.fire({
+                type: 'error',
+                title: 'Opps.',
+                text: 'Você não selecionou nenhuma linha.',
+                showConfirmButton: TextTrackCue,
+                timer: 3000,
+            });
+
+            return;
+        }
+
+        if (type == 1) {
+            processClone(arrIds);
+        }
+
+        if (type == 2) {
+            deleteRoles(arrIds);
+        }
+    }
+
+    function processClone(data) {
+        var url = "{{ route('admin.roles.clone') }}";
+        var token = "{{ csrf_token() }}";
+
+        Swal.fire({
+            type: 'warning',
+            title: 'Você tem certeza?',
+            text: 'Esta ação clonará os papéis selecionados.',
+            showCancelButton: true,
+            confirmButtonText: 'Sim - Clone os papéis',
+            cancelButtonText: 'Não - Cancele esta ação',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            focusCancel: true,
+            width: '35rem',
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        _token: token,
+                        _method: "POST",
+                        data: data,
+                    },
+                    success: function() {
+                        Swal.fire({
+                            type: 'success',
+                            title: 'Sucesso',
+                            text: 'Os papéris foram clonados.',
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                        location.reload();
+                    },
+                    error: function() {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Falhou',
+                            text: 'Houve um problema. Os papéis não foram clonados.',
+                            timer: 2500,
+                        });
+                    }
+                })
+            } else {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Cancelado',
+                    text: 'Operação cancelada.',
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            }
+        });
+    }
+
+    function deleteRoles(data) {
+        var url = "{{ route('admin.roles.deleteroles') }}";
+        var token = "{{ csrf_token() }}";
+
+        Swal.fire({
+            type: 'warning',
+            title: 'Você tem certeza?',
+            text: 'Esta ação EXCLUIRÁ todos os papéis selecionados.',
+            showCancelButton: true,
+            confirmButtonText: 'Sim - Excluir os papéis',
+            cancelButtonText: 'Não - Cancele esta ação',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            focusCancel: true,
+            width: '35rem',
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        _token: token,
+                        _method: "POST",
+                        data: data,
+                    },
+                    success: function() {
+                        Swal.fire({
+                            type: 'success',
+                            title: 'Sucesso',
+                            text: 'Os papéis foram excluídos.',
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                        location.reload();
+                    },
+                    error: function() {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Falhou',
+                            text: 'Houve um problema. Os papéis não foram excluídos.',
+                            timer: 2500,
+                        });
+                    }
+                })
+            } else {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Cancelado',
+                    text: 'Operação cancelada.',
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            }
+        });
+    }
 </script>
 @stop

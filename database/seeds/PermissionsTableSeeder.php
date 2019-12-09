@@ -39,6 +39,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::insert(['title' => 'Editar papel', 'slug' => 'role_edit']);
         Permission::insert(['title' => 'Exibir papel', 'slug' => 'role_show']);
         Permission::insert(['title' => 'Excluir papel', 'slug' => 'role_delete']);
+        Permission::insert(['title' => 'Clonar papel', 'slug' => 'role_clone']);
 
         // Configurações
         Permission::insert(['title' => 'Acessar cadastro de configurações', 'slug' => 'setting_access']);
@@ -47,6 +48,12 @@ class PermissionsTableSeeder extends Seeder
         Permission::insert(['title' => 'Exibir configuração', 'slug' => 'setting_show']);
         Permission::insert(['title' => 'Excluir configuração', 'slug' => 'setting_delete']);
         Permission::insert(['title' => 'Definir valores das configurações', 'slug' => 'setting_content']);
+
+        // Logs
+        Permission::insert(['title' => 'Excluir log do sistema', 'slug' => 'log_delete']);
+        Permission::insert(['title' => 'Exibir log do sistema', 'slug' => 'log_show']);
+        Permission::insert(['title' => 'Excluir log do sistema', 'slug' => 'log_delete']);
+
 
         // Área de suporte
         Permission::insert(['title' => 'Acessar área de suporte', 'slug' => 'support_access']);

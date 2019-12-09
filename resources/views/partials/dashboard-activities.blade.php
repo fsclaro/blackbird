@@ -34,11 +34,15 @@
                                             {{ $log->created_at->format("d/m/Y - H:i:s") }}
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <i class="fas fa-globe"></i>
-                                            {{ $log->ipaddress }}
+                                            {{ $log->ipaddress }} @if($log->externalip) / {{ $log->externalip }} @endif
                                         </small>
                                         <br>
                                         <div class="float-left">
-                                            <span>{!! $log->description !!}</span>
+                                            <span>{!! $log->action !!}</span>
+                                            @if($log->details)
+                                            <br>
+                                            <small class="text-muted"><i class="fas fa-history"></i> {!! $log->details !!}</small>
+                                            @endif
                                         </div>
                                         <div class="float-right">
                                             <a href="{{ route('admin.logs.show', $log->id) }}" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>

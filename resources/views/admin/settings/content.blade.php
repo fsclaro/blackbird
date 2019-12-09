@@ -33,7 +33,7 @@ Parâmetros</span>
 
             @if($setting->type == "number")
             <div class="row">
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-12">
                     <label for="{{ $setting->name }}">{{ $setting->description }}</label>
                     <input type="number" id="{{ $setting->name }}" name="{{ $setting->name }}" class="form-control" value="{{ old('content', isset($setting) ? $setting->content : '') }}">
                     @if($setting->helper)
@@ -45,7 +45,7 @@ Parâmetros</span>
 
             @if($setting->type == "email")
             <div class="row">
-                <div class="form-group col-md-8">
+                <div class="form-group col-md-12">
                     <label for="{{ $setting->name }}">{{ $setting->description }}</label>
                     <input type="email" id="{{ $setting->name }}" name="{{ $setting->name }}" class="form-control" value="{{ old('content', isset($setting) ? $setting->content : '') }}">
                     @if($setting->helper)
@@ -83,7 +83,7 @@ Parâmetros</span>
 
             @if($setting->type == "datepicker")
             <div class="row">
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-12">
                     <label for="{{ $setting->name }}">{{ $setting->description }}</label>
                     <input type="datetime-local" id="{{ $setting->name }}" name="{{ $setting->name }}" class="form-control" value="{{ old('content', isset($setting) ? $setting->content : '') }}">
 
@@ -118,7 +118,7 @@ Parâmetros</span>
 
         @if($setting->type == "select")
         <div class="row">
-            <div class="form-group col-sm-6">
+            <div class="form-group col-sm-12">
                 <label for="{{ $setting->name }}">{{ $setting->description }}</label>
                 @php
                 $items = explode(",", $setting->dataenum)

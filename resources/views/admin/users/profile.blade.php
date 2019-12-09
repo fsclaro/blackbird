@@ -47,11 +47,11 @@
                             <div class="btn-group-sm center-block" role="group">
                                 <div class="btn btn-success div-avatar">
                                     <input type="file" id="avatar" name="avatar" class="input-avatar" onchange="changeAvatar(event);">
-                                    <span><i class="fas fa-fx fa-camera"></i> Nova Foto</span>
+                                    <span><i class="fas fa-fw fa-camera"></i> Nova Foto</span>
                                 </div>
 
                                 @if($canDeleteAvatar)
-                                <a href="{{ route('admin.users.delete.avatar', $user) }}" class="btn btn-danger"><i class="fas fa-fx fa-trash"></i> Excluir Foto</a>
+                                <a href="{{ route('admin.users.delete.avatar', $user) }}" class="btn btn-danger"><i class="fas fa-fw fa-trash"></i> Excluir Foto</a>
                                 @endif
                             </div>
                         </div>
@@ -108,8 +108,8 @@
         </div> <!-- panel-body -->
 
         <div class="card-footer">
-            <a href="{{ $return_url }}" class="btn btn-default"><i class="fas fa-fx fa-reply"></i> Voltar</a>
-            <button type="submit" class="btn btn-success"><i class="fas fa-fx fa-save"></i> Salvar</button>
+            <a href="{{ $return_url }}" class="btn btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
+            <button type="submit" class="btn btn-success"><i class="fas fa-fw fa-save"></i> Salvar</button>
         </div> <!-- panel-footer -->
     </div> <!-- panel pane-default -->
 </form>

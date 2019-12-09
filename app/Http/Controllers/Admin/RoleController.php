@@ -7,6 +7,7 @@ use App\Permission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use App\Logs;
 
 class RoleController extends Controller
 {
@@ -32,10 +33,26 @@ class RoleController extends Controller
     {
         abort_unless(\Gate::allows('role_create'), 403);
 
-        $role = Role::create($request->all());
-        $role->permissions()->sync($request->input('permissions', []));
+        try {
+            $role = Role::create($request->all());
+            $role->permissions()->sync($request->input('permissions', []));
+
+            Logs::registerLog('Cadastrou novo papel no sistema.');
+            alert()->success('Papel criado com sucesso!')->toToast('top-end');
+        } catch (\Throwable $th) {
+            alert()->error('Ocorreu um erro. Este registro não pode ser criado!')->toToast('top-end');
+        }
 
         return redirect()->route('admin.roles.index');
+    }
+
+    public function show(Role $role)
+    {
+        abort_unless(\Gate::allows('role_show'), 403);
+
+        $role->load('permissions');
+
+        return view('admin.roles.show', compact('role'));
     }
 
     public function edit(Role $role)
@@ -53,26 +70,31 @@ class RoleController extends Controller
     {
         abort_unless(\Gate::allows('role_edit'), 403);
 
-        $role->update($request->all());
-        $role->permissions()->sync($request->input('permissions', []));
+        try {
+            $role->update($request->all());
+            $role->permissions()->sync($request->input('permissions', []));
+
+            Logs::registerLog('Alterou dados de um papel do sistema.');
+            alert()->success('Papel alterado com sucesso!')->toToast('top-end');
+        } catch (\Throwable $th) {
+            alert()->error('Ocorreu um erro. Este registro não pode ser alterado!')->toToast('top-end');
+        }
 
         return redirect()->route('admin.roles.index');
     }
 
-    public function show(Role $role)
-    {
-        abort_unless(\Gate::allows('role_show'), 403);
-
-        $role->load('permissions');
-
-        return view('admin.roles.show', compact('role'));
-    }
-
-    public function destroy(Role $role)
+    public function destroy($id)
     {
         abort_unless(\Gate::allows('role_delete'), 403);
 
-        $role->delete();
+        try {
+            Role::where('id', $id)->delete();
+
+            Logs::registerLog('Excluiu um papel do sistema.');
+            alert()->success('Papel excluído com sucesso!')->toToast('top-end');
+        } catch (\Throwable $th) {
+            alert()->error('Este papel não pode ser excluída')->toToast('top-end');
+        }
 
         return back();
     }

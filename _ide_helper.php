@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 6.6.1 on 2019-12-05 12:48:58.
+ * Generated for Laravel 6.6.2 on 2019-12-07 19:15:45.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -11654,6 +11654,18 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Get all of the view names for the database.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getAllViews()
+        {
+                        /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
+                        return $instance->getAllViews();
+        }
+        
+        /**
          * Set the default string length for migrations.
          *
          * @param int $length
@@ -16450,7 +16462,7 @@ namespace  {
             /**
              * Execute the query as a "select" statement.
              *
-             * @param array $columns
+             * @param array|string $columns
              * @return \Illuminate\Database\Eloquent\Collection|static[] 
              * @static 
              */ 
@@ -16463,7 +16475,7 @@ namespace  {
             /**
              * Get the hydrated models without eager loading.
              *
-             * @param array $columns
+             * @param array|string $columns
              * @return \Illuminate\Database\Eloquent\Model[]|static[] 
              * @static 
              */ 
@@ -16835,7 +16847,7 @@ namespace  {
             /**
              * Execute the query and get the first result.
              *
-             * @param array $columns
+             * @param array|string $columns
              * @return \Illuminate\Database\Eloquent\Model|object|static|null 
              * @static 
              */ 

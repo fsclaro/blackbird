@@ -59,13 +59,13 @@
                         <td class="text-left">
                             @can("setting_show")
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.settings.show', $setting->id) }}">
-                                <i class="fas fa-fx fa-eye"></i>
+                                <i class="fas fa-fw fa-eye"></i>
                             </a>
                             @endcan
 
                             @can("setting_edit")
                             <a class="btn btn-xs btn-warning" href="{{ route('admin.settings.edit', $setting->id) }}">
-                                <i class="fas fa-fx fa-pencil-alt"></i>
+                                <i class="fas fa-fw fa-pencil-alt"></i>
                             </a>
                             @endcan
 

@@ -47,7 +47,7 @@
                             {{ $log->user->name }}
                         </td>
                         <td>
-                            {{ $log->description }}
+                            {!! $log->description !!}
                         </td>
                         <td>
                             @if($log->created_at)
@@ -59,7 +59,7 @@
                         <td class="text-left">
                             @can("log_show")
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.logs.show', $log->id) }}">
-                                <i class="fas fa-fx fa-eye"></i>
+                                <i class="fas fa-fw fa-eye"></i>
                             </a>
                             @endcan
 
@@ -90,8 +90,8 @@
     $(function() {
         $("#logs-table").DataTable({
             lengthMenu: [
-                [10, 20, 50, 100, 200, -1],
-                [10, 20, 50, 100, 200, "Todos"]
+                [5, 10, 20, 50, 100, 200, -1],
+                [5, 10, 20, 50, 100, 200, "Todos"]
             ],
             language: {
                 url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",

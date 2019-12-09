@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Alert;
 
 class LoginController extends Controller
 {
@@ -73,6 +74,7 @@ class LoginController extends Controller
             // Carrega para a Sessão os valores da tabela de parâmetros
             $this->loadSettings();
             Logs::registerLog('Fez <span class="text-red text-bold">login</span> no sistema');
+            toast($user->name . ", você está logado no sistema.", "success")->autoClose(2500);
 
             return $this->sendLoginResponse($request);
         }

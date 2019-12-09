@@ -55,13 +55,13 @@
                         <td class="text-left">
                             @can("role_show")
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.roles.show', $role->id) }}">
-                                <i class="fas fa-fx fa-eye"></i>
+                                <i class="fas fa-fw fa-eye"></i>
                             </a>
                             @endcan
 
                             @can("role_edit")
                             <a class="btn btn-xs btn-warning" href="{{ route('admin.roles.edit', $role->id) }}">
-                                <i class="fas fa-fx fa-pencil-alt"></i>
+                                <i class="fas fa-fw fa-pencil-alt"></i>
                             </a>
                             @endcan
 

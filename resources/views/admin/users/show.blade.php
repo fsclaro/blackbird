@@ -97,7 +97,7 @@
     </div>
 
     <div class="card-footer">
-        <a href="{{ route('admin.users.index') }}" class="btn btn-default"><i class="fas fa-fx fa-reply"></i> Voltar</a>
+        <a href="{{ route('admin.users.index') }}" class="btn btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
     </div>
 </div>
 @stop

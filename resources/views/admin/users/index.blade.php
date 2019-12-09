@@ -106,14 +106,14 @@
                         <td class="text-left">
                             @can("user_show")
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', $user->id) }}">
-                                <i class="fas fa-fx fa-eye"></i>
+                                <i class="fas fa-fw fa-eye"></i>
                             </a>
                             @endcan
 
                             @if ($user->id != auth()->user()->id)
                             @can("user_edit")
                             <a class="btn btn-xs btn-warning" href="{{ route('admin.users.edit', $user->id) }}">
-                                <i class="fas fa-fx fa-pencil-alt"></i>
+                                <i class="fas fa-fw fa-pencil-alt"></i>
                             </a>
                             @endcan
                             @endif

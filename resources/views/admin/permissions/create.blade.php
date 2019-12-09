@@ -47,8 +47,8 @@
         </div> <!-- panel-body -->
 
         <div class="card-footer">
-            <a href="{{ route('admin.permissions.index') }}" class="btn btn-default"><i class="fas fa-fx fa-reply"></i> Voltar</a>
-            <button type="submit" class="btn btn-success"><i class="fas fa-fx fa-save"></i> Salvar</button>
+            <a href="{{ route('admin.permissions.index') }}" class="btn btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
+            <button type="submit" class="btn btn-success"><i class="fas fa-fw fa-save"></i> Salvar</button>
         </div> <!-- panel-footer -->
 
     </div> <!-- panel panel-default -->

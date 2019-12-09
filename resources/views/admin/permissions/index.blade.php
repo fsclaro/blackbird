@@ -53,13 +53,13 @@
                         <td class="text-left">
                             @can("permission_show")
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.permissions.show', $permission->id) }}">
-                                <i class="fas fa-fx fa-eye"></i>
+                                <i class="fas fa-fw fa-eye"></i>
                             </a>
                             @endcan
 
                             @can("permission_edit")
                             <a class="btn btn-xs btn-warning" href="{{ route('admin.permissions.edit', $permission->id) }}">
-                                <i class="fas fa-fx fa-pencil-alt"></i>
+                                <i class="fas fa-fw fa-pencil-alt"></i>
                             </a>
                             @endcan
 

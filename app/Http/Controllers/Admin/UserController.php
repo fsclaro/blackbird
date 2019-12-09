@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Role;
 use App\User;
+use App\Logs;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -75,6 +76,7 @@ class UserController extends Controller
                 $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
             }
 
+            Logs::registerLog('Cadastrou o usuário ' . $user->name . ' no sistema.');
             alert()->success('Usuário criado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu algum problema na inclusão deste usuário!')->toToast('top-end');
@@ -120,6 +122,7 @@ class UserController extends Controller
 
             $this->storeAvatar($request, $user);
 
+            Logs::registerLog('Atualizou os dados do usuário ' . $user->name);
             alert()->success('Dados do usuário alterado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Houve algum problema na alteração deste usuário!')->toToast('top-end');
@@ -160,26 +163,13 @@ class UserController extends Controller
             $user->roles()->sync($request->input('roles', true));
             $user->delete();
 
+            Logs::registerLog('Excluiu o usuário ' . $user->name);
             alert()->success('Usuário excluído com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Houve algum problema e este usuário não pode ser excluído!')->toToast('top-end');
         }
 
         return redirect()->route('admin.users.index');
-    }
-
-    /**
-     * ---------------------------------------------------------------
-     * massdestroy method
-     * ---------------------------------------------------------------.
-     *
-     * @param MassDestroyUserRequest $request
-     */
-    public function massDestroy(MassDestroyUserRequest $request)
-    {
-        User::whereIn('id', request('ids'))->delete();
-
-        return response(null, 204);
     }
 
     /**
@@ -262,6 +252,7 @@ class UserController extends Controller
             $user->update($request->all());
             $this->storeAvatar($request, $user);
 
+            Logs::registerLog('Atualizou os seus dados pessoais.');
             alert()->success('Perfil alterado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Houve um problema e o perfil deste usuário não pode ser alterado!')->toToast('top-end');
@@ -284,7 +275,9 @@ class UserController extends Controller
         $ids = $request->data;
         for ($i = 0; $i < count($ids); $i++) {
             if (Auth::user()->id !== (int) $ids[$i]) {
+                $user = User::find($ids[$i]);
                 User::where('id', $ids[$i])->update(['active' => 1]);
+                Logs::registerLog('Ativou o usuário ' . $user->name);
             }
         }
     }
@@ -303,7 +296,9 @@ class UserController extends Controller
         $ids = $request->data;
         for ($i = 0; $i < count($ids); $i++) {
             if (Auth::user()->id !== (int) $ids[$i]) {
+                $user = User::find($ids[$i]);
                 User::where('id', $ids[$i])->update(['active' => 0]);
+                Logs::registerLog('Desativou o usuário ' . $user->name);
             }
         }
     }
@@ -321,7 +316,9 @@ class UserController extends Controller
         $ids = $request->data;
         for ($i = 0; $i < count($ids); $i++) {
             if (Auth::user()->id !== (int) $ids[$i]) {
+                $user = User::find($ids[$i]);
                 User::where('id', $ids[$i])->delete();
+                Logs::registerLog('Excluiu o usuário ' . $user->name);
             }
         }
     }

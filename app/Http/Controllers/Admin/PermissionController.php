@@ -7,7 +7,7 @@ use App\Permission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
-use App\Http\Requests\MassDestroyPermissionRequest;
+use App\Logs;
 
 class PermissionController extends Controller
 {
@@ -34,9 +34,10 @@ class PermissionController extends Controller
         try {
             $permission = Permission::create($request->all());
 
+            Logs::registerLog('Cadastrou uma nova permissão no sistema.');
             alert()->success('Permissão criada com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
-            alert()->error('Ocorreu um erro.Este registro não pode ser criado!')->toToast('top-end');
+            alert()->error('Ocorreu um erro. Este registro não pode ser criado!')->toToast('top-end');
         }
 
         return redirect()->route('admin.permissions.index');
@@ -64,6 +65,7 @@ class PermissionController extends Controller
             $permission->update($request->all());
             $permission->save();
 
+            Logs::registerLog('Alterou dados de uma permissão do sistema.');
             alert()->success('Permissão alterada com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu um erro. Este registro não pode ser alterado!')->toToast('top-end');
@@ -72,24 +74,19 @@ class PermissionController extends Controller
         return redirect()->route('admin.permissions.index');
     }
 
-    public function destroy(Permission $permission)
+    public function destroy($id)
     {
         abort_unless(\Gate::allows('permission_delete'), 403);
 
         try {
-            $permission->delete();
+            Permission::where('id', $id)->delete();
+
+            Logs::registerLog('Excluiu uma permissão do sistema.');
             alert()->success('Permissão excluída com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Esta permissão não pode ser excluída')->toToast('top-end');
         }
 
         return back();
-    }
-
-    public function massDestroy(MassDestroyPermissionRequest $request)
-    {
-        Permission::whereIn('id', request('ids'))->delete();
-
-        return response(null, 204);
     }
 }

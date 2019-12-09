@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Logs;
-use App\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class LogsController extends Controller
 {
@@ -37,28 +34,6 @@ class LogsController extends Controller
         return view('admin.logs.show', compact('log'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Logs  $logs
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Logs $logs)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Logs  $logs
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Logs $logs)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -66,11 +41,17 @@ class LogsController extends Controller
      * @param  \App\Logs  $logs
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Logs $logs)
+    public function destroy($id)
     {
         abort_unless(\Gate::allows('log_access'), 403);
 
-        $logs->delete();
+        try {
+            Logs::where('id', $id)->delete();
+            Logs::registerLog('Excluiu um log do sistema.');
+            alert()->success('Log excluído com sucesso!')->toToast('top-end');
+        } catch (\Throwable $th) {
+            alert()->error('Este log não pode ser excluído')->toToast('top-end');
+        }
 
         return back();
     }

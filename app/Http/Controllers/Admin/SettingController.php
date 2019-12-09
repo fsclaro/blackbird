@@ -52,10 +52,8 @@ class SettingController extends Controller
         try {
             $setting = Setting::create($request->all());
 
-            alert()->success('Parâmetro criado com sucesso!')->toToast('top-end');
-
             Logs::registerLog('Cadastrou um novo parâmetro do sistema.');
-
+            alert()->success('Parâmetro criado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu um erro. Este registro não foi criado.')->toToast('top-end');
         }
@@ -104,6 +102,7 @@ class SettingController extends Controller
         try {
             $setting->update($request->all());
             $setting->save();
+
             Logs::registerLog('Alterou dados de um parâmetro do sistema.');
             alert()->success('Configuração alterado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
@@ -119,12 +118,13 @@ class SettingController extends Controller
      * @param  \App\Setting  $settings
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Setting $setting)
+    public function destroy($id)
     {
         abort_unless(\Gate::allows('setting_delete'), 403);
 
         try {
-            $setting->delete();
+            Setting::where('id', $id)->delete();
+
             Logs::registerLog('Excluiu um parâmetro do sistema.');
             alert()->success('Configuração excluído com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
@@ -174,6 +174,7 @@ class SettingController extends Controller
 
         if ($errors == 0) {
             $this->updateSession();
+
             alert()->success('Parâmetros atualizados com sucesso!')->toToast('top-end');
             Logs::registerLog('Alterou os valores dos parâmetros do sistema.');
         } else {

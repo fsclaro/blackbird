@@ -36,8 +36,8 @@
                 <div class="form-group {{ $errors->has('permissions') ? 'has-error' : '' }} col-md-12">
                     <label for="permissions">Permissões
                         <span class="text-red">*</span>
-                        <a class="btn btn-flat btn-success btn-sm text-white" id="select-all" onclick="return selectAll();"><i class="fas fa-fx fa-check-double"></i> Selecionar Todas</a>
-                        <a class="btn btn-flat btn-danger btn-sm text-white" id="deselect-all" onclick="return deselectAll();"><i class="fas fa-fx fa-undo"></i> Desmarcar Todas</a>
+                        <a class="btn btn-flat btn-success btn-sm text-white" id="select-all" onclick="return selectAll();"><i class="fas fa-fw fa-check-double"></i> Selecionar Todas</a>
+                        <a class="btn btn-flat btn-danger btn-sm text-white" id="deselect-all" onclick="return deselectAll();"><i class="fas fa-fw fa-undo"></i> Desmarcar Todas</a>
                     </label>
                     <select name="permissions[]" id="permissions" class="select2 form-control" multiple="multiple">
                         @foreach($permissions as $id => $permissions)
@@ -57,8 +57,8 @@
         </div>
 
         <div class="card-footer">
-            <a href="{{ route('admin.roles.index') }}" class="btn btn-flat btn-default"><i class="fas fa-fx fa-reply"></i> Voltar</a>
-            <button type="submit" class="btn btn-flat btn-success"><i class="fas fa-fx fa-save"></i> Salvar</button>
+            <a href="{{ route('admin.roles.index') }}" class="btn btn-flat btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
+            <button type="submit" class="btn btn-flat btn-success"><i class="fas fa-fw fa-save"></i> Salvar</button>
         </div>
     </div>
 </form>

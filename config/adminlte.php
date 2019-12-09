@@ -174,7 +174,7 @@ return [
         // ],
         [
             'text'  => 'Dashboard',
-            'icon'  => 'fas fa-fx fa-tachometer-alt',
+            'icon'  => 'fas fa-fw fa-tachometer-alt',
             'route' => 'home',
         ],
         [
@@ -184,25 +184,25 @@ return [
 
         [
             'text' => 'Gestão de Acesso',
-            'icon' => 'fas fa-fx fa-compass',
+            'icon' => 'fas fa-fw fa-compass',
             'icon_color' => 'yellow',
             'can' => 'access_management',
             'submenu' => [
                 [
                     'text' => 'Usuários',
-                    'icon'    => 'fas fa-fx fa-users',
+                    'icon'    => 'fas fa-fw fa-users',
                     'can'   => 'user_access',
                     'route' => 'admin.users.index',
                 ],
                 [
                     'text'    => 'Papéis',
-                    'icon'    => 'fas fa-fx fa-user-tag',
+                    'icon'    => 'fas fa-fw fa-user-tag',
                     'can'     => 'role_access',
                     'route' => 'admin.roles.index',
                 ],
                 [
                     'text'    => 'Permissões',
-                    'icon'    => 'fas fa-fx fa-key',
+                    'icon'    => 'fas fa-fw fa-key',
                     'can'   => 'permission_access',
                     'route' => 'admin.permissions.index',
                 ],
@@ -210,19 +210,19 @@ return [
         ],
         [
             'text'    => 'Parametrização',
-            'icon'    => 'fas fa-fx fa-cubes',
+            'icon'    => 'fas fa-fw fa-cubes',
             'icon_color' => 'yellow',
             'can'     => 'setting_access',
             'submenu' => [
                 [
                     'text'  => 'Parâmetros',
-                    'icon'  => 'fas fa-fx fa-database',
+                    'icon'  => 'fas fa-fw fa-database',
                     'can'   => 'setting_access',
                     'route' => 'admin.settings.index',
                 ],
                 [
                     'text'  => 'Valores',
-                    'icon'  => 'fas fa-fx fa-bullhorn',
+                    'icon'  => 'fas fa-fw fa-bullhorn',
                     'can'   => 'setting_content',
                     'route' => 'admin.settings.content',
                 ],
@@ -230,26 +230,26 @@ return [
         ],
         [
             'text'    => 'Suporte',
-            'icon'    => 'fas fa-fx fa-user-secret',
+            'icon'    => 'fas fa-fw fa-user-secret',
             'icon_color' => 'yellow',
             'can'     => 'support_access',
             'submenu' => [
                 [
                     'text' => 'Log de Atividades',
-                    'icon' => 'fas fa-fx fa-flag',
+                    'icon' => 'fas fa-fw fa-flag',
                     'can' => 'log_access',
                     'route' => 'admin.logs.index',
                 ],
                 [
                     'text'   => 'Log Viewer',
-                    'icon'   => 'fas fa-fx fa-eye',
+                    'icon'   => 'fas fa-fw fa-eye',
                     'can'    => 'log_viewer_access',
                     'route'  => 'log-viewer::dashboard',
                     'target' => '_blank',
                 ],
                 [
                     'text'   => 'Route Viewer',
-                    'icon'   => 'fas fa-fx fa-eye',
+                    'icon'   => 'fas fa-fw fa-eye',
                     'can'    => 'route_viewer_access',
                     'route'  => 'route-viewer::index',
                     'target' => '_blank',

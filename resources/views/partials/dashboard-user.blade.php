@@ -46,7 +46,7 @@
                     @if(auth()->user()->created_at)
                     <span class="float-right">{{ auth()->user()->created_at->format("d/m/Y") }}</span>
                     @else
-                    <span class="float-right text-red">Não informada</span>
+                    <span class="float-right text-red">Não informado</span>
                     @endif
                 </li>
                 <li class="list-group-item">
@@ -54,7 +54,7 @@
                     @if(auth()->user()->updated_at)
                     <span class="float-right">{{ auth()->user()->updated_at->format("d/m/Y") }}</span>
                     @else
-                    <span class="float-right text-red">Não informada</span>
+                    <span class="float-right text-red">Não informado</span>
                     @endif
                 </li>
             </ul>

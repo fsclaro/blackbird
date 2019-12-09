@@ -1,6 +1,6 @@
 <div class="col-md-3">
     <div class="info-box">
-        <span class="info-box-icon bg-green"><i class="fas fa-fx fa-user-tag"></i></span>
+        <span class="info-box-icon bg-green"><i class="fas fa-fw fa-user-tag"></i></span>
 
         <div class="info-box-content">
             <span class="info-box-text">Nº de Papéis</span>

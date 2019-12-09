@@ -50,7 +50,7 @@
 
                 <tr>
                     <th style="width:18%">Detalhes</th>
-                    <td>{{ $log->details }}</td>
+                    <td>{!! $log->details !!}</td>
                 </tr>
 
 

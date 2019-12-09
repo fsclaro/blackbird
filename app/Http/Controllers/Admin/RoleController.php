@@ -40,7 +40,8 @@ class RoleController extends Controller
             $role = Role::create($request->all());
             $role->permissions()->sync($request->input('permissions', []));
 
-            Logs::registerLog('Cadastrou novo papel no sistema.');
+            $details = Logs::prepareDetails('new', $role);
+            Logs::registerLog('Cadastrou novo papel no sistema.', $details);
             alert()->success('Papel criado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu um erro. Este registro não pode ser criado!')->toToast('top-end');

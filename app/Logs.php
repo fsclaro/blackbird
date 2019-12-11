@@ -55,66 +55,6 @@ class Logs extends Model
         return file_get_contents(env('EXTERNAL_IP'));
     }
 
-    public static function prepareDetails($old = null, $new = null)
-    {
-        $content = null;
-
-        if (null == $new) {
-            foreach ($old->attributes as $key => $value) {
-                $fields[] = [
-                    'field' => $key,
-                    'newValue' => $value,
-                ];
-            }
-            $content = '
-                <table class="table table-striped">
-                    <thead>
-                        <th>Campo</th>
-                        <th>Valor</th>
-                    </thead>
-                    <tbody>';
-            for ($i=0; $i < count($fields); $i++) {
-                $content .= '
-                <tr>
-                    <td>' . $fields[$i]["field"] . '</td>
-                    <td>' . $fields[$i]["newValue"] . '</td>
-                </tr>';
-            }
-            $content .= '
-                    </tbody>
-                </table>
-            ';
-        } else {
-            foreach ($old->attributes as $key => $value) {
-                $fields[] = [
-                    'field' => $key,
-                    'newValue' => $value,
-                ];
-            }
-            $content = '
-                <table class="table table-striped">
-                    <thead>
-                        <th>Campo</th>
-                        <th>Valor</th>
-                    </thead>
-                    <tbody>';
-            for ($i=0; $i < count($fields); $i++) {
-                $content .= '
-                <tr>
-                    <td>' . $fields[$i]["field"] . '</td>
-                    <td>' . $fields[$i]["newValue"] . '</td>
-                </tr>';
-            }
-            $content .= '
-                    </tbody>
-                </table>
-            ';
-
-        }
-
-        return $content;
-    }
-
     public static function registerLog($action = null, $details = null, $url = null)
     {
         $ip = self::getIP();

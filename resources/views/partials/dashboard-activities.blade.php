@@ -39,10 +39,6 @@
                                         <br>
                                         <div class="float-left">
                                             <span>{!! $log->action !!}</span>
-                                            @if($log->details)
-                                            <br>
-                                            <small class="text-muted"><i class="fas fa-history"></i> {!! $log->details !!}</small>
-                                            @endif
                                         </div>
                                         <div class="float-right">
                                             <a href="{{ route('admin.logs.show', $log->id) }}" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>

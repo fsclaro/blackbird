@@ -11,6 +11,7 @@
 <form method="post" action="{{ route('admin.roles.update', [$role->id]) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
+    <input type="hidden" name="id" id="id" value="{{ $role->id }}">
 
     <div class="card">
         <div class="card-header">

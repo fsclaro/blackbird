@@ -45,7 +45,7 @@
 
                 <tr>
                     <th style="width:18%">Ação</th>
-                    <td>{{ $log->action }}</td>
+                    <td>{!! $log->action !!}</td>
                 </tr>
 
                 <tr>

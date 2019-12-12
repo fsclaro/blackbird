@@ -37,7 +37,7 @@
 
             @can('user_create')
             <a class="btn btn-success btn-flat btn-sm" href="{{ route('admin.users.create') }}">
-                <i class="fas fa-plus"></i> Adicionar Novo Usuário
+                <i class="fas fa-plus-circle"></i> Adicionar Novo Usuário
             </a>
             @endcan
         </div>
@@ -55,7 +55,6 @@
                         <th>Email</th>
                         <th>Papéis</th>
                         <th>Ativo?</th>
-                        <th>Foto</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -72,6 +71,16 @@
                             {{ $user->id }}
                         </td>
                         <td>
+                            @if($user->getAvatar($user->id))
+                            <img src="{{ $user->getAvatar($user->id) }}" width="30px" class="img-circle" alt="User Image">
+                            @else
+                            @if (Gravatar::exists($user->email))
+                            <img src="{{ Gravatar::get($user->email) }}" class="img-circle" width="30px" alt="User Image">
+                            @else
+                            <img src="{{ asset('img/avatar/no-photo.png') }}" width="30px" class="img-circle" alt="User Image">
+                            @endif
+                            @endif
+
                             {{ $user->name }}
                         </td>
                         <td>
@@ -89,17 +98,6 @@
                             <span class="badge badge-success">Sim</span>
                             @else
                             <span class="badge badge-danger">Não</span>
-                            @endif
-                        </td>
-                        <td>
-                            @if($user->getAvatar($user->id))
-                            <img src="{{ $user->getAvatar($user->id) }}" width="30px" class="img-circle" alt="User Image">
-                            @else
-                            @if (Gravatar::exists($user->email))
-                            <img src="{{ Gravatar::get($user->email) }}" class="img-circle" width="30px" alt="User Image">
-                            @else
-                            <img src="{{ asset('img/avatar/no-photo.png') }}" width="30px" class="img-circle" alt="User Image">
-                            @endif
                             @endif
                         </td>
 
@@ -162,10 +160,6 @@
                 null, // email
                 null, // papéis
                 null, // ativo
-                {
-                    orderable: false,
-                    searchable: false,
-                }, // avatar
                 {
                     orderable: false,
                     searchable: false,

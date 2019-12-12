@@ -22,7 +22,7 @@
 
             @can('permission_create')
             <a class="btn btn-flat btn-success btn-sm" href="{{ route('admin.permissions.create') }}">
-                <i class="fas fa-plus"></i> Adicionar Nova Permissão
+                <i class="fas fa-plus-circle"></i> Adicionar Nova Permissão
             </a>
             @endcan
         </div>

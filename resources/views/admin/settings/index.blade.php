@@ -23,7 +23,7 @@
 
             @can('setting_create')
             <a class="btn btn-success btn-flat btn-sm" href="{{ route('admin.settings.create') }}">
-                <i class="fas fa-plus"></i> Adicionar Novo Parâmetro
+                <i class="fas fa-plus-circle"></i> Adicionar Novo Parâmetro
             </a>
             @endcan
         </div>

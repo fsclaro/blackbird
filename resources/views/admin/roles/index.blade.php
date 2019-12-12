@@ -35,7 +35,7 @@
 
             @can('role_create')
             <a class="btn btn-flat btn-success btn-sm" href="{{ route('admin.roles.create') }}">
-                <i class="fas fa-plus"></i> Adicionar Novo Papel
+                <i class="fas fa-plus-circle"></i> Adicionar Novo Papel
             </a>
             @endcan
         </div>

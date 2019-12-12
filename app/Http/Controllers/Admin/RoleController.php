@@ -219,19 +219,19 @@ class RoleController extends Controller
      * prepara a linha de detalhes do registro na inclusão
      * =================================================================
      *
-     * @param [type] $newRole
+     * @param array $new
      * @return void
      */
-    public function prepareDetailsNew($newRole)
+    public function prepareDetailsNew($new)
     {
         $content = '';
-        $permissions = $newRole->permissions;
+        $permissions = $new->permissions;
         for ($i = 0; $i < count($permissions); ++$i) {
             $content .= "<span class='badge badge-primary'>".$permissions[$i]->title.'</span> ';
         }
 
-        $fields[] = ['field' => 'ID', 'value' => $newRole->id];
-        $fields[] = ['field' => 'Descrição do Papel', 'value' => $newRole->title];
+        $fields[] = ['field' => 'ID', 'value' => $new->id];
+        $fields[] = ['field' => 'Descrição do Papel', 'value' => $new->title];
         $fields[] = ['field' => 'Permissões', 'value' => $content];
 
         $content = '
@@ -261,39 +261,27 @@ class RoleController extends Controller
      * prepara a linha de detalhes do registro na operação de alteração
      * =================================================================
      *
-     * @param [type] $oldRole
-     * @param [type] $newRole
+     * @param array $old
+     * @param array $new
      * @return void
      */
-    public function prepareDetailsUpdate($oldRole, $newRole)
+    public function prepareDetailsUpdate($old, $new)
     {
         $oldContent = '';
         $newContent = '';
-        $oldPermissions = $oldRole->permissions;
+        $oldPermissions = $old->permissions;
         for ($i = 0; $i < count($oldPermissions); ++$i) {
             $oldContent .= "<span class='badge badge-primary'>".$oldPermissions[$i]->title.'</span> ';
         }
 
-        $newPermissions = $newRole->permissions;
+        $newPermissions = $new->permissions;
         for ($i = 0; $i < count($newPermissions); ++$i) {
             $newContent .= "<span class='badge badge-primary'>".$newPermissions[$i]->title.'</span> ';
         }
 
-        $fields[] = [
-            'field' => 'ID',
-            'oldvalue' => $oldRole->id,
-            'newvalue' => $newRole->id,
-        ];
-        $fields[] = [
-            'field' => 'Descrição do Papel',
-            'oldvalue' => $oldRole->title,
-            'newvalue' => $newRole->title,
-        ];
-        $fields[] = [
-            'field' => 'Permissões',
-            'oldvalue' => $oldContent,
-            'newvalue' => $newContent,
-        ];
+        $fields[] = [ 'field' => 'ID', 'oldvalue' => $old->id, 'newvalue' => $new->id ];
+        $fields[] = [ 'field' => 'Descrição do Papel', 'oldvalue' => $old->title, 'newvalue' => $new->title ];
+        $fields[] = [ 'field' => 'Permissões', 'oldvalue' => $oldContent, 'newvalue' => $newContent ];
 
         $content = '
             <table class="table table-striped" width="100%">
@@ -325,7 +313,7 @@ class RoleController extends Controller
      * salva numa session os dados do registro atual
      * =================================================================
      *
-     * @param [type] $role
+     * @param array $role
      * @return void
      */
     private function saveRole($role)

@@ -52,7 +52,9 @@ class SettingController extends Controller
         try {
             $setting = Setting::create($request->all());
 
-            Logs::registerLog('Cadastrou um novo parâmetro do sistema.');
+            $details = $this->prepareDetailsNew($setting);
+
+            Logs::registerLog('Cadastrou um novo parâmetro do sistema.', $details);
             alert()->success('Parâmetro criado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu um erro. Este registro não foi criado.')->toToast('top-end');
@@ -85,6 +87,8 @@ class SettingController extends Controller
     {
         abort_unless(\Gate::allows('setting_edit'), 403);
 
+        $this->saveSetting($setting);
+
         return view('admin.settings.edit', compact('setting'));
     }
 
@@ -103,7 +107,8 @@ class SettingController extends Controller
             $setting->update($request->all());
             $setting->save();
 
-            Logs::registerLog('Alterou dados de um parâmetro do sistema.');
+            $details = $this->prepareDetailsUpdate($this->getSetting(), $setting);
+            Logs::registerLog('Alterou dados de um parâmetro do sistema.', $details);
             alert()->success('Configuração alterado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu um erro. As alterações não foram salvas')->toToast('top-end');
@@ -191,5 +196,123 @@ class SettingController extends Controller
         foreach ($settings as $setting) {
             Session::put($setting->name, $setting->content);
         }
+    }
+
+
+        /**
+     * =================================================================
+     * prepara a linha de detalhes do registro na inclusão
+     * =================================================================
+     *
+     * @param array $new
+     * @return void
+     */
+    public function prepareDetailsNew($new)
+    {
+        $content = '';
+
+        $fields[] = ['field' => 'ID', 'value' => $new->id];
+        $fields[] = ['field' => 'Descrição do Parâmetro', 'value' => $new->description];
+        $fields[] = ['field' => 'Slug', 'value' => $new->name];
+        $fields[] = ['field' => 'Tipo de Parâmetro', 'value' => $new->type];
+        $fields[] = ['field' => 'Radio / Seleção', 'value' => $new->dataenum];
+        $fields[] = ['field' => 'Texto de Ajuda', 'value' => $new->helper];
+        $fields[] = ['field' => 'Conteúdo', 'value' => $new->content];
+
+        $content = '
+            <table class="table table-striped" width="100%">
+                <thead class="thead-light">
+                    <th>Campo</th>
+                    <th>Valor</th>
+                </thead>
+                <tbody>';
+        for ($i = 0; $i < count($fields); ++$i) {
+            $content .= '
+            <tr>
+                <td>'.$fields[$i]['field'].'</td>
+                <td>'.$fields[$i]['value'].'</td>
+            </tr>';
+        }
+        $content .= '
+                </tbody>
+            </table>
+        ';
+
+        return $content;
+    }
+
+    /**
+     * =================================================================
+     * prepara a linha de detalhes do registro na operação de alteração
+     * =================================================================
+     *
+     * @param array $old
+     * @param array $new
+     * @return void
+     */
+    public function prepareDetailsUpdate($old, $new)
+    {
+        $oldContent = '';
+        $newContent = '';
+
+        $fields[] = ['field' => 'ID', 'oldvalue' => $old->id, 'newvalue' => $new->id];
+        $fields[] = ['field' => 'Descrição do Parâmetro', 'oldvalue' => $old->description, 'newvalue' => $new->description];
+        $fields[] = ['field' => 'Slug', 'oldvalue' => $old->name, 'newvalue' => $new->name];
+        $fields[] = ['field' => 'Tipo de Parâmetro', 'oldvalue' => $old->type, 'newvalue' => $new->type];
+        $fields[] = ['field' => 'Radio / Seleção', 'oldvalue' => $old->dataenum, 'newvalue' => $new->dataenum];
+        $fields[] = ['field' => 'Texto de Ajuda', 'oldvalue' => $old->helder, 'newvalue' => $new->helper];
+        $fields[] = ['field' => 'Conteúdo', 'oldvalue' => $old->content, 'newvalue' => $new->content];
+
+        $content = '
+            <table class="table table-striped" width="100%">
+                <thead class="thead-light">
+                    <th>Campo</th>
+                    <th>Valor Anterior</th>
+                    <th>Valor Novo</th>
+                </thead>
+                <tbody>';
+
+        for ($i = 0; $i < count($fields); ++$i) {
+            $content .= '
+            <tr>
+                <td>'.$fields[$i]['field'].'</td>
+                <td>'.$fields[$i]['oldvalue'].'</td>
+                <td>'.$fields[$i]['newvalue'].'</td>
+            </tr>';
+        }
+        $content .= '
+                </tbody>
+            </table>
+        ';
+
+        return $content;
+    }
+
+    /**
+     * =================================================================
+     * salva numa session os dados do registro atual
+     * =================================================================
+     *
+     * @param array $setting
+     * @return void
+     */
+    private function saveSetting($setting)
+    {
+        Session::put('setting', $setting);
+    }
+
+    /**
+     * =================================================================
+     * recupera os dados salvos do registro atual
+     * =================================================================
+     *
+     * @return void
+     */
+    private function getSetting()
+    {
+        $r = Session::get('setting');
+        Session::forget('setting');
+
+        return $r;
     }
 }

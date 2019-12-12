@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UpdateProfileUserRequest;
+use Session;
 
 class UserController extends Controller
 {
@@ -72,11 +73,13 @@ class UserController extends Controller
             $user = User::create($request->all());
             $user->roles()->sync($request->input('roles', []));
 
+            $details = $this->prepareDetailsNew($user);
+
             if (isset($request['avatar'])) {
                 $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
             }
 
-            Logs::registerLog('Cadastrou o usuário ' . $user->name . ' no sistema.');
+            Logs::registerLog('Cadastrou o usuário ' . $user->name . ' no sistema.', $details);
             alert()->success('Usuário criado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu algum problema na inclusão deste usuário!')->toToast('top-end');
@@ -100,6 +103,7 @@ class UserController extends Controller
 
         $user->load('roles');
         $skins = $this->skins;
+        $this->saveUser($user);
 
         return view('admin.users.edit', compact('roles', 'user', 'skins'));
     }
@@ -122,7 +126,9 @@ class UserController extends Controller
 
             $this->storeAvatar($request, $user);
 
-            Logs::registerLog('Atualizou os dados do usuário ' . $user->name);
+            $details = $this->prepareDetailsUpdate($this->getUser(), $user);
+
+            Logs::registerLog('Atualizou os dados do usuário ' . $user->name, $details);
             alert()->success('Dados do usuário alterado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Houve algum problema na alteração deste usuário!')->toToast('top-end');
@@ -322,4 +328,132 @@ class UserController extends Controller
             }
         }
     }
+
+    /**
+     * =================================================================
+     * prepara a linha de detalhes do registro na inclusão
+     * =================================================================
+     *
+     * @param array $new
+     * @return void
+     */
+    public function prepareDetailsNew($new)
+    {
+        $content = '';
+        $roles = $new->roles;
+        for ($i = 0; $i < count($roles); ++$i) {
+            $content .= "<span class='badge badge-primary'>".$roles[$i]->title.'</span> ';
+        }
+
+        $fields[] = [ 'field' => 'ID', 'value' => $new->id ];
+        $fields[] = [ 'field' => 'Nome do Usuário', 'value' => $new->name ];
+        $fields[] = [ 'field' => 'Email', 'value' => $new->email ];
+        $fields[] = [ 'field' => 'Usuário Ativo?', 'value' => ($new->active == 1) ? "Sim" : "Não" ];
+        $fields[] = [ 'field' => 'Papéis', 'value' => $content ];
+
+        $content = '
+            <table class="table table-striped" width="100%">
+                <thead class="thead-light">
+                    <th>Campo</th>
+                    <th>Valor</th>
+                </thead>
+                <tbody>';
+        for ($i = 0; $i < count($fields); ++$i) {
+            $content .= '
+            <tr>
+                <td>'.$fields[$i]['field'].'</td>
+                <td>'.$fields[$i]['value'].'</td>
+            </tr>';
+        }
+        $content .= '
+                </tbody>
+            </table>
+        ';
+
+        return $content;
+    }
+
+    /**
+     * =================================================================
+     * prepara a linha de detalhes do registro na operação de alteração
+     * =================================================================
+     *
+     * @param array $old
+     * @param array $new
+     * @return void
+     */
+    public function prepareDetailsUpdate($old, $new)
+    {
+        $oldContent = '';
+        $newContent = '';
+        $oldRoles = $old->roles;
+        for ($i = 0; $i < count($oldRoles); ++$i) {
+            $oldContent .= "<span class='badge badge-primary'>".$oldRoles[$i]->title.'</span> ';
+        }
+
+        $newRoles = $new->roles;
+        for ($i = 0; $i < count($newRoles); ++$i) {
+            $newContent .= "<span class='badge badge-primary'>".$newRoles[$i]->title.'</span> ';
+        }
+
+
+        $fields[] = [ 'field' => 'ID', 'oldvalue' => $old->id, 'newvalue' => $new->id ];
+        $fields[] = [ 'field' => 'Nome do Usuário', 'oldvalue' => $old->name, 'newvalue' => $new->name ];
+        $fields[] = [ 'field' => 'Email', 'oldvalue' => $old->email, 'newvalue' => $new->email ];
+        $fields[] = [ 'field' => 'Usuário Ativo?', 'oldvalue' => ($old->active == 1) ? "Sim" : "Não" , 'newvalue' => ($new->active == 1) ? "Sim" : "Não" ];
+        $fields[] = [ 'field' => 'Papéis', 'oldvalue' => $oldContent, 'newvalue' => $newContent ];
+
+        $content = '
+            <table class="table table-striped" width="100%">
+                <thead class="thead-light">
+                    <th>Campo</th>
+                    <th>Valor Anterior</th>
+                    <th>Valor Novo</th>
+                </thead>
+                <tbody>';
+
+        for ($i = 0; $i < count($fields); ++$i) {
+            $content .= '
+            <tr>
+                <td>'.$fields[$i]['field'].'</td>
+                <td>'.$fields[$i]['oldvalue'].'</td>
+                <td>'.$fields[$i]['newvalue'].'</td>
+            </tr>';
+        }
+        $content .= '
+                </tbody>
+            </table>
+        ';
+
+        return $content;
+    }
+
+    /**
+     * =================================================================
+     * salva numa session os dados do registro atual
+     * =================================================================
+     *
+     * @param array $user
+     * @return void
+     */
+    private function saveUser($user)
+    {
+        Session::put('user', $user);
+    }
+
+    /**
+     * =================================================================
+     * recupera os dados salvos do registro atual
+     * =================================================================
+     *
+     * @return void
+     */
+    private function getUser()
+    {
+        $r = Session::get('user');
+        Session::forget('user');
+
+        return $r;
+    }
+
 }

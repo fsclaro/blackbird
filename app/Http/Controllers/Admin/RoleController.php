@@ -64,9 +64,9 @@ class RoleController extends Controller
 
             $details = $this->prepareDetailsNew($role);
             Logs::registerLog('Cadastrou novo papel no sistema.', $details);
-            toast('Papel criado com sucesso!', 'success');
+            alert()->success('Papel criado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
-            toast('Ocorreu um erro. Este registro não pode ser criado!', 'error');
+            alert()->error('Ocorreu um erro. Este registro não pode ser criado!')->toToast('top-end');
         }
 
         return redirect()->route('admin.roles.index');

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Logs;
+use Session;
 
 class PermissionController extends Controller
 {
@@ -34,7 +35,8 @@ class PermissionController extends Controller
         try {
             $permission = Permission::create($request->all());
 
-            Logs::registerLog('Cadastrou uma nova permissão no sistema.');
+            $details = $this->prepareDetailsNew($permission);
+            Logs::registerLog('Cadastrou uma nova permissão no sistema.', $details);
             alert()->success('Permissão criada com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu um erro. Este registro não pode ser criado!')->toToast('top-end');
@@ -54,6 +56,8 @@ class PermissionController extends Controller
     {
         abort_unless(\Gate::allows('permission_edit'), 403);
 
+        $this->savePermission($permission);
+
         return view('admin.permissions.edit', compact('permission'));
     }
 
@@ -63,9 +67,11 @@ class PermissionController extends Controller
 
         try {
             $permission->update($request->all());
-            $permission->save();
+//            $permission->save();
 
-            Logs::registerLog('Alterou dados de uma permissão do sistema.');
+            $details = $this->prepareDetailsUpdate($this->getPermission(), $permission);
+
+            Logs::registerLog('Alterou dados de uma permissão do sistema.', $details);
             alert()->success('Permissão alterada com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu um erro. Este registro não pode ser alterado!')->toToast('top-end');
@@ -88,5 +94,104 @@ class PermissionController extends Controller
         }
 
         return back();
+    }
+
+    public function prepareDetailsNew($newData)
+    {
+        $content = '';
+
+        $fields[] = ['field' => 'ID', 'value' => $newData->id];
+        $fields[] = ['field' => 'Descrição da Permissão', 'value' => $newData->title];
+        $fields[] = ['field' => 'Slug', 'value' => $newData->slug];
+
+        $content = '
+            <table class="table table-striped" width="100%">
+                <thead class="thead-light">
+                    <th>Campo</th>
+                    <th>Valor</th>
+                </thead>
+                <tbody>';
+        for ($i = 0; $i < count($fields); ++$i) {
+            $content .= '
+            <tr>
+                <td>' . $fields[$i]['field'] . '</td>
+                <td>' . $fields[$i]['value'] . '</td>
+            </tr>';
+        }
+        $content .= '
+                </tbody>
+            </table>
+        ';
+
+        return $content;
+    }
+
+    /**
+     * =================================================================
+     * prepara a linha de detalhes do registro na operação de alteração
+     * =================================================================
+     *
+     * @param [type] $oldData
+     * @param [type] $newData
+     * @return void
+     */
+    public function prepareDetailsUpdate($oldData, $newData)
+    {
+
+        $fields[] = [ 'field' => 'ID', 'oldvalue' => $oldData->id, 'newvalue' => $newData->id ];
+        $fields[] = [ 'field' => 'Descrição da Permissão', 'oldvalue' => $oldData->title, 'newvalue' => $newData->title ];
+        $fields[] = [ 'field' => 'Slug', 'oldvalue' => $oldData->slug, 'newvalue' => $newData->slug ];
+
+        $content = '
+            <table class="table table-striped" width="100%">
+                <thead class="thead-light">
+                    <th>Campo</th>
+                    <th>Valor Anterior</th>
+                    <th>Valor Novo</th>
+                </thead>
+                <tbody>';
+
+        for ($i = 0; $i < count($fields); ++$i) {
+            $content .= '
+            <tr>
+                <td>' . $fields[$i]['field'] . '</td>
+                <td>' . $fields[$i]['oldvalue'] . '</td>
+                <td>' . $fields[$i]['newvalue'] . '</td>
+            </tr>';
+        }
+        $content .= '
+                </tbody>
+            </table>
+        ';
+
+        return $content;
+    }
+
+    /**
+     * =================================================================
+     * salva numa session os dados do registro atual
+     * =================================================================
+     *
+     * @param [type] $permission
+     * @return void
+     */
+    private function savePermission($permission)
+    {
+        Session::put('permission', $permission);
+    }
+
+    /**
+     * =================================================================
+     * recupera os dados salvos do registro atual
+     * =================================================================
+     *
+     * @return void
+     */
+    private function getPermission()
+    {
+        $r = Session::get('permission');
+        Session::forget('permission');
+
+        return $r;
     }
 }

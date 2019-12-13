@@ -74,8 +74,11 @@ class LoginController extends Controller
             // Carrega para a Sessão os valores da tabela de parâmetros
             $this->loadSettings();
             Logs::registerLog('Fez <span class="text-red text-bold">login</span> no sistema');
-            toast("<span class='text-blue'>" . $user->name . "</span>, você está logado no sistema.", "success")
-                ->autoClose(2500)->toHtml();
+            alert()
+                ->success("<span class='text-blue'>" . $user->name . "</span>, você está logado no sistema.")
+                ->toToast('top-end')
+                ->autoClose(2500)
+                ->toHtml();
 
             return $this->sendLoginResponse($request);
         }

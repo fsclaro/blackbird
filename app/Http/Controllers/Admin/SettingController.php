@@ -105,7 +105,7 @@ class SettingController extends Controller
 
         try {
             $setting->update($request->all());
-            $setting->save();
+//            $setting->save();
 
             $details = $this->prepareDetailsUpdate($this->getSetting(), $setting);
             Logs::registerLog('Alterou dados de um parâmetro do sistema.', $details);
@@ -144,6 +144,8 @@ class SettingController extends Controller
         abort_unless(\Gate::allows('setting_content'), 403);
 
         $settings = Setting::all();
+        $this->saveSetting($settings);
+
 
         return view('admin.settings.content', compact('settings'));
     }
@@ -180,8 +182,9 @@ class SettingController extends Controller
         if ($errors == 0) {
             $this->updateSession();
 
+            $details = $this->prepareDetailsUpdateContent($this->getSetting(), $fields);
             alert()->success('Parâmetros atualizados com sucesso!')->toToast('top-end');
-            Logs::registerLog('Alterou os valores dos parâmetros do sistema.');
+            Logs::registerLog('Alterou os valores dos parâmetros do sistema.', $details);
         } else {
             alert()->error('Algum Parâmetro não pôde ser atualizado')->toToast('top-end');
         }
@@ -252,9 +255,6 @@ class SettingController extends Controller
      */
     public function prepareDetailsUpdate($old, $new)
     {
-        $oldContent = '';
-        $newContent = '';
-
         $fields[] = ['field' => 'ID', 'oldvalue' => $old->id, 'newvalue' => $new->id];
         $fields[] = ['field' => 'Descrição do Parâmetro', 'oldvalue' => $old->description, 'newvalue' => $new->description];
         $fields[] = ['field' => 'Slug', 'oldvalue' => $old->name, 'newvalue' => $new->name];
@@ -287,6 +287,62 @@ class SettingController extends Controller
 
         return $content;
     }
+
+    /**
+     * =================================================================
+     * prepara a linha de detalhes do registro na operação de alteração
+     * =================================================================
+     *
+     * @param array $old
+     * @param array $new
+     * @return void
+     */
+    public function prepareDetailsUpdateContent($old, $new)
+    {
+        // converte em array
+        foreach ($old as $key => $value) {
+            $oldFields[] = [
+                'name' => $value->name,
+                'value' => $value->content
+            ];
+        };
+
+        // remove o campo _token do array
+        $new = array_splice($new, 1);
+
+        for ($i=0; $i < count($new); $i++) {
+            $fields[] = [
+                'field' => $oldFields[$i]["name"],
+                'oldvalue' => $oldFields[$i]["value"],
+                'newvalue' => $new[$i]["content"]
+            ];
+        }
+
+        $content = '
+            <table class="table table-striped" width="100%">
+                <thead class="thead-light">
+                    <th>Campo</th>
+                    <th>Valor Anterior</th>
+                    <th>Valor Novo</th>
+                </thead>
+                <tbody>';
+
+        for ($i = 0; $i < count($fields); ++$i) {
+            $content .= '
+            <tr>
+                <td>'.$fields[$i]['field'].'</td>
+                <td>'.$fields[$i]['oldvalue'].'</td>
+                <td>'.$fields[$i]['newvalue'].'</td>
+            </tr>';
+        }
+        $content .= '
+                </tbody>
+            </table>
+        ';
+
+        return $content;
+    }
+
 
     /**
      * =================================================================

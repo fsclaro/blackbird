@@ -24,9 +24,6 @@
         @widget('SettingsCount')
     </div>
 
-    <div class="row">
-        @widget('LogsCount')
-    </div>
     @include("partials.dashboard-profile")
 
 </div>

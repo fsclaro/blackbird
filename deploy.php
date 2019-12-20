@@ -14,6 +14,7 @@ set('keep_releases', 3);
 set('default_timeout', 3600);
 set('timezone', 'America/Sao_Paulo');
 
+// cd /home/nandosal/www && (/usr/bin/git clone -b master --depth 1 --recursive  git@github.com:fsclaro/blackbird.git /home/nandosal/www/releases/1 2>&1)
 // Laravel shared dirs
 set('shared_dirs', [
     'storage',

@@ -61,5 +61,19 @@ Route::group(
 
         /* Rotas da tabela de logs de atividades */
         Route::resource('logs', 'LogsController')->except(['create', 'edit','update', 'store']);
+
+    }
+);
+
+Route::group(
+    [
+        'prefix'     => 'api',
+        'as'         => 'api.',
+        'namespace'  => 'Api',
+        'middleware' => ['auth'],
+    ],
+    function () {
+        /* Rota para rotinas diversas */
+        Route::get('phpinfo', 'HelpersController@show_phpinfo')->name('phpinfo');
     }
 );

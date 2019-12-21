@@ -254,6 +254,13 @@ return [
                     'route'  => 'route-viewer::index',
                     'target' => '_blank',
                 ],
+                [
+                    'text'   => 'PHPInfo',
+                    'icon'   => 'fas fa-fw fa-info',
+                    'can'    => 'phpinfo_viewer',
+                    'route'  => 'api.phpinfo',
+                    'target' => '_blank',
+                ],
             ],
         ],
     ],

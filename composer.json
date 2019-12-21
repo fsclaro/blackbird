@@ -16,6 +16,7 @@
         "davejamesmiller/laravel-breadcrumbs": "^5.3",
         "fideloper/proxy": "^4.0",
         "jeroennoten/laravel-adminlte": "^3.0",
+        "laravel/envoy": "^1.6",
         "laravel/framework": "^6.2",
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^1.0",

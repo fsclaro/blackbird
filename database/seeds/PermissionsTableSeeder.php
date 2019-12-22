@@ -50,14 +50,13 @@ class PermissionsTableSeeder extends Seeder
         Permission::insert(['title' => 'Definir valores das configurações', 'slug' => 'setting_content']);
 
         // Logs
+        Permission::insert(['title' => 'Acessar log de atividades', 'slug' => 'log_access']);
+        Permission::insert(['title' => 'Acessar Log-Viewer', 'slug' => 'log_viewer_access']);
         Permission::insert(['title' => 'Excluir log do sistema', 'slug' => 'log_delete']);
         Permission::insert(['title' => 'Exibir log do sistema', 'slug' => 'log_show']);
-        Permission::insert(['title' => 'Excluir log do sistema', 'slug' => 'log_delete']);
 
         // Área de suporte
         Permission::insert(['title' => 'Acessar área de suporte', 'slug' => 'support_access']);
-        Permission::insert(['title' => 'Acessar log de atividades', 'slug' => 'log_access']);
-        Permission::insert(['title' => 'Acessar Log-Viewer', 'slug' => 'log_viewer_access']);
         Permission::insert(['title' => 'Acessar Route-Viewer', 'slug' => 'route_viewer_access']);
         Permission::insert(['title' => 'Exibir PHPInfo', 'slug' => 'phpinfo_viewer']);
 

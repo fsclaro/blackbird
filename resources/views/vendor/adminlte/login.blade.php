@@ -7,9 +7,18 @@
 @section('adminlte_css')
     @stack('css')
     @yield('css')
+
+    <style type="text/css">
+        .background-page {
+            background: #cfcfcf url({{ asset('/img/background/background01.jpg') }});
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
 @stop
 
-@section('classes_body', 'login-page')
+@section('classes_body', 'background-page login-page ')
 
 @php( $login_url = View::getSection('login_url') ?? config('adminlte.login_url', 'login') )
 @php( $register_url = View::getSection('register_url') ?? config('adminlte.register_url', 'register') )
@@ -30,11 +39,11 @@
 
 @section('body')
     <div class="login-box">
-        <div class="login-logo">
-            <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
-        </div>
         <div class="card">
             <div class="card-body login-card-body">
+                <div class="login-logo">
+                    <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
+                </div>
                 <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }}</p>
                 <form action="{{ $login_url }}" method="post">
                     {{ csrf_field() }}

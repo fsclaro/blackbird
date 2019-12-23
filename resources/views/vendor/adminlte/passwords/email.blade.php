@@ -19,11 +19,11 @@
 
 @section('body')
     <div class="login-box">
-        <div class="login-logo">
-            <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
-        </div>
         <div class="card">
             <div class="card-body login-card-body">
+                <div class="login-logo">
+                    <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
+                </div>
                 <p class="login-box-msg">{{ __('adminlte::adminlte.password_reset_message') }}</p>
                 @if (session('status'))
                     <div class="alert alert-success">

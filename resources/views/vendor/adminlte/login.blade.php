@@ -1,3 +1,5 @@
+{{ App\Helpers\AppSession::getSession() }}
+
 @extends('adminlte::master')
 
 @section('adminlte_css_pre')
@@ -9,12 +11,30 @@
     @yield('css')
 
     <style type="text/css">
-        .background-page {
-            background: #cfcfcf url({{ asset('/img/background/background01.jpg') }});
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-        }
+    .background-page {
+        background: #cfcfcf url({{ asset('/img/background/background01.jpg') }});
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .footer-page {
+        background-color:rgba(0,0,0,0.5);
+        border-top: solid 1px #424242;
+        color: #acacac;
+        left: 0px;
+        right: 0px;
+        margin-left: auto;
+        margin-right: auto;
+        bottom: 0px;
+        position: fixed;
+        padding-top:15px;
+        padding-bottom: 15px;
+        padding-left: 7px;
+        padding-right: 7px;
+        border-top: 1px solid #d2d6de;
+        height: 55px;
+    }
     </style>
 @stop
 
@@ -87,8 +107,8 @@
                         </div>
                     </div>
                 </form>
-                <p class="mt-2 mb-1">
-                    <a href="{{ $password_reset_url }}">
+                <p class="mt-2 mb-1 text-center">
+                    <a  href="{{ $password_reset_url }}">
                         {{ __('adminlte::adminlte.i_forgot_my_password') }}
                     </a>
                 </p>
@@ -102,6 +122,26 @@
             </div>
         </div>
     </div>
+
+    <footer class="footer-page">
+        @if(Session::get('footer_left'))
+        {!! Session::get('footer_left') !!}
+        @else
+        <span>
+            Copyright © 2019 by <a href="https://github.com/fsclaro/blackbird">
+            <span class="text-bold">Black</span>bird</a>.
+        </span> Todos os direitos reservados.
+        @endif
+        <!-- right side -->
+        <div class="float-right hidden-xs">
+        @if(\Session::get('footer_right'))
+            {!! Session::get('footer_right') !!}
+        @else
+            <b>Versão: </b>1.0.0
+        @endif
+        </div>
+    </footer>
+
 @stop
 
 @section('adminlte_js')

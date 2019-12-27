@@ -60,8 +60,7 @@ Route::group(
         Route::resource('settings', 'SettingController');
 
         /* Rotas da tabela de logs de atividades */
-        Route::resource('logs', 'LogsController')->except(['create', 'edit','update', 'store']);
-
+        Route::resource('logs', 'LogsController')->except(['create', 'edit', 'update', 'store']);
     }
 );
 

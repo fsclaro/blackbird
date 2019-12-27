@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use Gate;
+use Session;
+use App\Logs;
 use App\Permission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
-use App\Logs;
-use Session;
 
 class PermissionController extends Controller
 {
@@ -111,11 +111,11 @@ class PermissionController extends Controller
                     <th>Valor</th>
                 </thead>
                 <tbody>';
-        for ($i = 0; $i < count($fields); ++$i) {
+        for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
-                <td>' . $fields[$i]['field'] . '</td>
-                <td>' . $fields[$i]['value'] . '</td>
+                <td>'.$fields[$i]['field'].'</td>
+                <td>'.$fields[$i]['value'].'</td>
             </tr>';
         }
         $content .= '
@@ -129,7 +129,7 @@ class PermissionController extends Controller
     /**
      * =================================================================
      * prepara a linha de detalhes do registro na operação de alteração
-     * =================================================================
+     * =================================================================.
      *
      * @param [type] $oldData
      * @param [type] $newData
@@ -137,10 +137,9 @@ class PermissionController extends Controller
      */
     public function prepareDetailsUpdate($oldData, $newData)
     {
-
-        $fields[] = [ 'field' => 'ID', 'oldvalue' => $oldData->id, 'newvalue' => $newData->id ];
-        $fields[] = [ 'field' => 'Descrição da Permissão', 'oldvalue' => $oldData->title, 'newvalue' => $newData->title ];
-        $fields[] = [ 'field' => 'Slug', 'oldvalue' => $oldData->slug, 'newvalue' => $newData->slug ];
+        $fields[] = ['field' => 'ID', 'oldvalue' => $oldData->id, 'newvalue' => $newData->id];
+        $fields[] = ['field' => 'Descrição da Permissão', 'oldvalue' => $oldData->title, 'newvalue' => $newData->title];
+        $fields[] = ['field' => 'Slug', 'oldvalue' => $oldData->slug, 'newvalue' => $newData->slug];
 
         $content = '
             <table class="table table-striped" width="100%">
@@ -151,12 +150,12 @@ class PermissionController extends Controller
                 </thead>
                 <tbody>';
 
-        for ($i = 0; $i < count($fields); ++$i) {
+        for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
-                <td>' . $fields[$i]['field'] . '</td>
-                <td>' . $fields[$i]['oldvalue'] . '</td>
-                <td>' . $fields[$i]['newvalue'] . '</td>
+                <td>'.$fields[$i]['field'].'</td>
+                <td>'.$fields[$i]['oldvalue'].'</td>
+                <td>'.$fields[$i]['newvalue'].'</td>
             </tr>';
         }
         $content .= '
@@ -170,7 +169,7 @@ class PermissionController extends Controller
     /**
      * =================================================================
      * salva numa session os dados do registro atual
-     * =================================================================
+     * =================================================================.
      *
      * @param [type] $permission
      * @return void
@@ -183,7 +182,7 @@ class PermissionController extends Controller
     /**
      * =================================================================
      * recupera os dados salvos do registro atual
-     * =================================================================
+     * =================================================================.
      *
      * @return void
      */

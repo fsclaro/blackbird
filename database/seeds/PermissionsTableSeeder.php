@@ -59,6 +59,5 @@ class PermissionsTableSeeder extends Seeder
         Permission::insert(['title' => 'Acessar área de suporte', 'slug' => 'support_access']);
         Permission::insert(['title' => 'Acessar Route-Viewer', 'slug' => 'route_viewer_access']);
         Permission::insert(['title' => 'Exibir PHPInfo', 'slug' => 'phpinfo_viewer']);
-
     }
 }

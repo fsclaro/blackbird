@@ -45,10 +45,11 @@ class User extends Authenticatable implements HasMedia
         'email_verified_at' => 'datetime',
     ];
 
-    public function logs() {
+    public function logs()
+    {
         return $this->hasMany('App\Logs');
     }
-    
+
     public function identities()
     {
         return $this->hasMany('App\SocialIdentity');
@@ -95,19 +96,20 @@ class User extends Authenticatable implements HasMedia
         return Auth::user()->id;
     }
 
-    public function myName() {
+    public function myName()
+    {
         return Auth::user()->name;
     }
 
-    public function myEmail() {
+    public function myEmail()
+    {
         return Auth::user()->email;
     }
 
-    public function numRoles() {
+    public function numRoles()
+    {
         return Auth::user()->roles->count();
     }
-
-
 
     public function getEmailVerifiedAtAttribute($value)
     {

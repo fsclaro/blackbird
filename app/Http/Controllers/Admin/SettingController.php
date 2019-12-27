@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Gate;
 use Session;
+use App\Logs;
 use App\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSettingRequest;
 use App\Http\Requests\UpdateSettingRequest;
-use App\Logs;
 
 class SettingController extends Controller
 {
@@ -74,6 +74,7 @@ class SettingController extends Controller
         abort_unless(\Gate::allows('setting_show'), 403);
 
         Logs::registerLog('Visualizou os detalhes de um parâmetro do sistema.');
+
         return view('admin.settings.show', compact('setting'));
     }
 
@@ -146,7 +147,6 @@ class SettingController extends Controller
         $settings = Setting::all();
         $this->saveSetting($settings);
 
-
         return view('admin.settings.content', compact('settings'));
     }
 
@@ -201,11 +201,10 @@ class SettingController extends Controller
         }
     }
 
-
-        /**
+    /**
      * =================================================================
      * prepara a linha de detalhes do registro na inclusão
-     * =================================================================
+     * =================================================================.
      *
      * @param array $new
      * @return void
@@ -229,7 +228,7 @@ class SettingController extends Controller
                     <th>Valor</th>
                 </thead>
                 <tbody>';
-        for ($i = 0; $i < count($fields); ++$i) {
+        for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
                 <td>'.$fields[$i]['field'].'</td>
@@ -247,7 +246,7 @@ class SettingController extends Controller
     /**
      * =================================================================
      * prepara a linha de detalhes do registro na operação de alteração
-     * =================================================================
+     * =================================================================.
      *
      * @param array $old
      * @param array $new
@@ -272,7 +271,7 @@ class SettingController extends Controller
                 </thead>
                 <tbody>';
 
-        for ($i = 0; $i < count($fields); ++$i) {
+        for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
                 <td>'.$fields[$i]['field'].'</td>
@@ -291,7 +290,7 @@ class SettingController extends Controller
     /**
      * =================================================================
      * prepara a linha de detalhes do registro na operação de alteração
-     * =================================================================
+     * =================================================================.
      *
      * @param array $old
      * @param array $new
@@ -303,18 +302,18 @@ class SettingController extends Controller
         foreach ($old as $key => $value) {
             $oldFields[] = [
                 'name' => $value->name,
-                'value' => $value->content
+                'value' => $value->content,
             ];
-        };
+        }
 
         // remove o campo _token do array
         $new = array_splice($new, 1);
 
-        for ($i=0; $i < count($new); $i++) {
+        for ($i = 0; $i < count($new); $i++) {
             $fields[] = [
-                'field' => $oldFields[$i]["name"],
-                'oldvalue' => $oldFields[$i]["value"],
-                'newvalue' => $new[$i]["content"]
+                'field' => $oldFields[$i]['name'],
+                'oldvalue' => $oldFields[$i]['value'],
+                'newvalue' => $new[$i]['content'],
             ];
         }
 
@@ -327,7 +326,7 @@ class SettingController extends Controller
                 </thead>
                 <tbody>';
 
-        for ($i = 0; $i < count($fields); ++$i) {
+        for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
                 <td>'.$fields[$i]['field'].'</td>
@@ -343,11 +342,10 @@ class SettingController extends Controller
         return $content;
     }
 
-
     /**
      * =================================================================
      * salva numa session os dados do registro atual
-     * =================================================================
+     * =================================================================.
      *
      * @param array $setting
      * @return void
@@ -360,7 +358,7 @@ class SettingController extends Controller
     /**
      * =================================================================
      * recupera os dados salvos do registro atual
-     * =================================================================
+     * =================================================================.
      *
      * @return void
      */

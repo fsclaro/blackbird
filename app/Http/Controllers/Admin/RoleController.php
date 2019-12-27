@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Gate;
+use Session;
+use App\Logs;
 use App\Role;
+use Carbon\Carbon;
 use App\Permission;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
-use App\Logs;
-use Gate;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Session;
 
 class RoleController extends Controller
 {
     /**
      * =================================================================
      * exibe a listagem de papéis
-     * =================================================================
+     * =================================================================.
      *
      * @return void
      */
@@ -34,7 +34,7 @@ class RoleController extends Controller
     /**
      * =================================================================
      * exibe o formulário de cadastramento
-     * =================================================================
+     * =================================================================.
      *
      * @return void
      */
@@ -49,7 +49,7 @@ class RoleController extends Controller
 
     /**
      * =================================================================
-     * grava os dados no banco
+     * grava os dados no banco.
      *
      * @param StoreRoleRequest $request
      * @return void
@@ -75,7 +75,7 @@ class RoleController extends Controller
     /**
      * =================================================================
      * exibe os detalhes do registro
-     * =================================================================
+     * =================================================================.
      *
      * @param Role $role
      * @return void
@@ -92,7 +92,7 @@ class RoleController extends Controller
     /**
      * =================================================================
      * exibe a tela de alteração
-     * =================================================================
+     * =================================================================.
      *
      * @param Role $role
      * @return void
@@ -113,7 +113,7 @@ class RoleController extends Controller
     /**
      * =================================================================
      * grava as alterações do registro
-     * =================================================================
+     * =================================================================.
      *
      * @param UpdateRoleRequest $request
      * @param Role $role
@@ -141,7 +141,7 @@ class RoleController extends Controller
     /**
      * =================================================================
      * exclui o registro
-     * =================================================================
+     * =================================================================.
      *
      * @param [type] $id
      * @return void
@@ -166,7 +166,7 @@ class RoleController extends Controller
     /**
      * =================================================================
      * clona os registros selecionados
-     * =================================================================
+     * =================================================================.
      *
      * @param Request $request
      * @return void
@@ -176,7 +176,7 @@ class RoleController extends Controller
         abort_unless(Gate::allows('role_clone'), 403);
 
         $ids = $request->data;
-        for ($i = 0; $i < count($ids); ++$i) {
+        for ($i = 0; $i < count($ids); $i++) {
             $role = Role::find($ids[$i]);
             $permissions = $role->permissions;
 
@@ -197,7 +197,7 @@ class RoleController extends Controller
     /**
      * =================================================================
      * deleta em massa os registros selecionados
-     * =================================================================
+     * =================================================================.
      *
      * @param Request $request
      * @return void
@@ -207,7 +207,7 @@ class RoleController extends Controller
         abort_unless(Gate::allows('role_delete'), 403);
 
         $ids = $request->data;
-        for ($i = 0; $i < count($ids); ++$i) {
+        for ($i = 0; $i < count($ids); $i++) {
             $role = Role::find($ids[$i]);
             Role::where('id', $ids[$i])->delete();
             Logs::registerLog('Excluiu o papel <span class="text-red text-bold">'.$role->title.'</span>');
@@ -217,7 +217,7 @@ class RoleController extends Controller
     /**
      * =================================================================
      * prepara a linha de detalhes do registro na inclusão
-     * =================================================================
+     * =================================================================.
      *
      * @param array $new
      * @return void
@@ -226,7 +226,7 @@ class RoleController extends Controller
     {
         $content = '';
         $permissions = $new->permissions;
-        for ($i = 0; $i < count($permissions); ++$i) {
+        for ($i = 0; $i < count($permissions); $i++) {
             $content .= "<span class='badge badge-primary'>".$permissions[$i]->title.'</span> ';
         }
 
@@ -241,7 +241,7 @@ class RoleController extends Controller
                     <th>Valor</th>
                 </thead>
                 <tbody>';
-        for ($i = 0; $i < count($fields); ++$i) {
+        for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
                 <td>'.$fields[$i]['field'].'</td>
@@ -259,7 +259,7 @@ class RoleController extends Controller
     /**
      * =================================================================
      * prepara a linha de detalhes do registro na operação de alteração
-     * =================================================================
+     * =================================================================.
      *
      * @param array $old
      * @param array $new
@@ -270,18 +270,18 @@ class RoleController extends Controller
         $oldContent = '';
         $newContent = '';
         $oldPermissions = $old->permissions;
-        for ($i = 0; $i < count($oldPermissions); ++$i) {
+        for ($i = 0; $i < count($oldPermissions); $i++) {
             $oldContent .= "<span class='badge badge-primary'>".$oldPermissions[$i]->title.'</span> ';
         }
 
         $newPermissions = $new->permissions;
-        for ($i = 0; $i < count($newPermissions); ++$i) {
+        for ($i = 0; $i < count($newPermissions); $i++) {
             $newContent .= "<span class='badge badge-primary'>".$newPermissions[$i]->title.'</span> ';
         }
 
-        $fields[] = [ 'field' => 'ID', 'oldvalue' => $old->id, 'newvalue' => $new->id ];
-        $fields[] = [ 'field' => 'Descrição do Papel', 'oldvalue' => $old->title, 'newvalue' => $new->title ];
-        $fields[] = [ 'field' => 'Permissões', 'oldvalue' => $oldContent, 'newvalue' => $newContent ];
+        $fields[] = ['field' => 'ID', 'oldvalue' => $old->id, 'newvalue' => $new->id];
+        $fields[] = ['field' => 'Descrição do Papel', 'oldvalue' => $old->title, 'newvalue' => $new->title];
+        $fields[] = ['field' => 'Permissões', 'oldvalue' => $oldContent, 'newvalue' => $newContent];
 
         $content = '
             <table class="table table-striped" width="100%">
@@ -292,7 +292,7 @@ class RoleController extends Controller
                 </thead>
                 <tbody>';
 
-        for ($i = 0; $i < count($fields); ++$i) {
+        for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
                 <td>'.$fields[$i]['field'].'</td>
@@ -311,7 +311,7 @@ class RoleController extends Controller
     /**
      * =================================================================
      * salva numa session os dados do registro atual
-     * =================================================================
+     * =================================================================.
      *
      * @param array $role
      * @return void
@@ -324,7 +324,7 @@ class RoleController extends Controller
     /**
      * =================================================================
      * recupera os dados salvos do registro atual
-     * =================================================================
+     * =================================================================.
      *
      * @return void
      */

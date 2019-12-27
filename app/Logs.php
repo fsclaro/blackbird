@@ -38,9 +38,9 @@ class Logs extends Model
     public static function getIP()
     {
         //se possível, obtém o endereço ip da máquina do cliente
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        if (! empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        } elseif (! empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             //verifica se o ip está passando pelo proxy
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
         } else {

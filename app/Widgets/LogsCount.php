@@ -2,8 +2,8 @@
 
 namespace App\Widgets;
 
-use Arrilot\Widgets\AbstractWidget;
 use App\Logs;
+use Arrilot\Widgets\AbstractWidget;
 
 class LogsCount extends AbstractWidget
 {

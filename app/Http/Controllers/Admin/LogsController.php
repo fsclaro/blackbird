@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Logs;
+use App\Http\Controllers\Controller;
 
 class LogsController extends Controller
 {
@@ -34,7 +34,6 @@ class LogsController extends Controller
         return view('admin.logs.show', compact('log'));
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
@@ -49,7 +48,7 @@ class LogsController extends Controller
             $log = Logs::find($id);
             Logs::where('id', $id)->delete();
 
-            Logs::registerLog('Excluiu um log de ID ' . $log->id . ' do sistema.');
+            Logs::registerLog('Excluiu um log de ID '.$log->id.' do sistema.');
             alert()->success('Log excluído com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Este log não pode ser excluído')->toToast('top-end');

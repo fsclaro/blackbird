@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use Auth;
-use App\User;
+use Alert;
 use App\Logs;
+use App\User;
 use Socialite;
 use App\Setting;
 use App\SocialIdentity;
@@ -12,7 +13,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Alert;
 
 class LoginController extends Controller
 {
@@ -75,7 +75,7 @@ class LoginController extends Controller
             $this->loadSettings();
             Logs::registerLog('Fez <span class="text-red text-bold">login</span> no sistema');
             alert()
-                ->success("<span class='text-blue'>" . $user->name . "</span>, você está logado no sistema.")
+                ->success("<span class='text-blue'>".$user->name.'</span>, você está logado no sistema.')
                 ->toToast('top-end')
                 ->autoClose(2500)
                 ->toHtml();
@@ -91,7 +91,6 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
-
     public function logout(Request $request)
     {
         Logs::registerLog('Fez <span class="text-red text-bold">logout</span> do sistema');
@@ -102,7 +101,6 @@ class LoginController extends Controller
 
         return $this->loggedOut($request) ?: redirect('/');
     }
-
 
     public function loadSettings()
     {

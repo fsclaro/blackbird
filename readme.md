@@ -25,22 +25,25 @@ The **Blackbird Project** is intended to be a starting point for other projects 
 ## Third-party Packages included
 
 - arcanedev/log-viewer: ^5.1
+- arcanedev/route-viewer: ^2.1
 - arrilot/laravel-widgets: ^3.13
 - creativeorange/gravatar: ^1.0
 - davejamesmiller/laravel-breadcrumbs: ^5.3
-- igorescobar/jquery-mask-plugin: ^1.14
-- jeroennoten/laravel-adminlte: ^2.0
-- laravel/socialite: ^4.2
-- laravelcollective/html: ^6.0
-- realrashid/sweet-alert: ^2.0
+- jeroennoten/laravel-adminlte: ^3.0
+- laravel/envoy: ^1.6
+- laravel/socialite: ^4.3
+- realrashid/sweet-alert: ^3.0
+- spatie/laravel-backup: ^6.7
 - spatie/laravel-medialibrary: ^7.14
-- yajra/laravel-datatables-oracle: ^9.7
 - spatie/laravel-sluggable: ^2.2
+- unsplash/unsplash: ^2.5
+- yajra/laravel-datatables-oracle: ^9.7
 
 ## Third-party Packages for Development Mode included
 
 - barryvdh/laravel-ide-helper: ^2.6
-- deployer/deployer: ^6.5
+- deployer/deployer: ^6.6
+- laravel/ui: ^1.1
 - matt-allan/laravel-code-style: ^0.4.0
 
 ## Cloning this project

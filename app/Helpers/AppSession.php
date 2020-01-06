@@ -5,6 +5,7 @@ namespace App\Helpers;
 use Session;
 use App\Setting;
 
+
 class AppSession
 {
     public static function getSession()

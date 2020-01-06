@@ -162,7 +162,7 @@
                 <a href="{{ $dashboard_url }}" class="brand-link {{ config('adminlte.classes_brand') }}">
                     <img src="{{ asset(config('adminlte.logo_img', 'vendor/adminlte/dist/img/AdminLTELogo.png')) }}" alt="{{config('adminlte.logo_img_alt', 'AdminLTE')}}" class="brand-image img-circle elevation-3" style="opacity: .8">
                     <span class="brand-text font-weight-light {{ config('adminlte.classes_brand_text') }}">
-                        {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
+                        {!! Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.logo', '<b>Blackbird</b>') !!}
                     </span>
                 </a>
             @endif

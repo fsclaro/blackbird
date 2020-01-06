@@ -19,6 +19,7 @@ Parâmetros</span>
 
         <div class="card-body">
             @foreach($settings as $key => $setting)
+
             @if($setting->type == "text")
             <div class="row">
                 <div class="form-group col-md-12">
@@ -36,6 +37,7 @@ Parâmetros</span>
                 <div class="form-group col-md-12">
                     <label for="{{ $setting->name }}">{{ $setting->description }}</label>
                     <input type="number" id="{{ $setting->name }}" name="{{ $setting->name }}" class="form-control" value="{{ old('content', isset($setting) ? $setting->content : '') }}">
+
                     @if($setting->helper)
                     <small class="text-blue">{{ $setting->helper }}</small>
                     @endif
@@ -48,6 +50,7 @@ Parâmetros</span>
                 <div class="form-group col-md-12">
                     <label for="{{ $setting->name }}">{{ $setting->description }}</label>
                     <input type="email" id="{{ $setting->name }}" name="{{ $setting->name }}" class="form-control" value="{{ old('content', isset($setting) ? $setting->content : '') }}">
+
                     @if($setting->helper)
                     <small class="text-blue">{{ $setting->helper }}</small>
                     @endif
@@ -106,47 +109,83 @@ Parâmetros</span>
                         <label>
                             <input type="radio" id="{{ $setting->name }}" name="{{ $setting->name }}" class="radio" value="{{ $items[$i] }}" @if($setting->content == $items[$i]) checked @endif>{{ $items[$i] }}
                         </label>
+                    @endfor
+
+                    @if($setting->helper)
+                    <small class="text-blue">{{ $setting->helper }}</small>
+                    @endif
                 </div>
-                @endfor
-
-                @if($setting->helper)
-                <small class="text-blue">{{ $setting->helper }}</small>
-                @endif
             </div>
-        </div>
-        @endif
-
-        @if($setting->type == "select")
-        <div class="row">
-            <div class="form-group col-sm-12">
-                <label for="{{ $setting->name }}">{{ $setting->description }}</label>
-                @php
-                $items = explode(",", $setting->dataenum)
-                @endphp
-
-                @for($i=0;$i<count($items);$i++) <div class="select">
-                    <select class="form-control" name="{{ $setting->name }}" id="{{ $setting->name }}">
-                        <option value="">Escolha uma das opções...</option>
-                        @for($i=0;$i<count($items);$i++) <option value="{{ $items[$i] }}" @if($setting->content == $items[$i]) selected @endif>{{ $items[$i] }}</option>
-                            @endfor
-                    </select>
-            </div>
-            @endfor
-
-            @if($setting->helper)
-            <small class="text-blue">{{ $setting->helper }}</small>
             @endif
+
+            @if($setting->type == "select")
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label for="{{ $setting->name }}">{{ $setting->description }}</label>
+                    @php
+                        $items = explode(",", $setting->dataenum)
+                    @endphp
+
+                    @for($i=0;$i<count($items);$i++)
+                    <div class="select">
+                        <select class="form-control" name="{{ $setting->name }}" id="{{ $setting->name }}">
+                            <option value="">Escolha uma das opções...</option>
+                            @for($i=0; $i<count($items); $i++)
+                            @php
+                                if (strpos($items[$i], "|")) {
+                                    list($value, $option) = explode("|", $items[$i]);
+                                } else {
+                                   $value = $option = $items[$i];
+                                }
+                            @endphp
+                            <option value="{{ $value }}" @if($setting->content == $value) selected @endif>{{ $option }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                    @endfor
+
+                    @if($setting->helper)
+                        <small class="text-blue">{{ $setting->helper }}</small>
+                    @endif
+                </div>
+            </div>
+            @endif
+
+            @if($setting->type == "image")
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="{{ $setting->name }}">{{ $setting->description }}</label>
+
+                    <input type="file" id="{{ $setting->name }}" name="{{ $setting->name }}" class="form-control">
+
+                    @if($setting->helper)
+                    <small class="text-blue">{{ $setting->helper }}</small>
+                    @endif
+                </div>
+
+            </div>
+            @endif
+
+            @if($setting->type == "file")
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="{{ $setting->name }}">{{ $setting->description }}</label>
+                    <input type="file" id="{{ $setting->name }}" name="{{ $setting->name }}" class="form-control" value="{{ old('content', isset($setting) ? $setting->content : '') }}">
+
+                    @if($setting->helper)
+                    <small class="text-blue">{{ $setting->helper }}</small>
+                    @endif
+                </div>
+            </div>
+            @endif
+
+            @endforeach
+        </div> <!-- panel-body -->
+
+        <div class="card-footer">
+            <a href="{{ route('admin.settings.index') }}" class="btn btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
+            <button type="submit" class="btn btn-success"><i class="fas fa-fw fa-save"></i> Salvar</button>
         </div>
-    </div>
-    @endif
-
-    @endforeach
-    </div> <!-- panel-body -->
-
-    <div class="card-footer">
-        <a href="{{ route('admin.settings.index') }}" class="btn btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
-        <button type="submit" class="btn btn-success"><i class="fas fa-fw fa-save"></i> Salvar</button>
-    </div>
     </div>
 </form>
 @stop

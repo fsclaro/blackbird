@@ -55,6 +55,9 @@ class SettingController extends Controller
             $details = $this->prepareDetailsNew($setting);
 
             Logs::registerLog('Cadastrou um novo parâmetro do sistema.', $details);
+
+            $this->updateSession();
+
             alert()->success('Parâmetro criado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu um erro. Este registro não foi criado.')->toToast('top-end');
@@ -106,10 +109,13 @@ class SettingController extends Controller
 
         try {
             $setting->update($request->all());
-//            $setting->save();
 
             $details = $this->prepareDetailsUpdate($this->getSetting(), $setting);
+
             Logs::registerLog('Alterou dados de um parâmetro do sistema.', $details);
+
+            $this->updateSession();
+
             alert()->success('Configuração alterado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu um erro. As alterações não foram salvas')->toToast('top-end');
@@ -220,6 +226,7 @@ class SettingController extends Controller
         $fields[] = ['field' => 'Radio / Seleção', 'value' => $new->dataenum];
         $fields[] = ['field' => 'Texto de Ajuda', 'value' => $new->helper];
         $fields[] = ['field' => 'Conteúdo', 'value' => $new->content];
+        $fields[] = ['field' => 'Pode Excluir?', 'value' => $new->can_delete];
 
         $content = '
             <table class="table table-striped" width="100%">
@@ -261,6 +268,7 @@ class SettingController extends Controller
         $fields[] = ['field' => 'Radio / Seleção', 'oldvalue' => $old->dataenum, 'newvalue' => $new->dataenum];
         $fields[] = ['field' => 'Texto de Ajuda', 'oldvalue' => $old->helder, 'newvalue' => $new->helper];
         $fields[] = ['field' => 'Conteúdo', 'oldvalue' => $old->content, 'newvalue' => $new->content];
+        $fields[] = ['field' => 'Pode Excluir?', 'oldvalue' => $old->can_delete, 'newvalue' => $new->can_delete];
 
         $content = '
             <table class="table table-striped" width="100%">

@@ -39,6 +39,8 @@
                         @if($setting->type == "datepicker") Data/Hora @endif
                         @if($setting->type == "radio") Rádio @endif
                         @if($setting->type == "select") Seleção @endif
+                        @if($setting->type == "image") Imagem @endif
+                        @if($setting->type == "file") Arquivo @endif
                     </td>
                 </tr>
 
@@ -55,6 +57,17 @@
                 <tr>
                     <th style="width:21%">Texto de Ajuda</th>
                     <td>{{ $setting->helper }}</td>
+                </tr>
+
+                <tr>
+                    <th style="width:21%">Pode ser excluído?</th>
+                    <td>
+                        @if($setting->can_delete)
+                        <span class="badge badge-success">Sim</span>
+                        @else
+                        <span class="badge badge-danger">Não</span>
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>

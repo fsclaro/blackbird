@@ -1,18 +1,17 @@
 <!-- left side -->
-@if(Session::get('footer_left'))
+@if(Session::has('footer_left'))
     {!! Session::get('footer_left') !!}
 @else
 <span>
-    Copyright © 2019 by <a href="https://github.com/fsclaro/blackbird">
-    <span class="text-bold">Black</span>bird</a>.
-</span> Todos os direitos reservados.
+    Copyright © 2019 by <a href="https://github.com/fsclaro/blackbird"><span class="text-bold">Blackbird</span></a>. Todos os direitos reservados.
+</span>
 @endif
 
 <!-- right side -->
 <div class="float-right hidden-xs">
-@if(\Session::get('footer_right'))
+@if(Session::has('footer_right'))
     {!! Session::get('footer_right') !!}
 @else
-    <b>Versão: </b>1.0.0
+    Versão: <span class="text-bold text-blue">1.0.0</span>
 @endif
 </div>

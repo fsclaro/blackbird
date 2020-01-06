@@ -21,6 +21,7 @@ class CreateSettingsTable extends Migration
             $table->string('type')->nullable();
             $table->string('dataenum')->nullable();
             $table->string('helper')->nullable();
+            $table->boolean('can_delete')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

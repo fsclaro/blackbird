@@ -61,6 +61,8 @@
                         <option value="datepicker">Data/Hora</option>
                         <option value="radio">Rádio</option>
                         <option value="select">Seleção</option>
+                        <option value="image">Imagem</option>
+                        <option value="file">Arquivo</option>
                     </select>
 
                     @if($errors->has('type'))
@@ -96,6 +98,26 @@
                     @endif
                 </div>
             </div>
+
+            <div class="row">
+                <div class="form-group {{ $errors->has('can_delete') ? 'has-error' : '' }} col-md-2">
+                    <label for="can_delete">Pode ser Excluído?
+                        <span class="text-red">*</span>
+                    </label>
+
+                    <select id="can_delete" name="can_delete" class="form-control">
+                        <option value=>Selecione uma das opções...</option>
+                        <option value=1>Sim</option>
+                        <option value=0>Não</option>
+                    </select>
+
+                    @if($errors->has('can_delete'))
+                    <small class="form-text text-red text-bold">
+                        {{ $errors->first('can_delete') }}
+                    </small>
+                    @endif
+                </div>
+            </div>
         </div> <!-- panel-body -->
 
         <div class="card-footer">
@@ -118,6 +140,7 @@
 <script>
     $(function() {
         $("#type").select2();
+        $("#can_delete").select2();
     });
 </script>
 @stop

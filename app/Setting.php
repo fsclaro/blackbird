@@ -20,6 +20,7 @@ class Setting extends Model
         'type',
         'dataenum',
         'helper',
+        'can_delete',
     ];
 
     protected $dates = [

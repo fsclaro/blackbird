@@ -37,6 +37,7 @@
                         <th>Nome do Parâmetro</th>
                         <th>Slug</th>
                         <th>Tipo</th>
+                        <th>Pode ser Excluído?</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -55,6 +56,15 @@
                             @if($setting->type == "datepicker") Data/Hora @endif
                             @if($setting->type == "radio") Rádio @endif
                             @if($setting->type == "select") Seleção @endif
+                            @if($setting->type == "image") Imagem @endif
+                            @if($setting->type == "file") Arquivo @endif
+                        </td>
+                        <td>
+                            @if($setting->can_delete)
+                            <span class="badge badge-success">Sim</span>
+                            @else
+                            <span class="badge badge-danger">Não</span>
+                            @endif
                         </td>
                         <td class="text-left">
                             @can("setting_show")
@@ -70,9 +80,11 @@
                             @endcan
 
                             @can("setting_delete")
+                            @if($setting->can_delete)
                             <a href="javascript;" onclick="deleteRecord(event,{{ $setting->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
+                            @endif
                             @endcan
                         </td>
                     </tr>
@@ -108,6 +120,7 @@
                 null, // description
                 null, // slug
                 null, // type
+                null, // can_delete
                 {
                     orderable: false,
                     searchable: false,

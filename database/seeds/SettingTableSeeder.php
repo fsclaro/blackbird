@@ -24,20 +24,9 @@ class SettingTableSeeder extends Seeder
         ]);
 
         Setting::insert([
-            'description' => 'Brand Curto do Sistema',
-            'name' => 'brand_short',
-            'content' => 'BB',
-            'type' => 'text',
-            'dataenum' => null,
-            'helper' => 'Brand que será utilizado quando o menu estiver contraído. Máximo de 3 caracteres.',
-            'can_delete' => false,
-            'created_at' => now(),
-        ]);
-
-        Setting::insert([
             'description' => 'Texto do rodapé do lado esquerdo',
             'name' => 'footer_left',
-            'content' => '<span>Copyright © 2019 by <a href="https://github.com/fsclaro/blackbird"><span class="text-bold">Black</span>bird</a>.</span> Todos os direitos reservados.',
+            'content' => '<span>Copyright © 2019 by <a href="https://github.com/fsclaro/blackbird"><span class="text-bold">Blackbird</span></a>. Todos os direitos reservados.</span>',
             'type' => 'text',
             'dataenum' => null,
             'helper' => '',

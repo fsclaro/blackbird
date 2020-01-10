@@ -30,7 +30,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable" id="setting-table">
+            <table class=" table table-striped table-hover datatable" id="setting-table">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -44,10 +44,10 @@
                 <tbody>
                     @foreach($settings as $key => $setting)
                     <tr data-entry-id="{{ $setting->id }}">
-                        <td>{{ $setting->id }}</td>
-                        <td>{{ $setting->description }}</td>
-                        <td>{{ $setting->name }}</td>
-                        <td>
+                        <td class="align-middle">{{ $setting->id }}</td>
+                        <td class="align-middle">{{ $setting->description }}</td>
+                        <td class="align-middle">{{ $setting->name }}</td>
+                        <td class="align-middle">
                             @if($setting->type == "text") Texto @endif
                             @if($setting->type == "number") Número @endif
                             @if($setting->type == "email") Email @endif
@@ -59,14 +59,14 @@
                             @if($setting->type == "image") Imagem @endif
                             @if($setting->type == "file") Arquivo @endif
                         </td>
-                        <td>
+                        <td class="align-middle">
                             @if($setting->can_delete)
                             <span class="badge badge-success">Sim</span>
                             @else
                             <span class="badge badge-danger">Não</span>
                             @endif
                         </td>
-                        <td class="text-left">
+                        <td class="text-left align-middle">
                             @can("setting_show")
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.settings.show', $setting->id) }}">
                                 <i class="fas fa-fw fa-eye"></i>

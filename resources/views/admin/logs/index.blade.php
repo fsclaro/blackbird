@@ -23,7 +23,7 @@
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover datatable" id="logs-table">
+            <table class="table table-striped table-hover datatable" id="logs-table">
                 <thead class="thead-light">
                     <tr>
                         <th>ID</th>
@@ -37,26 +37,24 @@
                 <tbody>
                     @foreach($logs as $key => $log)
                     <tr data-entry-id="{{ $log->id }}">
-                        <td>
-                            {{ $log->id }}
-                        </td>
-                        <td>
+                        <td class="align-middle"> {{ $log->id }} </td>
+                        <td class="align-middle">
                             {{ $log->ipaddress }}
                         </td>
-                        <td>
+                        <td class="align-middle">
                             {{ $log->user->name }}
                         </td>
-                        <td>
+                        <td class="align-middle">
                             {!! $log->action !!}
                         </td>
-                        <td>
+                        <td class="align-middle">
                             @if($log->created_at)
                             {{ $log->created_at->format('d/m/Y H:i') }}
                             @else
                             <span class="badge badge-danger">Data não definida</span>
                             @endif
                         </td>
-                        <td class="text-left">
+                        <td class="text-left align-middle">
                             @can("log_show")
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.logs.show', $log->id) }}">
                                 <i class="fas fa-fw fa-eye"></i>

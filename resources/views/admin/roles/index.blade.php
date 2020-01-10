@@ -14,7 +14,7 @@
 
 <div class="card">
     <div class="card-header">
-                <div class="float-left">
+        <div class="float-left">
             <div class="dropdown">
                 <button class="btn btn-info btn-flat btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bolt"></i> Ações
@@ -43,7 +43,7 @@
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover datatable" id="roles-table">
+            <table class="table table-striped table-hover datatable" id="roles-table">
                 <thead class="thead-light">
                     <tr>
                         <th>
@@ -59,22 +59,22 @@
                 <tbody>
                     @foreach($roles as $key => $role)
                     <tr data-entry-id="{{ $role->id }}">
-                        <td>
+                        <td class="align-middle">
                             <input type="checkbox" name="ids[]" id="ids[]" class="checkbox" value="{{ $role->id }}">
                         </td>
 
-                        <td>
+                        <td class="align-middle">
                             {{ $role->id }}
                         </td>
-                        <td>
+                        <td class="align-middle">
                             {{ $role->title }}
                         </td>
-                        <td>
+                        <td class="align-middle">
                             @foreach($role->permissions as $key => $permission)
                             <span class="badge badge-primary">{{ $permission->title }}&nbsp;</span>
                             @endforeach
                         </td>
-                        <td class="text-left">
+                        <td class="text-left align-middle">
                             @can("role_show")
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.roles.show', $role->id) }}">
                                 <i class="fas fa-fw fa-eye"></i>
@@ -120,8 +120,7 @@
             language: {
                 url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
             },
-            columns: [
-                {
+            columns: [{
                     orderable: false,
                     searchable: false,
                 }, // checkbox

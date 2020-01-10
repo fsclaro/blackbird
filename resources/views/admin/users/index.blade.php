@@ -44,7 +44,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover datatable" id="users-table">
+            <table class="table table-striped table-hover datatable" id="users-table">
                 <thead class="thead-light">
                     <tr>
                         <th>
@@ -61,39 +61,39 @@
                 <tbody>
                     @foreach($users as $key => $user)
                     <tr data-entry-id="{{ $user->id }}">
-                        <td>
+                        <td class="align-middle">
                             @if($user->id != auth()->user()->id)
                             <input type="checkbox" name="ids[]" id="ids[]" class="checkbox" value="{{ $user->id }}">
                             @endif
                         </td>
 
-                        <td>
+                        <td class="align-middle">
                             {{ $user->id }}
                         </td>
-                        <td>
+                        <td class="align-middle">
                             @if($user->getAvatar($user->id))
-                            <img src="{{ $user->getAvatar($user->id) }}" width="30px" class="img-circle" alt="User Image">
+                            <img src="{{ $user->getAvatar($user->id) }}" width="48px" class="img-circle" alt="User Image">
                             @else
                             @if (Gravatar::exists($user->email))
-                            <img src="{{ Gravatar::get($user->email) }}" class="img-circle" width="30px" alt="User Image">
+                            <img src="{{ Gravatar::get($user->email) }}" class="img-circle" width="48px" alt="User Image">
                             @else
-                            <img src="{{ asset('img/avatar/no-photo.png') }}" width="30px" class="img-circle" alt="User Image">
+                            <img src="{{ asset('img/avatar/no-photo.png') }}" width="48px" class="img-circle" alt="User Image">
                             @endif
                             @endif
 
                             {{ $user->name }}
                         </td>
-                        <td>
+                        <td class="align-middle">
                             {{ $user->email }}
                         </td>
 
-                        <td>
+                        <td class="align-middle">
                             @foreach($user->roles as $key => $role)
                             <span class="badge badge-secondary">{{ $role->title }}&nbsp;</span>
                             @endforeach
                         </td>
 
-                        <td>
+                        <td class="align-middle">
                             @if($user->active == 1)
                             <span class="badge badge-success">Sim</span>
                             @else
@@ -101,7 +101,7 @@
                             @endif
                         </td>
 
-                        <td class="text-left">
+                        <td class="text-left align-middle">
                             @can("user_show")
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', $user->id) }}">
                                 <i class="fas fa-fw fa-eye"></i>

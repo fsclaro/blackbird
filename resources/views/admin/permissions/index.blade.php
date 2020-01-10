@@ -29,7 +29,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable" id="permission-table">
+            <table class=" table table-striped table-hover datatable" id="permission-table">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -41,16 +41,16 @@
                 <tbody>
                     @foreach($permissions as $key => $permission)
                     <tr data-entry-id="{{ $permission->id }}">
-                        <td>
+                        <td class="align-middle">
                             {{ $permission->id }}
                         </td>
-                        <td>
+                        <td class="align-middle">
                             {{ $permission->title }}
                         </td>
-                        <td>
+                        <td class="align-middle">
                             {{ $permission->slug }}
                         </td>
-                        <td class="text-left">
+                        <td class="text-left align-middle">
                             @can("permission_show")
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.permissions.show', $permission->id) }}">
                                 <i class="fas fa-fw fa-eye"></i>

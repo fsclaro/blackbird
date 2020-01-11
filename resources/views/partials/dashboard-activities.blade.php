@@ -7,7 +7,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#notificacoes" data-toggle="tab">Notificações</a>
+                    <a class="nav-link" href="#mensagens" data-toggle="tab">Mensagens</a>
                 </li>
             </ul>
         </div>
@@ -65,8 +65,12 @@
                     </div> <!-- table-responsive -->
                 </div> <!-- tab-pane -->
 
-                <div class="tab-pane" id="notificacoes">
-                    Ainda não existem notificações.
+                <div class="tab-pane" id="mensagens">
+                    <div class="jumbotron">
+                        <h2 class="display-9">Olá!! {{ auth()->user()->name }}</h2>
+                        <p class="lead">Até o presente momento você não possui mensagens de outros usuários.</p>
+                        <hr class="my-4">
+                    </div>
                 </div>
             </div>
         </div>

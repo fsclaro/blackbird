@@ -31,7 +31,7 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class=" table table-striped table-hover datatable" id="setting-table">
-                <thead>
+                <thead class="thead-light">
                     <tr>
                         <th>ID</th>
                         <th>Nome do Parâmetro</th>

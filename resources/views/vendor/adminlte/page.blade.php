@@ -97,9 +97,15 @@
                     @yield('content_top_nav_right')
 
                     @if(Auth::user())
+                        <li>
+                            <a class="nav-link" href="#" alt="Enviar Notificações" title="Enviar Mensagens">
+                                <!-- <i class="fas fa-bullhorn"></i> -->
+                                <i class="far fa-envelope"></i>
+                            </a>
+                        </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false" alt="Notificações" title="Notificações">
                                 <i class="far fa-bell"></i>
                                 <span class="badge badge-warning navbar-badge">15</span>
                             </a>

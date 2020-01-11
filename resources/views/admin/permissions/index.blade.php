@@ -30,7 +30,7 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class=" table table-striped table-hover datatable" id="permission-table">
-                <thead>
+                <thead class="thead-light">
                     <tr>
                         <th>ID</th>
                         <th>Título da Permissão</th>

@@ -401,18 +401,62 @@ return [
             'files' => [
                 [
                     'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css',
+                    'asset' => true,
+                    'location' => 'vendor/summernote/summernote-bs4.css',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js',
+                    'asset' => true,
+                    'location' => 'vendor/summernote/summernote-bs4.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/lang/summernote-pt-BR.js',
+                    'asset' => true,
+                    'location' => 'vendor/summernote/lang/summernote-pt-BR.js',
+                ],
+            ],
+        ],
+        [
+            'name' => 'iCheck-Bootstrap',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/icheck-bootstrap/icheck-bootstrap.min.css',
+                ],
+            ],
+        ],
+        [
+            'name' => 'FastClick',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/fastclick/fastclick.js',
+                ],
+            ],
+        ],
+        [
+            'name' => 'Popper',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/popper/popper.min.js',
+                ],
+            ],
+        ],
+        [
+            'name' => 'overlayScrollbars',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/overlayScrollbars/css/OverlayScrollbars.min.css',
                 ],
             ],
         ],

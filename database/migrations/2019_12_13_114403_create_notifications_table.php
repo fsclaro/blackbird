@@ -20,7 +20,7 @@ class CreateNotificationsTable extends Migration
             $table->text('content')->nullable();
             $table->string('icon')->nullable();
             $table->string('url')->nullable();
-            $table->boolean('is_read')->nullable();
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -19,6 +19,7 @@
         "laravel/envoy": "^1.6",
         "laravel/framework": "^6.2",
         "laravel/socialite": "^4.3",
+        "laravel/telescope": "^2.1",
         "laravel/tinker": "^1.0",
         "realrashid/sweet-alert": "^3.0",
         "spatie/laravel-backup": "^6.7",

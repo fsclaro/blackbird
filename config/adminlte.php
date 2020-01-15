@@ -261,6 +261,14 @@ return [
                     'route'  => 'api.phpinfo',
                     'target' => '_blank',
                 ],
+                [
+                    'text'   => 'Telescope',
+                    'icon'   => 'fas fa-fw fa-bullhorn',
+                    'can'    => 'telescope_viewer',
+                    'route'  => 'telescope',
+                    'target' => '_blank',
+                ],
+
             ],
         ],
     ],

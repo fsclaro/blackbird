@@ -1,4 +1,4 @@
-@extends('errors::vulcano')
+@extends('errors::custom')
 
 @section('title', __('Não encontrado'))
 @section('code', '404')

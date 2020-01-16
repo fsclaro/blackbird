@@ -1,4 +1,4 @@
-@extends('errors::vulcano')
+@extends('errors::custom')
 
 @section('title', __('Negado'))
 @section('code', '403')

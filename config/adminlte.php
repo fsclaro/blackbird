@@ -178,6 +178,33 @@ return [
             'route' => 'home',
         ],
         [
+            'text' => 'Mensageiro',
+            'icon' => 'fas fa-fw fa-inbox',
+            // 'can' => '',
+            'submenu' => [
+                [
+                    'text' => 'Enviar Mensagem',
+                    'icon' => 'fas fa-fw fa-paper-plane',
+                    // 'can' => '',
+                    // 'route' => ''
+                ],
+                [
+                    'text' => 'Ler Mensagens Recebidas',
+                    'icon' => 'fas fa-fw fa-envelope-open',
+                    // 'can' => '',
+                    // 'route' => ''
+                ],
+            ],
+        ],
+
+        [
+            'text' => 'Notificações',
+            'icon' => 'fas fa-fw fa-bell',
+            // 'can' => '',
+            // 'route' => '',
+        ],
+
+        [
             'header' => 'ADMINISTRAÇÃO DO SITE',
             'can' => 'site_management',
         ],
@@ -261,6 +288,14 @@ return [
                     'route'  => 'api.phpinfo',
                     'target' => '_blank',
                 ],
+                [
+                    'text'   => 'Telescope',
+                    'icon'   => 'fas fa-fw fa-bullhorn',
+                    'can'    => 'telescope_viewer',
+                    'route'  => 'telescope',
+                    'target' => '_blank',
+                ],
+
             ],
         ],
     ],

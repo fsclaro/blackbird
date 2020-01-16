@@ -9,23 +9,13 @@
             "type": "php",
             "request": "launch",
             "port": 9000,
-            "stopOnEntry": true,
+            "env": {
+                "XDEBUG_CONFIG": "idekey=VSCODE"
+            },
             "pathMappings": {
-                "/home/nandosal/www/blackbird": "${workspaceRoot}/"
+                "/home/nandosal/www/blackbird": "${workspaceFolder}",
             }
         },
-        {
-            "name": "Blackbird Remote XDebug",
-            "type": "php",
-            "request": "launch",
-            "port": 9000,
-            "stopOnEntry": true,
-            "pathMappings": {
-                "/home/nandosal/www/blackbird/": "${workspaceRoot}/",
-                "/app" : "${workspaceRoot}/app"
-            }
-        },
-
         {
             "name": "Launch currently open script",
             "type": "php",

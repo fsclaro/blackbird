@@ -178,6 +178,36 @@ return [
             'route' => 'home',
         ],
         [
+            'text' => 'Correios',
+            'icon' => 'fas fa-fw fa-inbox',
+            // 'can' => '',
+            'submenu' => [
+               [
+                   'text' => 'Mensagens',
+                   'icon' => 'fas fa-fw fa-inbox',
+                //    'can' => '',
+                   'submenu' => [
+                        [
+                            'text' => 'Enviar Mensagem',
+                            'icon' => 'fas fa-fw fa-paper-plane',
+                            // 'can' => '',
+                            // 'route' => ''
+                        ],
+                        [
+                           'text' => 'Ler Mensagens Recebidas',
+                            'icon' => 'fas fa-fw fa-paper-plane',
+                            // 'can' => '',
+                            // 'route' => ''
+
+                        ],
+                    ],
+               ],
+
+            ],
+        ],
+
+
+        [
             'header' => 'ADMINISTRAÇÃO DO SITE',
             'can' => 'site_management',
         ],

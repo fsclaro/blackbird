@@ -73,6 +73,6 @@ Route::group(
     ],
     function () {
         /* Rota para rotinas diversas */
-        Route::get('phpinfo', 'HelpersController@show_phpinfo')->name('phpinfo');
+        Route::get('phpinfo', 'HelpersController@showPhpInfo')->name('phpinfo');
     }
 );

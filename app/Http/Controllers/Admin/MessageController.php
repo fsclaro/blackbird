@@ -2,30 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Logs;
+use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreMessageRequest;
+use App\Http\Requests\UpdateMessageRequest;
 
 class MessageController extends Controller
 {
-    use SoftDeletes;
-
-    protected $date = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
-
-    protected $fillable = [
-        'user_id_sender',
-        'user_id_destination',
-        'subject',
-        'content',
-        'is_redad'
-    ];
-
-    public function user() {
-        return $this->belongsTo('App\User');
-    }
-    
+    //
 }

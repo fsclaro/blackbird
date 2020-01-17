@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 class HelpersController extends Controller
 {
-    public function show_phpinfo()
+    public function showPhpInfo()
     {
         return view('api.phpinfo');
     }

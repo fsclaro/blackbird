@@ -180,17 +180,20 @@ return [
         [
             'text' => 'Mensageiro',
             'icon' => 'fas fa-fw fa-inbox',
+            'icon_color' => 'green',
             // 'can' => '',
             'submenu' => [
                 [
                     'text' => 'Enviar Mensagem',
                     'icon' => 'fas fa-fw fa-paper-plane',
+                    'shift' => 'ml-2',
                     // 'can' => '',
                     // 'route' => ''
                 ],
                 [
                     'text' => 'Ler Mensagens Recebidas',
                     'icon' => 'fas fa-fw fa-envelope-open',
+                    'shift' => ' ml-2',
                     // 'can' => '',
                     // 'route' => ''
                 ],
@@ -200,6 +203,7 @@ return [
         [
             'text' => 'Notificações',
             'icon' => 'fas fa-fw fa-bell',
+            'icon_color' => 'green',
             // 'can' => '',
             // 'route' => '',
         ],
@@ -220,18 +224,21 @@ return [
                     'icon'    => 'fas fa-fw fa-users',
                     'can'   => 'user_access',
                     'route' => 'admin.users.index',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text'    => 'Papéis',
                     'icon'    => 'fas fa-fw fa-user-tag',
                     'can'     => 'role_access',
                     'route' => 'admin.roles.index',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text'    => 'Permissões',
                     'icon'    => 'fas fa-fw fa-key',
                     'can'   => 'permission_access',
                     'route' => 'admin.permissions.index',
+                    'shift' => 'ml-2',
                 ],
             ],
         ],
@@ -246,12 +253,14 @@ return [
                     'icon'  => 'fas fa-fw fa-database',
                     'can'   => 'setting_access',
                     'route' => 'admin.settings.index',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text'  => 'Valores',
                     'icon'  => 'fas fa-fw fa-bullhorn',
                     'can'   => 'setting_content',
                     'route' => 'admin.settings.content',
+                    'shift' => 'ml-2',
                 ],
             ],
         ],
@@ -266,6 +275,7 @@ return [
                     'icon' => 'fas fa-fw fa-flag',
                     'can' => 'log_access',
                     'route' => 'admin.logs.index',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text'   => 'Log Viewer',
@@ -273,6 +283,7 @@ return [
                     'can'    => 'log_viewer_access',
                     'route'  => 'log-viewer::dashboard',
                     'target' => '_blank',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text'   => 'Route Viewer',
@@ -280,6 +291,7 @@ return [
                     'can'    => 'route_viewer_access',
                     'route'  => 'route-viewer::index',
                     'target' => '_blank',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text'   => 'PHPInfo',
@@ -287,6 +299,7 @@ return [
                     'can'    => 'phpinfo_viewer',
                     'route'  => 'api.phpinfo',
                     'target' => '_blank',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text'   => 'Telescope',
@@ -294,8 +307,8 @@ return [
                     'can'    => 'telescope_viewer',
                     'route'  => 'telescope',
                     'target' => '_blank',
+                    'shift' => 'ml-2',
                 ],
-
             ],
         ],
     ],

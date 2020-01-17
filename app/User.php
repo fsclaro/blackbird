@@ -45,6 +45,14 @@ class User extends Authenticatable implements HasMedia
         'email_verified_at' => 'datetime',
     ];
 
+    public function notifications() {
+        return $this->hasMany('App\Notification');
+    }
+
+    public function messages() {
+        return $this->hasMany('App\Message');
+    }
+    
     public function logs()
     {
         return $this->hasMany('App\Logs');

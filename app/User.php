@@ -11,6 +11,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notification;
+use App\Message;
+use App\Role;
+use App\Logs;
+use App\SocialIdentity;
 
 class User extends Authenticatable implements HasMedia
 {
@@ -45,41 +50,85 @@ class User extends Authenticatable implements HasMedia
         'email_verified_at' => 'datetime',
     ];
 
-    public function notifications()
-    {
-        return $this->hasMany('App\Notification');
-    }
 
-    public function messages()
-    {
-        return $this->hasMany('App\Message');
-    }
-    
+
+    /**
+     * -------------------------------------------------------------------
+     * define relationship between user and logs
+     * -------------------------------------------------------------------
+     *
+     * @return void
+     */
     public function logs()
     {
-        return $this->hasMany('App\Logs');
+        return $this->hasMany(Logs::class);
     }
 
+
+    /**
+     * -------------------------------------------------------------------
+     * define relationship between user and social identity
+     * -------------------------------------------------------------------
+     *
+     * @return void
+     */
     public function identities()
     {
-        return $this->hasMany('App\SocialIdentity');
+        return $this->hasMany(SocialIdentity::class);
     }
 
+
+    /**
+     * -------------------------------------------------------------------
+     * define relationship between user and messages
+     * -------------------------------------------------------------------
+     *
+     * @return void
+     */
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+
+
+    /**
+     * -------------------------------------------------------------------
+     * define relationship between user and notifications
+     * -------------------------------------------------------------------
+     *
+     * @return void
+     */
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+
+
+    /**
+     * -------------------------------------------------------------------
+     * define relationship between user and roles
+     * -------------------------------------------------------------------
+     *
+     * @return void
+     */
     public function roles()
     {
         return $this->belongsToMany(Role::class);
     }
 
-    public function messages()
-    {
-        return $this->belongsToMany(Message::class);
-    }
 
-    public function notifications()
-    {
-        return $this->belongsToMany(Notification::class);
-    }
 
+    /**
+     * -------------------------------------------------------------------
+     * get user's avatar
+     * -------------------------------------------------------------------
+     *
+     * @param int $id
+     *
+     * @return void
+     */
     public function getAvatar($id)
     {
         $avatar = User::find($id)->getMedia('avatars');
@@ -93,6 +142,13 @@ class User extends Authenticatable implements HasMedia
         return $urlAvatar;
     }
 
+    /**
+     * -------------------------------------------------------------------
+     * get all roles name of a user
+     * -------------------------------------------------------------------
+     *
+     * @return void
+     */
     public function getRolesNames()
     {
         $roles = Auth::user()->roles;
@@ -104,6 +160,14 @@ class User extends Authenticatable implements HasMedia
         return $title;
     }
 
+
+    /**
+     * -------------------------------------------------------------------
+     * get first role name of a user
+     * -------------------------------------------------------------------
+     *
+     * @return void
+     */
     public function getFirstRoleName()
     {
         $roles = Auth::user()->roles[0];
@@ -111,38 +175,100 @@ class User extends Authenticatable implements HasMedia
         return $roles->title;
     }
 
+
+    /**
+     * -------------------------------------------------------------------
+     * get user id of user authenticated
+     * -------------------------------------------------------------------
+     *
+     * @return void
+     */
     public function myID()
     {
         return Auth::user()->id;
     }
 
+
+    /**
+     * -------------------------------------------------------------------
+     * get user name of a user authenticated
+     * -------------------------------------------------------------------
+     *
+     * @return void
+     */
     public function myName()
     {
         return Auth::user()->name;
     }
 
+
+    /**
+     * -------------------------------------------------------------------
+     * get email of user authenticated
+     * -------------------------------------------------------------------
+     *
+     * @return void
+     */
     public function myEmail()
     {
         return Auth::user()->email;
     }
 
+
+    /**
+     * -------------------------------------------------------------------
+     * get the roles number of user authenticated
+     * -------------------------------------------------------------------
+     *
+     * @return void
+     */
     public function numRoles()
     {
         return Auth::user()->roles->count();
     }
 
+
+    /**
+     * -------------------------------------------------------------------
+     * get datetime of email verificated
+     * -------------------------------------------------------------------
+     *
+     * @param [type] $value
+     *
+     * @return void
+     */
     public function getEmailVerifiedAtAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)
             ->format(config('panel.date_format').' '.config('panel.time_format')) : null;
     }
 
+
+    /**
+     * -------------------------------------------------------------------
+     * set datetime for any email verificated
+     * -------------------------------------------------------------------
+     *
+     * @param [type] $value
+     *
+     * @return void
+     */
     public function setEmailVerifiedAtAttribute($value)
     {
         $this->attributes['email_verified_at'] = $value ? Carbon::createFromFormat(config('panel.date_format').' '.
             config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 
+
+    /**
+     * -------------------------------------------------------------------
+     * convert any password in your hashed version
+     * -------------------------------------------------------------------
+     *
+     * @param string $input
+     *
+     * @return void
+     */
     public function setPasswordAttribute($input)
     {
         if ($input) {
@@ -150,6 +276,17 @@ class User extends Authenticatable implements HasMedia
         }
     }
 
+
+
+    /**
+     * -------------------------------------------------------------------
+     * notify the send password reset
+     * -------------------------------------------------------------------
+     *
+     * @param string $token
+     *
+     * @return void
+     */
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPassword($token));

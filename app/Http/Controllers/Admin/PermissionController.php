@@ -67,7 +67,6 @@ class PermissionController extends Controller
 
         try {
             $permission->update($request->all());
-//            $permission->save();
 
             $details = $this->prepareDetailsUpdate($this->getPermission(), $permission);
 

@@ -100,7 +100,9 @@ config('adminlte.classes_body')
 
                     @include('vendor.adminlte.partials.messages')
 
+                    @if(Auth::user()->notifications()->where('is_read', 0)->count() > 0)
                     @include('vendor.adminlte.partials.notifications')
+                    @endif
 
                     <!-- botão sair -->
                     <li class="nav-item">

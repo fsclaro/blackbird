@@ -61,6 +61,9 @@ Route::group(
 
         /* Rotas da tabela de logs de atividades */
         Route::resource('logs', 'LogsController')->except(['create', 'edit', 'update', 'store']);
+
+        /* Rotas da tabela de notificações */
+        Route::resource('notifications', 'NotificationController');
     }
 );
 

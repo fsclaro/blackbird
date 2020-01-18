@@ -204,8 +204,8 @@ return [
             'text' => 'Notificações',
             'icon' => 'fas fa-fw fa-bell',
             'icon_color' => 'green',
-            // 'can' => '',
-            // 'route' => '',
+            'can' => 'notification_access',
+            'route' => 'admin.notifications.index',
         ],
 
         [

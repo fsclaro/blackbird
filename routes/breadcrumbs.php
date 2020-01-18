@@ -123,3 +123,18 @@ Breadcrumbs::for('logs_show', function ($trail) {
     $trail->parent('logs_access');
     $trail->push('Detalhes');
 });
+
+
+// ================================================================================
+// Notifications
+// ================================================================================
+
+Breadcrumbs::for('notifications_access', function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push('Notificações', route('admin.notifications.index'));
+});
+
+Breadcrumbs::for('notifications_show', function ($trail) {
+    $trail->parent('notifications_access');
+    $trail->push('Detalhes');
+});

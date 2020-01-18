@@ -17,12 +17,14 @@
 
 @section('content')
 <div class="container-fluid">
+    @if(in_array("Admin", Auth::user()->getRolesNames()))
     <div class="row">
         @widget('UsersCount')
         @widget('PermissionsCount')
         @widget('RolesCount')
         @widget('SettingsCount')
     </div>
+    @endif
 
     @include("partials.dashboard-profile")
 

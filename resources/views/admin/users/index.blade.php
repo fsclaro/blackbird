@@ -21,10 +21,10 @@
                     <i class="fas fa-bolt"></i> Ações
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" onclick="proccess(1);"><i class="fas fa-fw fa-check"></i> Ativar Selecionados</a>
-                    <a class="dropdown-item" href="#" onclick="proccess(2);"><i class="fas fa-fw fa-times"></i> Desativar Selecionados</a>
+                    <a class="dropdown-item" href="#" onclick="proccess(1);"><i class="fas fa-fw fa-check text-success"></i> Ativar Selecionados</a>
+                    <a class="dropdown-item" href="#" onclick="proccess(2);"><i class="fas fa-fw fa-times text-red"></i> Desativar Selecionados</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" onclick="proccess(3);"><i class="fas fa-fw fa-user-times"></i> Excluir Selecionados</a>
+                    <a class="dropdown-item" href="#" onclick="proccess(3);"><i class="fas fa-fw fa-trash text-danger"></i> Excluir Selecionados</a>
                 </div>
             </div>
         </div>
@@ -151,7 +151,8 @@
             language: {
                 url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
             },
-            columns: [{
+            columns: [
+                {
                     orderable: false,
                     searchable: false,
                 }, // checkbox

@@ -20,9 +20,9 @@
                     <i class="fas fa-bolt"></i> Ações
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" onclick="process(1);"><i class="fas fa-fw fa-clone"></i> Clonar Papéis</a>
+                    <a class="dropdown-item" href="#" onclick="process(1);"><i class="fas fa-fw fa-clone text-success"></i> Clonar Papéis</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" onclick="process(2);"><i class="fas fa-fw fa-user-tag"></i> Excluir Papéis</a>
+                    <a class="dropdown-item" href="#" onclick="process(2);"><i class="fas fa-fw fa-user-tag text-danger"></i> Excluir Papéis</a>
 
                 </div>
             </div>

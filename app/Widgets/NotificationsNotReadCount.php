@@ -2,8 +2,8 @@
 
 namespace App\Widgets;
 
-use Arrilot\Widgets\AbstractWidget;
 use Auth;
+use Arrilot\Widgets\AbstractWidget;
 
 class NotificationsNotReadCount extends AbstractWidget
 {

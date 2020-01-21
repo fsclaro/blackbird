@@ -64,9 +64,9 @@ Route::group(
 
         /* Rotas da tabela de notificações */
         Route::resource('notifications', 'NotificationController');
-        Route::get('notifications/read', 'NotificationController@read')->name('notifications.read');
-        Route::get('notifications/unread', 'NotificationController@unread')->name('notifications.unread');
-        Route::get('notifications/deleteall', 'NotificationController@deleteall')->name('notifications.deleteall');
+        Route::post('notifications/read', 'NotificationController@read')->name('notifications.read');
+        Route::post('notifications/unread', 'NotificationController@unread')->name('notifications.unread');
+        Route::post('notifications/deleteall', 'NotificationController@deleteall')->name('notifications.deleteall');
     }
 );
 

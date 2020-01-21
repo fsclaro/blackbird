@@ -6,8 +6,6 @@ use Session;
 use App\Logs;
 use App\Role;
 use App\User;
-use App\Notification;
-use App\Message;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -81,7 +79,7 @@ class UserController extends Controller
                 $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
             }
 
-            Logs::registerLog('Cadastrou o usuário ' . $user->name . ' no sistema.', $details);
+            Logs::registerLog('Cadastrou o usuário '.$user->name.' no sistema.', $details);
             alert()->success('Usuário criado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu algum problema na inclusão deste usuário!')->toToast('top-end');
@@ -130,7 +128,7 @@ class UserController extends Controller
 
             $details = $this->prepareDetailsUpdate($this->getUser(), $user);
 
-            Logs::registerLog('Atualizou os dados do usuário ' . $user->name, $details);
+            Logs::registerLog('Atualizou os dados do usuário '.$user->name, $details);
             alert()->success('Dados do usuário alterado com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Houve algum problema na alteração deste usuário!')->toToast('top-end');
@@ -171,7 +169,7 @@ class UserController extends Controller
             $user->roles()->sync($request->input('roles', true));
             $user->delete();
 
-            Logs::registerLog('Excluiu o usuário ' . $user->name);
+            Logs::registerLog('Excluiu o usuário '.$user->name);
             alert()->success('Usuário excluído com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Houve algum problema e este usuário não pode ser excluído!')->toToast('top-end');
@@ -284,8 +282,12 @@ class UserController extends Controller
         for ($i = 0; $i < count($ids); $i++) {
             if (Auth::user()->id !== (int) $ids[$i]) {
                 $user = User::find($ids[$i]);
-                User::where('id', $ids[$i])->update(['active' => 1]);
-                Logs::registerLog('Ativou o usuário ' . $user->name);
+                User::where('id', $ids[$i])
+                    ->update([
+                        'active' => 1,
+                        'updated_at' => now(),
+                    ]);
+                Logs::registerLog('Ativou o usuário '.$user->name);
             }
         }
     }
@@ -306,7 +308,7 @@ class UserController extends Controller
             if (Auth::user()->id !== (int) $ids[$i]) {
                 $user = User::find($ids[$i]);
                 User::where('id', $ids[$i])->update(['active' => 0]);
-                Logs::registerLog('Desativou o usuário ' . $user->name);
+                Logs::registerLog('Desativou o usuário '.$user->name);
             }
         }
     }
@@ -326,7 +328,7 @@ class UserController extends Controller
             if (Auth::user()->id !== (int) $ids[$i]) {
                 $user = User::find($ids[$i]);
                 User::where('id', $ids[$i])->delete();
-                Logs::registerLog('Excluiu o usuário ' . $user->name);
+                Logs::registerLog('Excluiu o usuário '.$user->name);
             }
         }
     }
@@ -344,7 +346,7 @@ class UserController extends Controller
         $content = '';
         $roles = $new->roles;
         for ($i = 0; $i < count($roles); $i++) {
-            $content .= "<span class='badge badge-primary'>" . $roles[$i]->title . '</span> ';
+            $content .= "<span class='badge badge-primary'>".$roles[$i]->title.'</span> ';
         }
 
         $fields[] = ['field' => 'ID', 'value' => $new->id];
@@ -363,8 +365,8 @@ class UserController extends Controller
         for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
-                <td>' . $fields[$i]['field'] . '</td>
-                <td>' . $fields[$i]['value'] . '</td>
+                <td>'.$fields[$i]['field'].'</td>
+                <td>'.$fields[$i]['value'].'</td>
             </tr>';
         }
         $content .= '
@@ -390,12 +392,12 @@ class UserController extends Controller
         $newContent = '';
         $oldRoles = $old->roles;
         for ($i = 0; $i < count($oldRoles); $i++) {
-            $oldContent .= "<span class='badge badge-primary'>" . $oldRoles[$i]->title . '</span> ';
+            $oldContent .= "<span class='badge badge-primary'>".$oldRoles[$i]->title.'</span> ';
         }
 
         $newRoles = $new->roles;
         for ($i = 0; $i < count($newRoles); $i++) {
-            $newContent .= "<span class='badge badge-primary'>" . $newRoles[$i]->title . '</span> ';
+            $newContent .= "<span class='badge badge-primary'>".$newRoles[$i]->title.'</span> ';
         }
 
         $fields[] = ['field' => 'ID', 'oldvalue' => $old->id, 'newvalue' => $new->id];
@@ -416,9 +418,9 @@ class UserController extends Controller
         for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
-                <td>' . $fields[$i]['field'] . '</td>
-                <td>' . $fields[$i]['oldvalue'] . '</td>
-                <td>' . $fields[$i]['newvalue'] . '</td>
+                <td>'.$fields[$i]['field'].'</td>
+                <td>'.$fields[$i]['oldvalue'].'</td>
+                <td>'.$fields[$i]['newvalue'].'</td>
             </tr>';
         }
         $content .= '

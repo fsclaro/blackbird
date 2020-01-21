@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\User;
 
 class Message extends Model
 {
@@ -21,7 +20,7 @@ class Message extends Model
         'user_id_destination',
         'subject',
         'content',
-        'is_redad'
+        'is_redad',
     ];
 
     public function user()

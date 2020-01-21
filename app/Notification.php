@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -13,7 +12,7 @@ class Notification extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-        'deleted_at'
+        'deleted_at',
     ];
 
     protected $fillable = [
@@ -24,7 +23,7 @@ class Notification extends Model
         'is_read',
         'created_at',
         'updated_at',
-        'deleted_at'
+        'deleted_at',
     ];
 
     public function user()

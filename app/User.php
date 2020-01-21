@@ -11,11 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Notification;
-use App\Message;
-use App\Role;
-use App\Logs;
-use App\SocialIdentity;
 
 class User extends Authenticatable implements HasMedia
 {
@@ -50,12 +45,10 @@ class User extends Authenticatable implements HasMedia
         'email_verified_at' => 'datetime',
     ];
 
-
-
     /**
      * -------------------------------------------------------------------
      * define relationship between user and logs
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @return void
      */
@@ -64,11 +57,10 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Logs::class);
     }
 
-
     /**
      * -------------------------------------------------------------------
      * define relationship between user and social identity
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @return void
      */
@@ -77,11 +69,10 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(SocialIdentity::class);
     }
 
-
     /**
      * -------------------------------------------------------------------
      * define relationship between user and messages
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @return void
      */
@@ -90,12 +81,10 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Message::class);
     }
 
-
-
     /**
      * -------------------------------------------------------------------
      * define relationship between user and notifications
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @return void
      */
@@ -104,12 +93,10 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Notification::class);
     }
 
-
-
     /**
      * -------------------------------------------------------------------
      * define relationship between user and roles
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @return void
      */
@@ -118,12 +105,10 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsToMany(Role::class);
     }
 
-
-
     /**
      * -------------------------------------------------------------------
      * get user's avatar
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @param int $id
      *
@@ -145,7 +130,7 @@ class User extends Authenticatable implements HasMedia
     /**
      * -------------------------------------------------------------------
      * get all roles name of a user
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @return void
      */
@@ -160,11 +145,10 @@ class User extends Authenticatable implements HasMedia
         return $title;
     }
 
-
     /**
      * -------------------------------------------------------------------
      * get first role name of a user
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @return void
      */
@@ -175,11 +159,10 @@ class User extends Authenticatable implements HasMedia
         return $roles->title;
     }
 
-
     /**
      * -------------------------------------------------------------------
      * get user id of user authenticated
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @return void
      */
@@ -188,11 +171,10 @@ class User extends Authenticatable implements HasMedia
         return Auth::user()->id;
     }
 
-
     /**
      * -------------------------------------------------------------------
      * get user name of a user authenticated
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @return void
      */
@@ -201,11 +183,10 @@ class User extends Authenticatable implements HasMedia
         return Auth::user()->name;
     }
 
-
     /**
      * -------------------------------------------------------------------
      * get email of user authenticated
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @return void
      */
@@ -214,11 +195,10 @@ class User extends Authenticatable implements HasMedia
         return Auth::user()->email;
     }
 
-
     /**
      * -------------------------------------------------------------------
      * get the roles number of user authenticated
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @return void
      */
@@ -227,11 +207,10 @@ class User extends Authenticatable implements HasMedia
         return Auth::user()->roles->count();
     }
 
-
     /**
      * -------------------------------------------------------------------
      * get datetime of email verificated
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @param [type] $value
      *
@@ -243,11 +222,10 @@ class User extends Authenticatable implements HasMedia
             ->format(config('panel.date_format').' '.config('panel.time_format')) : null;
     }
 
-
     /**
      * -------------------------------------------------------------------
      * set datetime for any email verificated
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @param [type] $value
      *
@@ -259,11 +237,10 @@ class User extends Authenticatable implements HasMedia
             config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 
-
     /**
      * -------------------------------------------------------------------
      * convert any password in your hashed version
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @param string $input
      *
@@ -276,12 +253,10 @@ class User extends Authenticatable implements HasMedia
         }
     }
 
-
-
     /**
      * -------------------------------------------------------------------
      * notify the send password reset
-     * -------------------------------------------------------------------
+     * -------------------------------------------------------------------.
      *
      * @param string $token
      *

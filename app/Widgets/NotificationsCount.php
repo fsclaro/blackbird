@@ -2,9 +2,8 @@
 
 namespace App\Widgets;
 
-use Arrilot\Widgets\AbstractWidget;
-use App\Notification;
 use Auth;
+use Arrilot\Widgets\AbstractWidget;
 
 class NotificationsCount extends AbstractWidget
 {

@@ -486,27 +486,27 @@ return [
                 ],
             ],
         ],
-        [
-            'name' => 'Popper',
-            'active' => true,
-            'files' => [
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => 'vendor/popper/popper.min.js',
-                ],
-            ],
-        ],
-        [
-            'name' => 'overlayScrollbars',
-            'active' => true,
-            'files' => [
-                [
-                    'type' => 'css',
-                    'asset' => true,
-                    'location' => 'vendor/overlayScrollbars/css/OverlayScrollbars.min.css',
-                ],
-            ],
-        ],
+        // [
+        //     'name' => 'Popper',
+        //     'active' => true,
+        //     'files' => [
+        //         [
+        //             'type' => 'js',
+        //             'asset' => true,
+        //             'location' => 'vendor/popper/popper.min.js',
+        //         ],
+        //     ],
+        // ],
+        // [
+        //     'name' => 'overlayScrollbars',
+        //     'active' => true,
+        //     'files' => [
+        //         [
+        //             'type' => 'css',
+        //             'asset' => true,
+        //             'location' => 'vendor/overlayScrollbars/css/OverlayScrollbars.min.css',
+        //         ],
+        //     ],
+        // ],
     ],
 ];

@@ -31,7 +31,7 @@ class NotificationController extends Controller
         return view('admin.notifications.show', compact('notification'));
     }
 
-    public function destroy($id)
+    public funct`ion destroy($id)
     {
         abort_unless(Gate::allows('notification_delete'), 403);
 

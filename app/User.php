@@ -161,6 +161,19 @@ class User extends Authenticatable implements HasMedia
 
     /**
      * -------------------------------------------------------------------
+     * get the roles number of user authenticated
+     * -------------------------------------------------------------------.
+     *
+     * @return void
+     */
+    public function numRoles()
+    {
+        return Auth::user()->roles->count();
+    }
+
+
+    /**
+     * -------------------------------------------------------------------
      * get user id of user authenticated
      * -------------------------------------------------------------------.
      *
@@ -197,15 +210,16 @@ class User extends Authenticatable implements HasMedia
 
     /**
      * -------------------------------------------------------------------
-     * get the roles number of user authenticated
+     * verify if user is superadmin
      * -------------------------------------------------------------------.
      *
      * @return void
      */
-    public function numRoles()
+    public function isSuperAdmin()
     {
-        return Auth::user()->roles->count();
+        return Auth::user()->is_superadmin;
     }
+
 
     /**
      * -------------------------------------------------------------------

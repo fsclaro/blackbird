@@ -15,7 +15,7 @@ class PermissionRoleTableSeeder extends Seeder
     {
         // atribui todas as permissões para o papel admin
         $admin_permissions = Permission::all();
-        Role::findOrFail(1)
+        Role::findOrFail(2)
             ->permissions()
             ->sync($admin_permissions->pluck('id'));
 
@@ -27,7 +27,7 @@ class PermissionRoleTableSeeder extends Seeder
         );
 
         // atribui as pemissões selecionadas para o papel user
-        Role::findOrFail(2)
+        Role::findOrFail(3)
             ->permissions()
             ->sync($user_permissions->pluck('id'));
     }

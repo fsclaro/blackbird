@@ -13,22 +13,43 @@ class PermissionRoleTableSeeder extends Seeder
      */
     public function run()
     {
-        // atribui todas as permissões para o papel admin
-        $admin_permissions = Permission::all();
+
+        $this->command->info('Associando as permissões aos papéis...');
+
+        $permissions = Permission::all();
+
+
+        // atribui as permissões para o papel super_admin
+        $this->command->info('- Associando as permissões ao papel SuperAdmin.');
+
+        $permissionSuperAdmin = $permissions->filter(function ($permission) {
+            return $permission->slug == 'super_admin';
+        });
+
+        Role::findOrFail(1)
+            ->permissions()
+            ->sync($permissionSuperAdmin->pluck('id'));
+
+
+        // atribui as permissões para o papel admin
+        $this->command->info('- Associando as permissões ao papel Admin.');
+
+        $permissionAdmin = $permissions->filter(function ($permission) {
+            return $permission->slug != 'super_admin';
+        });
+
         Role::findOrFail(2)
             ->permissions()
-            ->sync($admin_permissions->pluck('id'));
+            ->sync($permissionAdmin->pluck('id'));
 
-        // seleciona as permissões para serem atribuídas para o papel user
-        $user_permissions = $admin_permissions
-            ->filter(function ($permission) {
-                return $permission->slug == 'user_profile';
-            }
-        );
 
-        // atribui as pemissões selecionadas para o papel user
+        // atribui as permissões para o papel user
+        $this->command->info('- Associando as permissões ao papel User.');
+        $permissionUser = $permissions->filter(function ($permission) {
+            return $permission->slug == 'user_profile';
+        });
         Role::findOrFail(3)
             ->permissions()
-            ->sync($user_permissions->pluck('id'));
+            ->sync($permissionUser->pluck('id'));
     }
 }

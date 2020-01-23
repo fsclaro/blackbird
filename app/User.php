@@ -136,10 +136,14 @@ class User extends Authenticatable implements HasMedia
      */
     public function getRolesNames()
     {
-        $roles = Auth::user()->roles;
+        if(Auth::user()->is_superadmin) {
+            $title[] = 'SuperAdmin';
+        } else {
+            $roles = Auth::user()->roles;
 
-        foreach ($roles as $key => $value) {
-            $title[] = $value->title;
+            foreach ($roles as $key => $value) {
+                $title[] = $value->title;
+            }
         }
 
         return $title;
@@ -154,9 +158,13 @@ class User extends Authenticatable implements HasMedia
      */
     public function getFirstRoleName()
     {
-        $roles = Auth::user()->roles[0];
+        if (Auth::user()->is_superadmin) {
+            $title = "SuperAdmin";
+        } else {
+            $title = Auth::user()->roles[0]->title;
+        }
 
-        return $roles->title;
+        return $title;
     }
 
     /**
@@ -168,6 +176,7 @@ class User extends Authenticatable implements HasMedia
      */
     public function numRoles()
     {
+        
         return Auth::user()->roles->count();
     }
 

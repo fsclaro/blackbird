@@ -36,7 +36,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        abort_unless(\Gate::allows('user_access') && Auth::user()->is_superadmin, 403);
+        $is_superadmin = Auth::user()->is_superadmin;
+        abort_unless(\Gate::allows('user_access') && $is_superadmin, 403);
 
         $users = User::all();
 

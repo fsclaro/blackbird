@@ -12,7 +12,15 @@ class RoleUserTableSeeder extends Seeder
      */
     public function run()
     {
-        User::findOrFail(2)->roles()->sync(1);
-        User::findOrFail(3)->roles()->sync(2);
+        $this->command->info('Associando os papéis aos usuários do sistema...');
+
+        $this->command->info('- Associando o papel ao usuãrio SuperAdmin.');
+        User::findOrFail(1)->roles()->sync(1);
+
+        $this->command->info('- Associando o papel ao usuãrio Admin.');
+        User::findOrFail(2)->roles()->sync(2);
+
+        $this->command->info('- Associando o papel ao usuãrio User.');
+        User::findOrFail(3)->roles()->sync(3);
     }
 }

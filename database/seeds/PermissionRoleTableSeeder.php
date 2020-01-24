@@ -46,7 +46,11 @@ class PermissionRoleTableSeeder extends Seeder
         // atribui as permissões para o papel user
         $this->command->info('- Associando as permissões ao papel User.');
         $permissionUser = $permissions->filter(function ($permission) {
-            return $permission->slug == 'user_profile';
+            return $permission->slug == 'user_profile' ||
+                   $permission->slug == 'notification_access' ||
+                   $permission->slug == 'notification_show' ||
+                   $permission->slug == 'notification_delete' ||
+                   $permission->slug == 'log_access';
         });
         Role::findOrFail(3)
             ->permissions()

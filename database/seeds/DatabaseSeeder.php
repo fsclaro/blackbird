@@ -48,11 +48,17 @@ class DatabaseSeeder extends Seeder
         $this->command->info('- Excluindo os registros da tabela users...');
         User::truncate();
 
-        $this->command->info('- Excluindo os registros da table de permissions...');
+        $this->command->info('- Excluindo os registros da tabela de permissions...');
         Permission::truncate();
 
         $this->command->info('- Excluindo os registros da tabela roles...');
         Role::truncate();
+
+        $this->command->info('- Excluindo os registros da tabela permission_role...');
+        DB::table('permission_role')->truncate();
+
+        $this->command->info('- Excluindo os registros da tabela role_user...');
+        DB::table('role_user')->truncate();
 
         DB::statement("SET foreign_key_checks=1");
     }

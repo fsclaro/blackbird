@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
+use Auth;
 
 class StoreSettingRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class StoreSettingRequest extends FormRequest
      */
     public function authorize()
     {
-        return \Gate::allows('setting_create');
+        return Gate::allows('setting_create') || Auth::user()->is_superadmin;
     }
 
     /**

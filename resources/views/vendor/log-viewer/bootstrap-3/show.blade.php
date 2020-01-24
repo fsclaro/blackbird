@@ -9,12 +9,12 @@
 @extends('log-viewer::bootstrap-3._master')
 
 @section('content')
-    <h1 class="page-header">Log [{{ $log->date }}]</h1>
+    <h1 class="page-header">Log do dia [{{ $log->date }}]</h1>
 
     <div class="row">
         <div class="col-md-2">
             <div class="panel panel-default">
-                <div class="panel-heading"><i class="fa fa-fw fa-flag"></i> Levels</div>
+                <div class="panel-heading"><i class="fa fa-fw fa-flag"></i> Níveis</div>
                 <ul class="list-group">
                     @foreach($log->menu() as $levelKey => $item)
                         @if ($item['count'] === 0)
@@ -49,7 +49,7 @@
                             <i class="fa fa-download"></i> DOWNLOAD
                         </a>
                         <a href="#delete-log-modal" class="btn btn-xs btn-danger" data-toggle="modal">
-                            <i class="fa fa-trash-o"></i> DELETE
+                            <i class="fa fa-trash-o"></i> DELETAR
                         </a>
                     </div>
                 </div>
@@ -63,19 +63,19 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Log entries :</td>
+                                <td>Entradas do log :</td>
                                 <td>
                                     <span class="label label-primary">{{ $entries->total() }}</span>
                                 </td>
-                                <td>Size :</td>
+                                <td>Tamanho :</td>
                                 <td>
                                     <span class="label label-primary">{{ $log->size() }}</span>
                                 </td>
-                                <td>Created at :</td>
+                                <td>Criado em :</td>
                                 <td>
                                     <span class="label label-primary">{{ $log->createdAt() }}</span>
                                 </td>
-                                <td>Updated at :</td>
+                                <td>Atualizado em :</td>
                                 <td>
                                     <span class="label label-primary">{{ $log->updatedAt() }}</span>
                                 </td>
@@ -122,10 +122,10 @@
                         <thead>
                             <tr>
                                 <th>ENV</th>
-                                <th style="width: 120px;">Level</th>
-                                <th style="width: 65px;">Time</th>
-                                <th>Header</th>
-                                <th class="text-right">Actions</th>
+                                <th style="width: 120px;">Nível</th>
+                                <th style="width: 65px;">Hora</th>
+                                <th>Cabeçalho</th>
+                                <th class="text-right">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -179,7 +179,7 @@
                         {!! $entries->appends(compact('query'))->render() !!}
 
                         <span class="label label-info pull-right">
-                            Page {{ $entries->currentPage() }} of {{ $entries->lastPage() }}
+                            Página {{ $entries->currentPage() }} de {{ $entries->lastPage() }}
                         </span>
                     </div>
                 @endif
@@ -201,10 +201,10 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title">DELETE LOG FILE</h4>
+                        <h4 class="modal-title">DELETAR ARQUIVO DE LOG</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to <span class="label label-danger">DELETE</span> this log file <span class="label label-primary">{{ $log->date }}</span> ?</p>
+                        <p>Você tem certeza de que deseja <span class="label label-danger">DELETAR</span> este arquivo de log de <span class="label label-primary">{{ $log->date }}</span> ?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-sm btn-default pull-left" data-dismiss="modal">Cancel</button>

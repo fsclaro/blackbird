@@ -33,11 +33,11 @@
                 <i class="fas fa-sync"></i> Atualizar a Tela
             </a>
 
-            @can('role_create')
+            @if(Auth::user()->is_superadmin || Auth::user()->can('role_create'))
             <a class="btn btn-flat btn-success btn-sm" href="{{ route('admin.roles.create') }}">
                 <i class="fas fa-plus-circle"></i> Adicionar Novo Papel
             </a>
-            @endcan
+            @endif
         </div>
     </div>
 
@@ -60,7 +60,9 @@
                     @foreach($roles as $key => $role)
                     <tr data-entry-id="{{ $role->id }}">
                         <td class="align-middle">
+                            @if($role->permissions[0]->id != 1)
                             <input type="checkbox" name="ids[]" id="ids[]" class="checkbox" value="{{ $role->id }}">
+                            @endif
                         </td>
 
                         <td class="align-middle">
@@ -75,23 +77,23 @@
                             @endforeach
                         </td>
                         <td class="text-left align-middle">
-                            @can("role_show")
+                            @if((Auth::user()->is_superadmin || Auth::user()->can("role_show")) && $permission->id != 1)
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.roles.show', $role->id) }}">
                                 <i class="fas fa-fw fa-eye"></i>
                             </a>
-                            @endcan
+                            @endif
 
-                            @can("role_edit")
+                            @if((Auth::user()->is_superadmin || Auth::user()->can("role_edit")) && $permission->id != 1)
                             <a class="btn btn-xs btn-warning" href="{{ route('admin.roles.edit', $role->id) }}">
                                 <i class="fas fa-fw fa-pencil-alt"></i>
                             </a>
-                            @endcan
+                            @endif
 
-                            @can("role_delete")
+                            @if((Auth::user()->is_superadmin || Auth::user()->can("role_delete"))  && $permission->id != 1)
                             <a href="javascript;" onclick="deleteRecord(event,{{ $role->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
-                            @endcan
+                            @endif
                         </td>
                     </tr>
                     @endforeach

@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Session;
 use Auth;
+use Session;
 use App\Logs;
 use App\Role;
 use Carbon\Carbon;
 use App\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 
@@ -24,7 +25,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        abort_unless(\Gate::allows('role_access') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('role_access') || Auth::user()->is_superadmin, 403);
 
         $roles = Role::all();
 
@@ -40,7 +41,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        abort_unless(\Gate::allows('role_create') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('role_create') || Auth::user()->is_superadmin, 403);
 
         $permissions = Permission::all()->pluck('title', 'id');
 
@@ -56,7 +57,7 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
-        abort_unless(\Gate::allows('role_create') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('role_create') || Auth::user()->is_superadmin, 403);
 
         try {
             $role = Role::create($request->all());
@@ -82,7 +83,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        abort_unless(\Gate::allows('role_show') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('role_show') || Auth::user()->is_superadmin, 403);
 
         $role->load('permissions');
 
@@ -99,7 +100,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        abort_unless(\Gate::allows('role_edit') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('role_edit') || Auth::user()->is_superadmin, 403);
 
         $permissions = Permission::all()->pluck('title', 'id');
 
@@ -121,7 +122,7 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
-        abort_unless(\Gate::allows('role_edit') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('role_edit') || Auth::user()->is_superadmin, 403);
 
         try {
             $role->update($request->all());
@@ -148,7 +149,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        abort_unless(\Gate::allows('role_delete') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('role_delete') || Auth::user()->is_superadmin, 403);
 
         try {
             $role = Role::find($id);
@@ -173,7 +174,7 @@ class RoleController extends Controller
      */
     public function clone(Request $request)
     {
-        abort_unless(\Gate::allows('role_clone') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('role_clone') || Auth::user()->is_superadmin, 403);
 
         $ids = $request->data;
         for ($i = 0; $i < count($ids); $i++) {
@@ -204,7 +205,7 @@ class RoleController extends Controller
      */
     public function deleteRoles(Request $request)
     {
-        abort_unless(\Gate::allows('role_delete') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('role_delete') || Auth::user()->is_superadmin, 403);
 
         $ids = $request->data;
         for ($i = 0; $i < count($ids); $i++) {

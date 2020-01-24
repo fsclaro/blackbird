@@ -20,12 +20,14 @@
                 <button class="btn btn-info btn-flat btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bolt"></i> Ações
                 </button>
+
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#" onclick="proccess(1);"><i class="fas fa-fw fa-check text-success"></i> Ativar Selecionados</a>
                     <a class="dropdown-item" href="#" onclick="proccess(2);"><i class="fas fa-fw fa-times text-red"></i> Desativar Selecionados</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" onclick="proccess(3);"><i class="fas fa-fw fa-trash text-danger"></i> Excluir Selecionados</a>
                 </div>
+
             </div>
         </div>
 
@@ -35,13 +37,15 @@
                 <i class="fas fa-sync"></i> Atualizar a Tela
             </a>
 
-            @can('user_create')
+            @if(Auth::user()->is_superadmin || Auth::user()->can('user_create'))
             <a class="btn btn-success btn-flat btn-sm" href="{{ route('admin.users.create') }}">
                 <i class="fas fa-plus-circle"></i> Adicionar Novo Usuário
             </a>
-            @endcan
+            @endif
+
         </div>
     </div>
+
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-striped table-hover datatable" id="users-table">
@@ -62,7 +66,7 @@
                     @foreach($users as $key => $user)
                     <tr data-entry-id="{{ $user->id }}">
                         <td class="align-middle">
-                            @if($user->id != auth()->user()->id)
+                            @if($user->id != Auth::user()->id && !$user->is_superadmin)
                             <input type="checkbox" name="ids[]" id="ids[]" class="checkbox" value="{{ $user->id }}">
                             @endif
                         </td>
@@ -70,15 +74,16 @@
                         <td class="align-middle">
                             {{ $user->id }}
                         </td>
+
                         <td class="align-middle">
                             @if($user->getAvatar($user->id))
-                            <img src="{{ $user->getAvatar($user->id) }}" width="48px" class="img-circle" alt="User Image">
+                                <img src="{{ $user->getAvatar($user->id) }}" width="48px" class="img-circle" alt="User Image">
                             @else
-                            @if (Gravatar::exists($user->email))
-                            <img src="{{ Gravatar::get($user->email) }}" class="img-circle" width="48px" alt="User Image">
-                            @else
-                            <img src="{{ asset('img/avatar/no-photo.png') }}" width="48px" class="img-circle" alt="User Image">
-                            @endif
+                                @if (Gravatar::exists($user->email))
+                                    <img src="{{ Gravatar::get($user->email) }}" class="img-circle" width="48px" alt="User Image">
+                                @else
+                                    <img src="{{ asset('img/avatares/no-photo.png') }}" width="48px" class="img-circle" alt="User Image">
+                                @endif
                             @endif
 
                             {{ $user->name }}
@@ -102,26 +107,31 @@
                         </td>
 
                         <td class="text-left align-middle">
-                            @can("user_show")
+                            @if(
+                                (Auth::user()->is_superadmin    && !$user->is_superadmin) ||
+                                (Auth::user()->can('user_show') && !$user->is_superadmin)
+                            )
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', $user->id) }}">
                                 <i class="fas fa-fw fa-eye"></i>
                             </a>
-                            @endcan
-
-                            @if ($user->id != auth()->user()->id)
-                            @can("user_edit")
-                            <a class="btn btn-xs btn-warning" href="{{ route('admin.users.edit', $user->id) }}">
-                                <i class="fas fa-fw fa-pencil-alt"></i>
-                            </a>
-                            @endcan
                             @endif
 
-                            @if ($user->id != auth()->user()->id)
-                            @can("user_delete")
+                            @if(
+                                (Auth::user()->is_superadmin && !$user->is_superadmin) ||
+                                (Auth::user()->can('user_edit') && !$user->is_superadmin && Auth::user()->id != $user->id)
+                            )
+                                <a class="btn btn-xs btn-warning" href="{{ route('admin.users.edit', $user->id) }}">
+                                    <i class="fas fa-fw fa-pencil-alt"></i>
+                                </a>
+                            @endif
+
+                            @if(
+                                (Auth::user()->is_superadmin && !$user->is_superadmin) ||
+                                (Auth::user()->can('user_delete') && !$user->is_superadmin && Auth::user()->id != $user->id)
+                            )
                             <a href="javascript;" onclick="deleteRecord(event,{{ $user->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
-                            @endcan
                             @endif
                         </td>
                     </tr>

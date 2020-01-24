@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Session;
 use Auth;
+use Session;
 use App\Logs;
 use App\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreSettingRequest;
 use App\Http\Requests\UpdateSettingRequest;
 
@@ -20,7 +21,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        abort_unless(\Gate::allows('setting_access') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('setting_access') || Auth::user()->is_superadmin, 403);
 
         $settings = Setting::all();
 
@@ -34,7 +35,7 @@ class SettingController extends Controller
      */
     public function create()
     {
-        abort_unless(\Gate::allows('setting_create') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('setting_create') || Auth::user()->is_superadmin, 403);
 
         return view('admin.settings.create');
     }
@@ -47,7 +48,7 @@ class SettingController extends Controller
      */
     public function store(StoreSettingRequest $request)
     {
-        abort_unless(\Gate::allows('setting_create') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('setting_create') || Auth::user()->is_superadmin, 403);
 
         try {
             $setting = Setting::create($request->all());
@@ -74,7 +75,7 @@ class SettingController extends Controller
      */
     public function show(Setting $setting)
     {
-        abort_unless(\Gate::allows('setting_show') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('setting_show') || Auth::user()->is_superadmin, 403);
 
         Logs::registerLog('Visualizou os detalhes de um parâmetro do sistema.');
 
@@ -89,7 +90,7 @@ class SettingController extends Controller
      */
     public function edit(Setting $setting)
     {
-        abort_unless(\Gate::allows('setting_edit') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('setting_edit') || Auth::user()->is_superadmin, 403);
 
         $this->saveSetting($setting);
 
@@ -105,7 +106,7 @@ class SettingController extends Controller
      */
     public function update(UpdateSettingRequest $request, Setting $setting)
     {
-        abort_unless(\Gate::allows('setting_edit') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('setting_edit') || Auth::user()->is_superadmin, 403);
 
         try {
             $setting->update($request->all());
@@ -132,7 +133,7 @@ class SettingController extends Controller
      */
     public function destroy($id)
     {
-        abort_unless(\Gate::allows('setting_delete') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('setting_delete') || Auth::user()->is_superadmin, 403);
 
         try {
             Setting::where('id', $id)->delete();
@@ -148,7 +149,7 @@ class SettingController extends Controller
 
     public function getContent()
     {
-        abort_unless(\Gate::allows('setting_content') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('setting_content') || Auth::user()->is_superadmin, 403);
 
         $settings = Setting::all();
         $this->saveSetting($settings);
@@ -158,7 +159,7 @@ class SettingController extends Controller
 
     public function saveContent(Request $request)
     {
-        abort_unless(\Gate::allows('setting_content') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('setting_content') || Auth::user()->is_superadmin, 403);
 
         $values = $request->all();
 

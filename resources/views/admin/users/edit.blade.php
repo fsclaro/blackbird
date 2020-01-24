@@ -37,7 +37,7 @@
                             @if (Gravatar::exists($user->email))
                             <img src="{{ Gravatar::get($user->email) }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
                             @else
-                            <img src="{{ asset('img/avatar/no-photo.png') }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
+                            <img src="{{ asset('img/avatares/no-photo.png') }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
                             @endif
                             @endif
 

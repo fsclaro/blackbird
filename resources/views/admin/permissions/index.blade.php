@@ -20,11 +20,11 @@
                 <i class="fas fa-sync"></i> Atualizar a Tela
             </a>
 
-            @can('permission_create')
+            @if(Auth::user()->is_superadmin || Auth::user()->can('permission_create'))
             <a class="btn btn-flat btn-success btn-sm" href="{{ route('admin.permissions.create') }}">
                 <i class="fas fa-plus-circle"></i> Adicionar Nova Permissão
             </a>
-            @endcan
+            @endif
         </div>
     </div>
     <div class="card-body">
@@ -51,23 +51,23 @@
                             {{ $permission->slug }}
                         </td>
                         <td class="text-left align-middle">
-                            @can("permission_show")
+                            @if((Auth::user()->is_superadmin || Auth::user()->can("permission_show")) && $permission->id != 1)
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.permissions.show', $permission->id) }}">
                                 <i class="fas fa-fw fa-eye"></i>
                             </a>
-                            @endcan
+                            @endif
 
-                            @can("permission_edit")
+                            @if((Auth::user()->is_superadmin || Auth::user()->can("permission_edit")) && $permission->id != 1)
                             <a class="btn btn-xs btn-warning" href="{{ route('admin.permissions.edit', $permission->id) }}">
                                 <i class="fas fa-fw fa-pencil-alt"></i>
                             </a>
-                            @endcan
+                            @endif
 
-                            @can("permission_delete")
+                            @if((Auth::user()->is_superadmin || Auth::user()->can("permission_delete")) && $permission->id != 1)
                             <a href="javascript;" onclick="deleteRecord(event,{{ $permission->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
-                            @endcan
+                            @endif
                         </td>
                     </tr>
                     @endforeach

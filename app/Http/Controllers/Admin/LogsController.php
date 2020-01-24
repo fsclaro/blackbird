@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Logs;
 use Auth;
+use App\Logs;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 class LogsController extends Controller
 {
@@ -15,7 +16,7 @@ class LogsController extends Controller
      */
     public function index()
     {
-        abort_unless(\Gate::allows('log_access') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('log_access') || Auth::user()->is_superadmin, 403);
 
         $logs = Logs::orderBy('created_at', 'desc')->get();
 
@@ -30,7 +31,7 @@ class LogsController extends Controller
      */
     public function show(Logs $log)
     {
-        abort_unless(\Gate::allows('log_access') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('log_access') || Auth::user()->is_superadmin, 403);
 
         return view('admin.logs.show', compact('log'));
     }
@@ -43,7 +44,7 @@ class LogsController extends Controller
      */
     public function destroy($id)
     {
-        abort_unless(\Gate::allows('log_access') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('log_access') || Auth::user()->is_superadmin, 403);
 
         try {
             $log = Logs::find($id);

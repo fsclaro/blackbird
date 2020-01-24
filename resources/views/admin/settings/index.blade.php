@@ -21,11 +21,11 @@
                 <i class="fas fa-sync"></i> Atualizar a Tela
             </a>
 
-            @can('setting_create')
+            @if(Auth::user()->is_superadmin || Auth::user()->can('setting_create'))
             <a class="btn btn-success btn-flat btn-sm" href="{{ route('admin.settings.create') }}">
                 <i class="fas fa-plus-circle"></i> Adicionar Novo Parâmetro
             </a>
-            @endcan
+            @endif
         </div>
     </div>
     <div class="card-body">
@@ -67,25 +67,23 @@
                             @endif
                         </td>
                         <td class="text-left align-middle">
-                            @can("setting_show")
+                            @if(Auth::user()->is_superadmin || Auth::user()->can("setting_show"))
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.settings.show', $setting->id) }}">
                                 <i class="fas fa-fw fa-eye"></i>
                             </a>
-                            @endcan
+                            @endif
 
-                            @can("setting_edit")
+                            @if(Auth::user()->is_superadmin || Auth::user()->can("setting_edit"))
                             <a class="btn btn-xs btn-warning" href="{{ route('admin.settings.edit', $setting->id) }}">
                                 <i class="fas fa-fw fa-pencil-alt"></i>
                             </a>
-                            @endcan
+                            @endif
 
-                            @can("setting_delete")
-                            @if($setting->can_delete)
+                            @if((Auth::user()->is_superadmin || Auth::user()->can("setting_delete")) && $setting->can_delete)
                             <a href="javascript;" onclick="deleteRecord(event,{{ $setting->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                             @endif
-                            @endcan
                         </td>
                     </tr>
                     @endforeach

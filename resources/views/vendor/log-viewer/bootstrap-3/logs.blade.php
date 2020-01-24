@@ -22,7 +22,7 @@
                         @endif
                     </th>
                     @endforeach
-                    <th class="text-right">Actions</th>
+                    <th class="text-right">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,14 +80,14 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title">DELETE LOG FILE</h4>
+                        <h4 class="modal-title">DELETAR ARQUIVO DE LOG</h4>
                     </div>
                     <div class="modal-body">
                         <p></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-default pull-left" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-sm btn-danger" data-loading-text="Loading&hellip;">DELETE FILE</button>
+                        <button type="button" class="btn btn-sm btn-default pull-left" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-sm btn-danger" data-loading-text="Loading&hellip;">DELETAR ARQUIVO</button>
                     </div>
                 </div>
             </form>
@@ -107,7 +107,7 @@
                 var date = $(this).data('log-date');
                 deleteLogForm.find('input[name=date]').val(date);
                 deleteLogModal.find('.modal-body p').html(
-                    'Are you sure you want to <span class="label label-danger">DELETE</span> this log file <span class="label label-primary">' + date + '</span> ?'
+                    'Você tem certeza que deseja <span class="label label-danger">DELETAR</span> o arquivo de log de <span class="label label-primary">' + date + '</span> ?'
                 );
 
                 deleteLogModal.modal('show');

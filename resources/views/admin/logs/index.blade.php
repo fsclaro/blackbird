@@ -55,17 +55,18 @@
                             @endif
                         </td>
                         <td class="text-left align-middle">
-                            @can("log_show")
+                            @if(Auth::user()->is_superadmin || Auth::user()->can("log_show"))
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.logs.show', $log->id) }}">
                                 <i class="fas fa-fw fa-eye"></i>
                             </a>
-                            @endcan
+                            @endif
 
-                            @can("log_delete")
-                            <a href="javascript;" onclick="deleteRecord(event,{{ $log->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
+                            @if(Auth::user()->is_superadmin || Auth::user()->can("log_delete"))
+                            <a href="javascript;" onclick="deleteRecord(event,{{ $log->id }});" id="deleteRecord"
+                                class="btn btn-xs btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
-                            @endcan
+                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -85,7 +86,7 @@
 
 @section('js')
 <script>
-    $(function() {
+    $(function () {
         $("#logs-table").DataTable({
             lengthMenu: [
                 [5, 10, 20, 50, 100, 200, -1],
@@ -95,17 +96,17 @@
                 url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
             },
             columns: [{
-                    width: "40px"
-                }, // id
+                width: "40px"
+            }, // id
                 null, // ipaddress
                 null, // description
                 null, // user name
                 null, // date
-                {
-                    orderable: false,
-                    searchable: false,
-                    width: "90px"
-                }, // actions buttons
+            {
+                orderable: false,
+                searchable: false,
+                width: "90px"
+            }, // actions buttons
             ],
             order: [
                 [4, "desc"]
@@ -140,7 +141,7 @@
                         _token: token,
                         _method: 'DELETE',
                     },
-                    success: function() {
+                    success: function () {
                         Swal.fire({
                             type: 'success',
                             title: 'Sucesso',
@@ -150,7 +151,7 @@
                         });
                         location.reload();
                     },
-                    error: function() {
+                    error: function () {
                         Swal.fire({
                             type: 'error',
                             title: 'Falhou',

@@ -4,12 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
+use Auth;
 
 class UpdateUserRequest extends FormRequest
 {
     public function authorize()
     {
-        return \Gate::allows('user_edit');
+        return Gate::allows('user_edit') || Auth::user()->is_superadmin;
     }
 
     public function rules()

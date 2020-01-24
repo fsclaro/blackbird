@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
+use Illuminate\Support\Facades\Gate;
 
 class CanAccessLogViewer
 {
@@ -15,7 +17,7 @@ class CanAccessLogViewer
      */
     public function handle($request, Closure $next)
     {
-        abort_unless(\Gate::allows('log_viewer_access'), 403);
+        abort_unless(Gate::allows('log_viewer_access') || Auth::user()->is_superadmin, 403);
 
         return $next($request);
     }

@@ -26,7 +26,7 @@
                             <label for="foto">Foto do Usuário</label>
                             <br />
 
-                            <img src="{{ asset('img/avatar/no-photo.png') }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
+                            <img src="{{ asset('img/avatares/no-photo.png') }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
 
                             <div class="row">&nbsp;</div>
 

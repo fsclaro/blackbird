@@ -87,17 +87,17 @@
                         </td>
 
                         <td class="text-left align-middle">
-                            @can("notification_show")
+                            @if(Auth::user()->is_superadmin || Auth::user()->can("notification_show"))
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.notifications.show', $notification->id) }}">
                                 <i class="fas fa-fw fa-eye"></i>
                             </a>
-                            @endcan
+                            @endif
 
-                            @can("notification_delete")
+                            @if(Auth::user()->is_superadmin || Auth::user()->can("notification_delete"))
                             <a href="javascript;" onclick="deleteRecord(event,{{ $notification->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
-                            @endcan
+                            @endif
                         </td>
                     </tr>
                     @endforeach

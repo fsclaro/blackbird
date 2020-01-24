@@ -136,7 +136,7 @@ class User extends Authenticatable implements HasMedia
      */
     public function getRolesNames()
     {
-        if(Auth::user()->is_superadmin) {
+        if (Auth::user()->is_superadmin) {
             $title[] = 'SuperAdmin';
         } else {
             $roles = Auth::user()->roles;
@@ -176,7 +176,7 @@ class User extends Authenticatable implements HasMedia
      */
     public function numRoles()
     {
-        
+
         return Auth::user()->roles->count();
     }
 
@@ -242,7 +242,7 @@ class User extends Authenticatable implements HasMedia
     public function getEmailVerifiedAtAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)
-            ->format(config('panel.date_format').' '.config('panel.time_format')) : null;
+            ->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
     }
 
     /**
@@ -256,7 +256,7 @@ class User extends Authenticatable implements HasMedia
      */
     public function setEmailVerifiedAtAttribute($value)
     {
-        $this->attributes['email_verified_at'] = $value ? Carbon::createFromFormat(config('panel.date_format').' '.
+        $this->attributes['email_verified_at'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' .
             config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 

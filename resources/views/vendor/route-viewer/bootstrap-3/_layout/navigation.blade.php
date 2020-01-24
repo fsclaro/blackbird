@@ -15,7 +15,7 @@
                     <a href="/">Home</a>
                 </li>
                 <li class="active">
-                    <a href="{{ route('route-viewer::index') }}">Routes</a>
+                    <a href="{{ route('route-viewer::index') }}">Rotas</a>
                 </li>
             </ul>
         </div>

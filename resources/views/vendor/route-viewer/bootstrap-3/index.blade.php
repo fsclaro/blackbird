@@ -4,15 +4,15 @@
 
 @section('content')
     <div class="page-header">
-        <h1>Routes <small>| {{ $routes->count() }} routes registered</small></h1>
+        <h1>Rotas <small>| {{ $routes->count() }} rota(s) registrada(s)</small></h1>
     </div>
     <div class="table-responsive">
         <table class="table table-condensed table-hover">
             <thead>
             <tr>
-                <th>Methods</th>
-                <th>URI/Domain</th>
-                <th>Name / Action</th>
+                <th>Métodos</th>
+                <th>URI/Domínios</th>
+                <th>Nome / Ação</th>
                 <th style="width: 20%;">Middleware</th>
             </tr>
             </thead>
@@ -46,7 +46,7 @@
                         @if ($route->isClosure())
                             <span class="label label-default">{{ $route->action }}</span>
                         @else
-                            {!! preg_replace('#(@.*)$#', '<span class="text-success">$1</span>', $route->action) !!}
+                            {!! preg_replace('#(@.*)$#', '<span class="text-danger">$1</span>', $route->action) !!}
                         @endif
                     </td>
                     <td>

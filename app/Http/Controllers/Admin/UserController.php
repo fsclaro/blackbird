@@ -36,8 +36,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $is_superadmin = Auth::user()->is_superadmin;
-        abort_unless(\Gate::allows('user_access') && $is_superadmin, 403);
+        abort_unless(\Gate::allows('user_access') || Auth::user()->is_superadmin, 403);
 
         $users = User::all();
 
@@ -51,7 +50,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        abort_unless(\Gate::allows('user_create'), 403);
+        abort_unless(\Gate::allows('user_create') || Auth::user()->is_superadmin, 403);
 
         $roles = Role::all()->pluck('title', 'id');
         $skins = $this->skins;
@@ -68,7 +67,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        abort_unless(\Gate::allows('user_create'), 403);
+        abort_unless(\Gate::allows('user_create') || Auth::user()->is_superadmin, 403);
 
         try {
             $user = User::create($request->all());
@@ -98,7 +97,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        abort_unless(\Gate::allows('user_edit'), 403);
+        abort_unless(\Gate::allows('user_edit') || Auth::user()->is_superadmin, 403);
 
         $roles = Role::all()->pluck('title', 'id');
 
@@ -119,7 +118,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        abort_unless(\Gate::allows('user_edit'), 403);
+        abort_unless(\Gate::allows('user_edit') || Auth::user()->is_superadmin, 403);
 
         try {
             $user->update($request->all());
@@ -147,7 +146,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        abort_unless(\Gate::allows('user_show'), 403);
+        abort_unless(\Gate::allows('user_show') || Auth::user()->is_superadmin, 403);
 
         $user->load('roles');
 
@@ -164,7 +163,7 @@ class UserController extends Controller
      */
     public function destroy(Request $request, User $user)
     {
-        abort_unless(\Gate::allows('user_delete'), 403);
+        abort_unless(\Gate::allows('user_delete') || Auth::user()->is_superadmin, 403);
 
         try {
             $user->roles()->sync($request->input('roles', true));
@@ -235,7 +234,7 @@ class UserController extends Controller
      */
     public function changeProfile(User $user)
     {
-        abort_unless(\Gate::allows('user_profile'), 403);
+        abort_unless(\Gate::allows('user_profile') || Auth::user()->is_superadmin, 403);
 
         $return_url = url()->previous();
         $skins = $this->skins;
@@ -253,7 +252,7 @@ class UserController extends Controller
      */
     public function updateProfile(UpdateProfileUserRequest $request, User $user)
     {
-        abort_unless(\Gate::allows('user_profile'), 403);
+        abort_unless(\Gate::allows('user_profile') || Auth::user()->is_superadmin, 403);
 
         try {
             $user->update($request->all());
@@ -277,7 +276,7 @@ class UserController extends Controller
      */
     public function activeUsers(Request $request)
     {
-        abort_unless(\Gate::allows('user_access'), 403);
+        abort_unless(\Gate::allows('user_access') || Auth::user()->is_superadmin, 403);
 
         $ids = $request->data;
         for ($i = 0; $i < count($ids); $i++) {
@@ -302,7 +301,7 @@ class UserController extends Controller
      */
     public function desactiveUsers(Request $request)
     {
-        abort_unless(\Gate::allows('user_access'), 403);
+        abort_unless(\Gate::allows('user_access') || Auth::user()->is_superadmin, 403);
 
         $ids = $request->data;
         for ($i = 0; $i < count($ids); $i++) {
@@ -322,7 +321,7 @@ class UserController extends Controller
      */
     public function deleteUsers(Request $request)
     {
-        abort_unless(\Gate::allows('user_access'), 403);
+        abort_unless(\Gate::allows('user_access') || Auth::user()->is_superadmin, 403);
 
         $ids = $request->data;
         for ($i = 0; $i < count($ids); $i++) {

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Gate;
 use Session;
+use Auth;
 use App\Logs;
 use App\Permission;
 use App\Http\Controllers\Controller;
@@ -14,7 +14,7 @@ class PermissionController extends Controller
 {
     public function index()
     {
-        abort_unless(Gate::allows('permission_access'), 403);
+        abort_unless(\Gate::allows('permission_access') || Auth::user()->is_superadmin, 403);
 
         $permissions = Permission::all();
 
@@ -23,14 +23,14 @@ class PermissionController extends Controller
 
     public function create()
     {
-        abort_unless(\Gate::allows('permission_create'), 403);
+        abort_unless(\Gate::allows('permission_create') || Auth::user()->is_superadmin, 403);
 
         return view('admin.permissions.create');
     }
 
     public function store(StorePermissionRequest $request)
     {
-        abort_unless(\Gate::allows('permission_create'), 403);
+        abort_unless(\Gate::allows('permission_create') || Auth::user()->is_superadmin, 403);
 
         try {
             $permission = Permission::create($request->all());
@@ -47,14 +47,14 @@ class PermissionController extends Controller
 
     public function show(Permission $permission)
     {
-        abort_unless(\Gate::allows('permission_show'), 403);
+        abort_unless(\Gate::allows('permission_show') || Auth::user()->is_superadmin, 403);
 
         return view('admin.permissions.show', compact('permission'));
     }
 
     public function edit(Permission $permission)
     {
-        abort_unless(\Gate::allows('permission_edit'), 403);
+        abort_unless(\Gate::allows('permission_edit') || Auth::user()->is_superadmin, 403);
 
         $this->savePermission($permission);
 
@@ -63,7 +63,7 @@ class PermissionController extends Controller
 
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
-        abort_unless(\Gate::allows('permission_edit'), 403);
+        abort_unless(\Gate::allows('permission_edit') || Auth::user()->is_superadmin, 403);
 
         try {
             $permission->update($request->all());
@@ -81,7 +81,7 @@ class PermissionController extends Controller
 
     public function destroy($id)
     {
-        abort_unless(\Gate::allows('permission_delete'), 403);
+        abort_unless(\Gate::allows('permission_delete') || Auth::user()->is_superadmin, 403);
 
         try {
             Permission::where('id', $id)->delete();

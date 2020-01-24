@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use Auth;
-use Gate;
 use App\Logs;
 use App\Notification;
 use Illuminate\Http\Request;
@@ -13,7 +12,7 @@ class NotificationController extends Controller
 {
     public function index()
     {
-        abort_unless(Gate::allows('notification_access'), 403);
+        abort_unless(\Gate::allows('notification_access') || Auth::user()->is_superadmin, 403);
 
         $notifications = Notification::where('user_id', Auth::user()->id)->get();
 
@@ -22,7 +21,7 @@ class NotificationController extends Controller
 
     public function show($id)
     {
-        abort_unless(Gate::allows('notification_show'), 403);
+        abort_unless(\Gate::allows('notification_show') || Auth::user()->is_superadmin, 403);
 
         $notification = Notification::find($id);
 
@@ -31,9 +30,9 @@ class NotificationController extends Controller
         return view('admin.notifications.show', compact('notification'));
     }
 
-    public funct`ion destroy($id)
+    public function destroy($id)
     {
-        abort_unless(Gate::allows('notification_delete'), 403);
+        abort_unless(\Gate::allows('notification_delete') || Auth::user()->is_superadmin, 403);
 
         try {
             Notification::where('id', $id)->delete();
@@ -85,7 +84,7 @@ class NotificationController extends Controller
 
     public function read(Request $request)
     {
-        abort_unless(Gate::allows('notification_access'), 403);
+        abort_unless(\Gate::allows('notification_access') || Auth::user()->is_superadmin, 403);
 
         $ids = $request->data;
         for ($i = 0; $i < count($ids); $i++) {
@@ -100,7 +99,7 @@ class NotificationController extends Controller
 
     public function unread(Request $request)
     {
-        abort_unless(Gate::allows('notification_access'), 403);
+        abort_unless(\Gate::allows('notification_access') || Auth::user()->is_superadmin, 403);
 
         $ids = $request->data;
         for ($i = 0; $i < count($ids); $i++) {
@@ -115,7 +114,7 @@ class NotificationController extends Controller
 
     public function deleteall(Request $request)
     {
-        abort_unless(Gate::allows('notification_access'), 403);
+        abort_unless(\Gate::allows('notification_access') || Auth::user()->is_superadmin, 403);
 
         $ids = $request->data;
         for ($i = 0; $i < count($ids); $i++) {

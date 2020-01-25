@@ -66,7 +66,7 @@ config('adminlte.classes_body')
             <a href="{{ $dashboard_url }}" class="navbar-brand {{ config('adminlte.classes_brand') }}">
                 <img src="{{ asset(config('adminlte.logo_img', 'vendor/adminlte/dist/img/AdminLTELogo.png')) }}" alt="{{config('adminlte.logo_img_alt', 'AdminLTE')}}" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light {{ config('adminlte.classes_brand_text') }}">
-                    {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
+                    {!! config('adminlte.logo', 'Blackbird') !!}
                 </span>
             </a>
             @endif
@@ -147,18 +147,19 @@ config('adminlte.classes_body')
             </span>
         </a>
         @endif
+
         <div class="sidebar">
             <nav class="mt-2">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         @if(Auth::user()->getAvatar(Auth::user()->id))
-                        <img src="{{ Auth::user()->getAvatar(Auth::user()->id) }}" class="img-circle elevation-2" alt="User Image">
+                            <img src="{{ Auth::user()->getAvatar(Auth::user()->id) }}" class="img-circle elevation-2" alt="User Image">
                         @else
-                        @if (Gravatar::exists(Auth::user()->email))
-                        <img src="{{ Gravatar::get(Auth::user()->email) }}" class="img-circle elevation-2" alt="User Image">
-                        @else
-                        <img src="{{ asset('img/avatares/no-photo.png') }}" class="img-circle elevation-2" alt="User Image">
-                        @endif
+                            @if (Gravatar::exists(Auth::user()->email))
+                                <img src="{{ Gravatar::get(Auth::user()->email) }}" class="img-circle elevation-2" alt="User Image">
+                            @else
+                                <img src="{{ asset('img/avatares/no-photo.png') }}" class="img-circle elevation-2" alt="User Image">
+                            @endif
                         @endif
                     </div>
 

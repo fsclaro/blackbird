@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'logo' => '<b>Black</b>bird',
+    'logo' => 'Blackbird',
     'logo_img' => 'img/logo-sm.png',
     'logo_img_class' => 'brand-image-xl',
     'logo_img_xl' => null,

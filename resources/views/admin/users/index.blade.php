@@ -94,7 +94,14 @@
 
                         <td class="align-middle">
                             @foreach($user->roles as $key => $role)
-                            <span class="badge badge-secondary">{{ $role->title }}&nbsp;</span>
+                                @if($role->title == 'SuperAdmin')
+                                    <span class="badge badge-primary">{{ $role->title }}&nbsp;</span>
+                                @elseif($role->title == 'Admin')
+                                    <span class="badge badge-danger">{{ $role->title }}&nbsp;</span>
+                                @else
+                                    <span class="badge badge-secondary">{{ $role->title }}&nbsp;</span>
+                                @endif
+
                             @endforeach
                         </td>
 

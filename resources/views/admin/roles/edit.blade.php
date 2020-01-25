@@ -35,7 +35,7 @@
             </div>
 
             <div class="row">
-                <div class="form-group {{ $errors->has('permissions') ? 'has-error' : '' }} col-md-12">
+                <div class="form-group {{ $errors->has('permissions') ? 'has-error' : '' }} col-md-9">
                     <label for="permissions">Permissões
                         <span class="text-red">*</span>
                         <a class="btn btn-flat btn-success btn-sm text-white" id="select-all" onclick="return selectAll();"><i class="fas fa-fw fa-check-double"></i> Selecionar Todas</a>

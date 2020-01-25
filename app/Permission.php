@@ -6,6 +6,7 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Role;
 
 class Permission extends Model
 {
@@ -24,6 +25,10 @@ class Permission extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function roles() {
+        return $this->belongsToMany(Role::class, 'permission_role');
+    }
 
     /**
      * Get the options for generating the slug.

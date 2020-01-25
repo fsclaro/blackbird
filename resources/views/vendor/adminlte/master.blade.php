@@ -4,9 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title_prefix', config('adminlte.title_prefix', ''))
-@yield('title', Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.title', env('APP_NAME','Blackbird')))
-@yield('title_postfix', config('adminlte.title_postfix', ''))</title>
+    <title>
+@yield('title_prefix', config('adminlte.title_prefix', ''))
+@yield('title', Session::exists('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.logo', 'Blackbird'))
+@yield('title_postfix', config('adminlte.title_postfix', ''))
+    </title>
+
     @if(! config('adminlte.enabled_laravel_mix'))
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">

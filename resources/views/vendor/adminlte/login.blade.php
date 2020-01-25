@@ -63,7 +63,7 @@
     <div class="card">
         <div class="card-body login-card-body">
             <div class="login-logo">
-                <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
+                <a href="{{ $dashboard_url }}">{!! (Session::exists('brand_sistema')) ? Session::get('brand_sistema') : config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
             </div>
             <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }}</p>
             <form action="{{ $login_url }}" method="post">

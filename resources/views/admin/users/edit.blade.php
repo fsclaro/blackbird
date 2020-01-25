@@ -123,7 +123,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="form-group {{ $errors->has('roles') ? 'has-error' : '' }} col-md-10">
+                            <div class="form-group {{ $errors->has('roles') ? 'has-error' : '' }} col-md-8">
                                 <label for="roles">Papéis
                                     <span class="text-red">*</span>
                                 </label>

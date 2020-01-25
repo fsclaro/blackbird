@@ -108,7 +108,7 @@
         </div> <!-- panel-body -->
 
         <div class="card-footer">
-            <a href="{{ $return_url }}" class="btn btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
+            <a href="{{ route('home') }}" class="btn btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
             <button type="submit" class="btn btn-success"><i class="fas fa-fw fa-save"></i> Salvar</button>
         </div> <!-- panel-footer -->
     </div> <!-- panel pane-default -->

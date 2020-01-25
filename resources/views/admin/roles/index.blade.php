@@ -52,6 +52,7 @@
 
                         <th>ID</th>
                         <th>Papéis</th>
+                        <th>Nº de Usuários</th>
                         <th>Permissões</th>
                         <th>Ações</th>
                     </tr>
@@ -72,24 +73,36 @@
                             {{ $role->title }}
                         </td>
                         <td class="align-middle">
+                            {{ $role->users()->count() }}
+                        </td>
+                        <td class="align-middle">
                             @foreach($role->permissions as $key => $permission)
                             <span class="badge badge-primary">{{ $permission->title }}&nbsp;</span>
                             @endforeach
                         </td>
                         <td class="text-left align-middle">
-                            @if((Auth::user()->is_superadmin || Auth::user()->can("role_show")) && $permission->id != 1)
+                            @if(
+                                (Auth::user()->is_superadmin || Auth::user()->can("role_show")) &&
+                                $permission->id != 1
+                            )
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.roles.show', $role->id) }}">
                                 <i class="fas fa-fw fa-eye"></i>
                             </a>
                             @endif
 
-                            @if((Auth::user()->is_superadmin || Auth::user()->can("role_edit")) && $permission->id != 1)
+                            @if(
+                                (Auth::user()->is_superadmin || Auth::user()->can("role_edit")) &&
+                                $permission->id != 1
+                            )
                             <a class="btn btn-xs btn-warning" href="{{ route('admin.roles.edit', $role->id) }}">
                                 <i class="fas fa-fw fa-pencil-alt"></i>
                             </a>
                             @endif
 
-                            @if((Auth::user()->is_superadmin || Auth::user()->can("role_delete"))  && $permission->id != 1)
+                            @if(
+                                (Auth::user()->is_superadmin || Auth::user()->can("role_delete"))  &&
+                                $permission->id != 1 && $role->users()->count() == 0
+                            )
                             <a href="javascript;" onclick="deleteRecord(event,{{ $role->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
@@ -122,22 +135,13 @@
             language: {
                 url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
             },
-            columns: [{
-                    orderable: false,
-                    searchable: false,
-                }, // checkbox
-                {
-                    width: "40px"
-                }, // id
-                {
-                    width: "200px"
-                }, // title
+            columns: [
+                { orderable: false, searchable: false }, // checkbox
+                { width: "40px" }, // id
+                { width: "200px" }, // title
+                null, // users number
                 null, // permissions
-                {
-                    orderable: false,
-                    searchable: false,
-                    width: "90px"
-                }, // actions buttons
+                { orderable: false, searchable: false, width: "90px" }, // actions buttons
             ],
             order: [
                 [1, "asc"]

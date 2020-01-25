@@ -35,6 +35,7 @@
                         <th>ID</th>
                         <th>Título da Permissão</th>
                         <th>Slug</th>
+                        <th>Nº de Papéis</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -50,6 +51,9 @@
                         <td class="align-middle">
                             {{ $permission->slug }}
                         </td>
+                        <td class="align-middle">
+                            {{ $permission->roles()->count() }}
+                        </td>
                         <td class="text-left align-middle">
                             @if((Auth::user()->is_superadmin || Auth::user()->can("permission_show")) && $permission->id != 1)
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.permissions.show', $permission->id) }}">
@@ -63,7 +67,10 @@
                             </a>
                             @endif
 
-                            @if((Auth::user()->is_superadmin || Auth::user()->can("permission_delete")) && $permission->id != 1)
+                            @if(
+                                (Auth::user()->is_superadmin || Auth::user()->can("permission_delete")) &&
+                                $permission->id != 1 && $permission->roles()->count() == 0
+                            )
                             <a href="javascript;" onclick="deleteRecord(event,{{ $permission->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
@@ -101,6 +108,7 @@
                 }, // id
                 null, // title
                 null, // slug
+                null, // roles number
                 {
                     orderable: false,
                     searchable: false,

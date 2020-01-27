@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Blackbird')
+@section('title', Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.title'))
 
 @section('content_header')
 <span style="font-size:20px"> <i class="fas fa-fw fa-users"></i> Cadastro de Usuários</span>
@@ -123,21 +123,16 @@
                         </div>
 
                         <div class="row">
-                            <div class="form-group {{ $errors->has('roles') ? 'has-error' : '' }} col-md-8">
-                                <label for="roles">Papéis
+                            <div class="form-group {{ $errors->has('roles') ? 'has-error' : '' }} col-md-4">
+                                <label for="roles">Papel
                                     <span class="text-red">*</span>
                                 </label>
 
-                                <a class="btn btn-flat btn-primary btn-sm" id="select-all" onclick="return selectAll();">
-                                    <span class="text-white"><i class="fas fa-check-double"></i> Selecionar Todos</span>
-                                </a>
-
-                                <a class="btn btn-flat btn-danger btn-sm" id="deselect-all" onclick="return deselectAll();">
-                                    <span class="text-white"><i class="fas fa-undo"></i> Desmarcar Todos</span>
-                                </a>
-
-                                <select name="roles[]" id="roles" class="select2 form-control" multiple="multiple">
+                                <select name="roles[]" id="roles" class="select2 form-control">
                                     @foreach($roles as $id => $roles)
+                                    @if($roles == "SuperAdmin")
+                                        @continue
+                                    @endif
                                     <option value="{{ $id }}" {{ (in_array($id, old('roles', [])) || isset($user) && $user->roles->contains($id)) ? 'selected' : '' }}>
                                         {{ $roles }}
                                     </option>
@@ -193,26 +188,10 @@
 <script>
     $(function() {
         $("#roles").select2({
-            placeholder: "Selecione pelo menos um papel para este usuário",
+            placeholder: "Selecione o papel deste usuário",
             allowClear: true,
         });
     });
-
-    function selectAll() {
-        let select = document.getElementById('roles');
-        let options = new Array();
-
-        for (let index = 0; index < select.length; index++) {
-            options[index] = select.options[index].value;
-        }
-        $("#roles").val(options);
-        $("#roles").trigger("change");
-    }
-
-    function deselectAll() {
-        $("#roles").val('');
-        $("#roles").trigger("change");
-    }
 
     function changeAvatar(e) {
         var selectedFile = e.target.files[0];

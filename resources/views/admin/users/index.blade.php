@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Blackbird')
+@section('title', Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.title'))
 
 @section('content_header')
 <span style="font-size:20px"> <i class="fas fa-fw fa-users"></i> Cadastro de Usuários</span>
@@ -57,7 +57,7 @@
                         <th>ID</th>
                         <th>Nome do Usuário</th>
                         <th>Email</th>
-                        <th>Papéis</th>
+                        <th>Papel</th>
                         <th>Ativo?</th>
                         <th>Ações</th>
                     </tr>
@@ -101,7 +101,6 @@
                                 @else
                                     <span class="badge badge-secondary">{{ $role->title }}&nbsp;</span>
                                 @endif
-
                             @endforeach
                         </td>
 

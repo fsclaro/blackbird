@@ -18,20 +18,6 @@ class UserController extends Controller
 {
     /**
      * ---------------------------------------------------------------
-     * skins colors
-     * ---------------------------------------------------------------.
-     */
-    protected $skins = [
-        'blue' => 'Azul',
-        'black' => 'Branco',
-        'purple' => 'Púrpura',
-        'yellow' => 'Laranja',
-        'red' => 'Vermelho',
-        'green' => 'Verde',
-    ];
-
-    /**
-     * ---------------------------------------------------------------
      * index method
      * ---------------------------------------------------------------.
      */
@@ -54,9 +40,8 @@ class UserController extends Controller
         abort_unless(Gate::allows('user_create') || Auth::user()->is_superadmin, 403);
 
         $roles = Role::all()->pluck('title', 'id');
-        $skins = $this->skins;
 
-        return view('admin.users.create', compact('roles', 'skins'));
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -68,8 +53,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $can = Gate::allows('user_create') || Auth::user()->is_superadmin;
-        abort_unless($can, 403);
+        abort_unless(Gate::allows('user_create') || Auth::user()->is_superadmin, 403);
 
         try {
             $user = User::create($request->all());
@@ -104,10 +88,9 @@ class UserController extends Controller
         $roles = Role::all()->pluck('title', 'id');
 
         $user->load('roles');
-        $skins = $this->skins;
         $this->saveUser($user);
 
-        return view('admin.users.edit', compact('roles', 'user', 'skins'));
+        return view('admin.users.edit', compact('roles', 'user'));
     }
 
     /**
@@ -239,9 +222,8 @@ class UserController extends Controller
         abort_unless(Gate::allows('user_profile') || Auth::user()->is_superadmin, 403);
 
         $return_url = url()->previous();
-        $skins = $this->skins;
 
-        return view('admin.users.profile', compact('user', 'return_url', 'skins'));
+        return view('admin.users.profile', compact('user', 'return_url'));
     }
 
     /**

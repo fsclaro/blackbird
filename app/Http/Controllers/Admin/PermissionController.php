@@ -13,6 +13,13 @@ use App\Http\Requests\UpdatePermissionRequest;
 
 class PermissionController extends Controller
 {
+    /**
+     * ---------------------------------------------------------------
+     * index method
+     * ---------------------------------------------------------------
+     *
+     * @return void
+     */
     public function index()
     {
         abort_unless(Gate::allows('permission_access') || Auth::user()->is_superadmin, 403);
@@ -22,6 +29,13 @@ class PermissionController extends Controller
         return view('admin.permissions.index', compact('permissions'));
     }
 
+    /**
+     * ---------------------------------------------------------------
+     * create method
+     * ---------------------------------------------------------------
+     *
+     * @return void
+     */
     public function create()
     {
         abort_unless(Gate::allows('permission_create') || Auth::user()->is_superadmin, 403);
@@ -29,6 +43,15 @@ class PermissionController extends Controller
         return view('admin.permissions.create');
     }
 
+    /**
+     * ---------------------------------------------------------------
+     * store method
+     * ---------------------------------------------------------------
+     *
+     * @param \App\Http\Requests\StorePermissionRequest $request
+     *
+     * @return void
+     */
     public function store(StorePermissionRequest $request)
     {
         abort_unless(Gate::allows('permission_create') || Auth::user()->is_superadmin, 403);
@@ -46,6 +69,15 @@ class PermissionController extends Controller
         return redirect()->route('admin.permissions.index');
     }
 
+    /**
+     * ---------------------------------------------------------------
+     * show method
+     * ---------------------------------------------------------------
+     *
+     * @param \App\Permission $permission
+     *
+     * @return void
+     */
     public function show(Permission $permission)
     {
         abort_unless(Gate::allows('permission_show') || Auth::user()->is_superadmin, 403);
@@ -53,6 +85,15 @@ class PermissionController extends Controller
         return view('admin.permissions.show', compact('permission'));
     }
 
+    /**
+     * ---------------------------------------------------------------
+     * edit method
+     * ---------------------------------------------------------------
+     *
+     * @param \App\Permission $permission
+     *
+     * @return void
+     */
     public function edit(Permission $permission)
     {
         abort_unless(Gate::allows('permission_edit') || Auth::user()->is_superadmin, 403);
@@ -62,6 +103,16 @@ class PermissionController extends Controller
         return view('admin.permissions.edit', compact('permission'));
     }
 
+    /**
+     * ---------------------------------------------------------------
+     * update method
+     * ---------------------------------------------------------------
+     *
+     * @param \App\Http\Requests\UpdatePermissionRequest $request
+     * @param \App\Permission $permission
+     *
+     * @return void
+     */
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
         abort_unless(Gate::allows('permission_edit') || Auth::user()->is_superadmin, 403);
@@ -80,6 +131,15 @@ class PermissionController extends Controller
         return redirect()->route('admin.permissions.index');
     }
 
+    /**
+     * ---------------------------------------------------------------
+     * destoy method
+     * ---------------------------------------------------------------
+     *
+     * @param int $id
+     *
+     * @return void
+     */
     public function destroy($id)
     {
         abort_unless(Gate::allows('permission_delete') || Auth::user()->is_superadmin, 403);
@@ -96,6 +156,15 @@ class PermissionController extends Controller
         return back();
     }
 
+    /**
+     * ---------------------------------------------------------------
+     * prepareDetailsNew method
+     * ---------------------------------------------------------------
+     *
+     * @param Collection $newData
+     *
+     * @return void
+     */
     public function prepareDetailsNew($newData)
     {
         $content = '';
@@ -127,12 +196,13 @@ class PermissionController extends Controller
     }
 
     /**
-     * =================================================================
+     * ---------------------------------------------------------------
      * prepara a linha de detalhes do registro na operação de alteração
-     * =================================================================.
+     * ---------------------------------------------------------------
      *
-     * @param [type] $oldData
-     * @param [type] $newData
+     * @param Collection $oldData
+     * @param Collection $newData
+     *
      * @return void
      */
     public function prepareDetailsUpdate($oldData, $newData)
@@ -167,11 +237,12 @@ class PermissionController extends Controller
     }
 
     /**
-     * =================================================================
+     * ---------------------------------------------------------------
      * salva numa session os dados do registro atual
-     * =================================================================.
+     * ---------------------------------------------------------------
      *
-     * @param [type] $permission
+     * @param string $permission
+     *
      * @return void
      */
     private function savePermission($permission)
@@ -180,9 +251,9 @@ class PermissionController extends Controller
     }
 
     /**
-     * =================================================================
+     * ---------------------------------------------------------------
      * recupera os dados salvos do registro atual
-     * =================================================================.
+     * ---------------------------------------------------------------
      *
      * @return void
      */

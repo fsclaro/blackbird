@@ -127,45 +127,28 @@ class User extends Authenticatable implements HasMedia
         return $urlAvatar;
     }
 
-    /**
-     * -------------------------------------------------------------------
-     * get all roles name of a user
-     * -------------------------------------------------------------------.
-     *
-     * @return void
-     */
-    public function getRolesNames()
-    {
-        if (Auth::user()->is_superadmin) {
-            $title[] = 'SuperAdmin';
-        } else {
-            $roles = Auth::user()->roles;
 
-            foreach ($roles as $key => $value) {
-                $title[] = $value->title;
-            }
+
+    public function getMyRoleName() {
+        $roles = self::roles()->first();
+
+        if (null ==$roles) {
+            return false;
         }
 
-        return $title;
+        return $roles->title;
     }
 
-    /**
-     * -------------------------------------------------------------------
-     * get first role name of a user
-     * -------------------------------------------------------------------.
-     *
-     * @return void
-     */
-    public function getFirstRoleName()
-    {
-        if (Auth::user()->is_superadmin) {
-            $title = "SuperAdmin";
-        } else {
-            $title = Auth::user()->roles[0]->title;
+    public function getMyRoleID() {
+        $roles = self::roles()->first();
+
+        if (null ==$roles) {
+            return false;
         }
 
-        return $title;
+        return $roles->id;
     }
+
 
     /**
      * -------------------------------------------------------------------
@@ -177,7 +160,7 @@ class User extends Authenticatable implements HasMedia
     public function numRoles()
     {
 
-        return Auth::user()->roles->count();
+        return self::roles()->count();
     }
 
 
@@ -188,9 +171,9 @@ class User extends Authenticatable implements HasMedia
      *
      * @return void
      */
-    public function myID()
+    public function getMyID()
     {
-        return Auth::user()->id;
+        return self::id;
     }
 
     /**
@@ -200,9 +183,9 @@ class User extends Authenticatable implements HasMedia
      *
      * @return void
      */
-    public function myName()
+    public function getMyName()
     {
-        return Auth::user()->name;
+        return $this->name;
     }
 
     /**
@@ -212,9 +195,9 @@ class User extends Authenticatable implements HasMedia
      *
      * @return void
      */
-    public function myEmail()
+    public function getMyEmail()
     {
-        return Auth::user()->email;
+        return $this->email;
     }
 
     /**
@@ -226,7 +209,7 @@ class User extends Authenticatable implements HasMedia
      */
     public function isSuperAdmin()
     {
-        return Auth::user()->is_superadmin;
+        return self::is_superadmin;
     }
 
 

@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Gate;
 class LogsController extends Controller
 {
     /**
+     * ---------------------------------------------------------------
      * Display a listing of the resource.
+     * ---------------------------------------------------------------
      *
      * @return \Illuminate\Http\Response
      */
@@ -24,7 +26,9 @@ class LogsController extends Controller
     }
 
     /**
+     * ---------------------------------------------------------------
      * Display the specified resource.
+     * ---------------------------------------------------------------
      *
      * @param  \App\Logs  $logs
      * @return \Illuminate\Http\Response
@@ -37,7 +41,9 @@ class LogsController extends Controller
     }
 
     /**
+     * ---------------------------------------------------------------
      * Remove the specified resource from storage.
+     * ---------------------------------------------------------------
      *
      * @param  \App\Logs  $logs
      * @return \Illuminate\Http\Response

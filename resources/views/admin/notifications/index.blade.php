@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Blackbird')
+@section('title', Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.title'))
 
 @section('content_header')
 <span style="font-size:20px"> <i class="fas fa-bell"></i> Relação de Notificações</span>

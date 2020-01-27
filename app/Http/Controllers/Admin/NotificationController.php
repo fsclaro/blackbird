@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Gate;
 
 class NotificationController extends Controller
 {
+    /**
+     * ---------------------------------------------------------------
+     * index method
+     * ---------------------------------------------------------------
+     *
+     * @return void
+     */
     public function index()
     {
         abort_unless(Gate::allows('notification_access') || Auth::user()->is_superadmin, 403);
@@ -20,6 +27,15 @@ class NotificationController extends Controller
         return view('admin.notifications.index', compact('notifications'));
     }
 
+    /**
+     * ---------------------------------------------------------------
+     * show method
+     * ---------------------------------------------------------------
+     *
+     * @param int $id
+     *
+     * @return void
+     */
     public function show($id)
     {
         abort_unless(Gate::allows('notification_show') || Auth::user()->is_superadmin, 403);
@@ -31,6 +47,15 @@ class NotificationController extends Controller
         return view('admin.notifications.show', compact('notification'));
     }
 
+    /**
+     * ---------------------------------------------------------------
+     * destroy method
+     * ---------------------------------------------------------------
+     *
+     * @param int $id
+     *
+     * @return void
+     */
     public function destroy($id)
     {
         abort_unless(Gate::allows('notification_delete') || Auth::user()->is_superadmin, 403);
@@ -49,6 +74,15 @@ class NotificationController extends Controller
         return back();
     }
 
+    /**
+     * ---------------------------------------------------------------
+     * update is_read attribute
+     * ---------------------------------------------------------------
+     *
+     * @param \App\Notification $notification
+     *
+     * @return void
+     */
     public function updateIsReadAttribute(Notification $notification)
     {
         if (! $notification->is_read) {
@@ -68,6 +102,19 @@ class NotificationController extends Controller
         }
     }
 
+    /**
+     * ---------------------------------------------------------------
+     * store notifications class
+     * ---------------------------------------------------------------
+     *
+     * @param array $users_id
+     * @param string $title
+     * @param string $content
+     * @param string $icon
+     * @param string $url
+     *
+     * @return void
+     */
     public function storeNotification(array $users_id, $title, $content, $icon = null, $url = null)
     {
         for ($i = 0; $i < count($users_id); $i++) {
@@ -83,6 +130,15 @@ class NotificationController extends Controller
         }
     }
 
+    /**
+     * ---------------------------------------------------------------
+     * update is_read attribute to true
+     * ---------------------------------------------------------------
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return void
+     */
     public function read(Request $request)
     {
         abort_unless(Gate::allows('notification_access') || Auth::user()->is_superadmin, 403);
@@ -98,6 +154,16 @@ class NotificationController extends Controller
         }
     }
 
+
+    /**
+     * ---------------------------------------------------------------
+     * update is_read attributo to false
+     * ---------------------------------------------------------------
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return void
+     */
     public function unread(Request $request)
     {
         abort_unless(Gate::allows('notification_access') || Auth::user()->is_superadmin, 403);
@@ -113,6 +179,15 @@ class NotificationController extends Controller
         }
     }
 
+    /**
+     * ---------------------------------------------------------------
+     * deleteall method - delete all marked records
+     * ---------------------------------------------------------------
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return void
+     */
     public function deleteall(Request $request)
     {
         abort_unless(Gate::allows('notification_access') || Auth::user()->is_superadmin, 403);

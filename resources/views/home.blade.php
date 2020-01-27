@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', env('APP_NAME','Blackbird'))
+@section('title', Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.title'))
 
 @section('content_header')
 <div class="container-fluid">
@@ -17,7 +17,7 @@
 
 @section('content')
 <div class="container-fluid">
-    @if(in_array("Admin", Auth::user()->getRolesNames()))
+    @if(in_array(Auth::user()->getMyRoleName(), ['Admin', 'SuperAdmin']))
     <div class="row">
         @widget('UsersCount')
         @widget('PermissionsCount')

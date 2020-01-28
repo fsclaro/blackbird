@@ -32,14 +32,14 @@
                             @php $canDeleteAvatar = false; @endphp
 
                             @if($user->getAvatar($user->id))
-                            @php $canDeleteAvatar = true; @endphp
-                            <img src="{{ $user->getAvatar($user->id) }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
+                                @php $canDeleteAvatar = true; @endphp
+                                <img src="{{ $user->getAvatar($user->id) }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
                             @else
-                            @if (Gravatar::exists(Auth::user()->email))
-                            <img src="{{ Gravatar::get(Auth::user()->email) }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
-                            @else
-                            <img src="{{ asset('img/avatares/no-photo.png') }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
-                            @endif
+                                @if (Gravatar::exists(Auth::user()->email))
+                                    <img src="{{ Gravatar::get(Auth::user()->email) }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
+                                @else
+                                    <img src="{{ asset('img/avatares/no-photo.png') }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
+                                @endif
                             @endif
 
                             <div class="row">&nbsp;</div>

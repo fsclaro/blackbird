@@ -12,6 +12,7 @@
     <div class="card-header">
         <i class="fas fa-eye"></i> Detalhes da permissão
     </div>
+
     <div class="card-body">
         <table class="table table-bordered table-striped">
             <tbody>

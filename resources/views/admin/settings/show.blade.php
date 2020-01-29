@@ -8,10 +8,7 @@
 @stop
 
 @section('content')
-<div class="card">
-    <div class="card-header">
-        Detalhes do parâmetro
-    </div>
+<div class="card card-primary card-outline">
     <div class="card-body">
         <table class="table table-bordered table-striped">
             <tbody>

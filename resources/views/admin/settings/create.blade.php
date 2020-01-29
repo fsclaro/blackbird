@@ -11,10 +11,7 @@
 <form method="post" action="{{ route('admin.settings.store') }}" enctype="multipart/form-data">
     @csrf
 
-    <div class="card">
-        <div class="card-header">
-            <i class="fas fa-new"></i> Cadastramento de um novo parâmetro
-        </div>
+    <div class="card card-primary card-outline">
 
         <div class="card-body">
             <div class="row">

@@ -12,7 +12,7 @@
     @widget('RolesCount')
 </div>
 
-<div class="card">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <div class="float-left">
             <div class="dropdown">

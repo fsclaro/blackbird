@@ -20,7 +20,7 @@
                     <label for="foto">Foto do Usuário</label>
                     <br />
 
-                    <img src="{{ asset('img/avatares/no-photo.png') }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
+                    <img src="{{ asset('img/avatares/no-photo.png') }}" id="img-avatar" name="img-avatar" class="profile-user-img img-fluid img-circle" alt="Foto do perfil" title="Foto do perfil">
 
                     <div class="row">&nbsp;</div>
 
@@ -70,7 +70,7 @@
                 </div> <!-- row -->
 
                 <div class="row">
-                    <div class="form-group {{ $errors->has('active') ? 'has-error' : '' }} col-md-5">
+                    <div class="form-group {{ $errors->has('active') ? 'has-error' : '' }} col-md-6">
                         <label for="active">Ativar o usuário?
                             <span class="text-red">*</span>
                         </label>
@@ -110,7 +110,7 @@
                             <span class="text-red">*</span>
                         </label>
 
-                        <select name="roles[]" id="roles" class="select2 form-control">
+                        <select name="roles" id="roles" class="select2 form-control">
                             <option>Selecione uma das opções...</option>
                             @foreach($roles as $id => $roles)
                                 @if($roles == "SuperAdmin")

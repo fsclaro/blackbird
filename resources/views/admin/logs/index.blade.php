@@ -12,7 +12,7 @@
     @widget('LogsCount')
 </div>
 
-<div class="card">
+<div class="card card-primary card-outline">
     <div class="card-header">
         <div class="float-right">
             <a class="btn btn-flat btn-primary btn-sm" href="{{ route('admin.logs.index') }}">

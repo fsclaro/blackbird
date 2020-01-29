@@ -9,11 +9,7 @@
 
 @section('content')
 
-<div class="card">
-    <div class="card-header">
-        <i class="fas fa-eye"></i> Detalhes dos dados do usuário
-    </div>
-
+<div class="card card-primary card-outline">
     <div class="card-body">
         <table class="table table-bordered table-striped">
             <tbody>
@@ -45,7 +41,7 @@
                     <th>Foto</th>
                     <td>
                         @if($user->getAvatar($user->id))
-                        <img src="{{ $user->getAvatar($user->id) }}" id="img-avatar" name="img-avatar" width="50px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
+                        <img src="{{ $user->getAvatar($user->id) }}" id="img-avatar" name="img-avatar" width="50px" class="img-circle elevation-2" alt="Foto do perfil" title="Foto do perfil">
                         @else
                         @if (Gravatar::exists(Auth::user()->email))
                         <img src="{{ Gravatar::get(Auth::user()->email) }}" id="img-avatar" name="img-avatar" width="50px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">

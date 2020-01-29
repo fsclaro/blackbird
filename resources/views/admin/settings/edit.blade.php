@@ -12,10 +12,7 @@
     @csrf
     @method('PUT')
 
-    <div class="card">
-        <div class="card-header">
-            Edita os dados do parâmetro
-        </div>
+    <div class="card card-primary card-outline">
 
         <div class="card-body">
             <div class="row">

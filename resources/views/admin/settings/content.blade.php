@@ -12,10 +12,7 @@ Parâmetros</span>
 <form method="post" action="{{ route('admin.settings.savecontent') }}" enctype="multipart/form-data">
     @csrf
 
-    <div class="card">
-        <div class="card-header">
-            Define os valores dos parâmetros
-        </div>
+    <div class="card card-primary card-outline">
 
         <div class="card-body">
             @foreach($settings as $key => $setting)

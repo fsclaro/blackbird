@@ -1,9 +1,22 @@
+@php
+    if(Session::has('nro_atividades')) {
+        $nro_registros = Session::get('nro_atividades');
+    } else {
+        $nro_registros = 5;
+    }
+    $logs = App\Logs::getUserLogs($nro_registros);
+@endphp
+
 <div class="col-lg-8">
     <div class="card card-warning card-outline">
         <div class="card-header p-2">
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#atividades" data-toggle="tab">Atividades</a>
+                    <a class="nav-link active" href="#atividades" data-toggle="tab">Atividades
+                        @if($logs->total() > 0)
+                        <span class="badge badge-warning float-right ml-0" style="font-size:0.6em;">{{ $logs->total() }}</span>
+                        @endif
+                    </a>
                 </li>
 
                 <li class="nav-item">
@@ -15,14 +28,6 @@
         <div class="card-body">
             <div class="tab-content">
                 <div class="tab-pane active text-muted" id="atividades">
-                    @php
-                    if(Session::has('nro_atividades')) {
-                    $nro_registros = Session::get('nro_atividades');
-                    } else {
-                    $nro_registros = 5;
-                    }
-                    $logs = App\Logs::getUserLogs($nro_registros);
-                    @endphp
                     <div class="table-responsible">
                         <table class="table table-striped table-condensed datatable" id="table-atividades">
                             <tbody>
@@ -49,15 +54,6 @@
                             </tbody>
                         </table>
                         <div>
-                            <div class="float-left">
-                                @if($logs->total() == 1)
-                                <span class="text-muted">Exite <span class="text-red text-bold">{{ $logs->total() }}</span> registro de atividade.</span>
-                                @elseif($logs->total() > 1)
-                                <span class="text-muted">Exitem um total de <span class="text-red text-bold">{{ $logs->total() }}</span> registros de atividades.</span>
-                                @else
-                                <span class="text-muted">Não existem registros de atividades no sistema.</span>
-                                @endif
-                            </div>
                             <div class="float-right">
                                 {{ $logs->links() }}
                             </div>

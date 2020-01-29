@@ -1,10 +1,20 @@
 {
-    "name": "laravel/laravel",
+    "name": "fsclaro/blackbird",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "The Ultimate Boilerplate for Brazilian Projects with Laravel Framework.",
     "keywords": [
         "framework",
-        "laravel"
+        "laravel",
+        "boilerplate",
+        "brazilian"
+    ],
+    "authors": [
+        {
+            "name": "Fernando Salles Claro",
+            "email": "fsclaro@gmail.com",
+            "homepage": "https://github.com/fsclaro/blackbird",
+            "role": "Developer"
+        }
     ],
     "license": "MIT",
     "require": {

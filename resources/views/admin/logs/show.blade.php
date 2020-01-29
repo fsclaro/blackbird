@@ -8,10 +8,7 @@
 @stop
 
 @section('content')
-<div class="card">
-    <div class="card-header">
-        <i class="fas fa-eye"></i> Detalhes do log de atividade
-    </div>
+<div class="card card-primary card-outline">
     <div class="card-body">
         <table class="table table-bordered table-striped">
             <tbody>

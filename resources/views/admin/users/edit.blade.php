@@ -21,19 +21,18 @@
                     <label for="foto">Foto do Usuário</label>
                     <br />
                     <div class="image text-center">
-
                         @php $canDeleteAvatar = false; @endphp
 
                         @if($user->getAvatar($user->id))
                             @php
                                 $canDeleteAvatar = true;
                             @endphp
-                            <img src="{{ $user->getAvatar($user->id) }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
+                            <img src="{{ $user->getAvatar($user->id) }}" id="img-avatar" name="img-avatar" class="profile-user-img img-fluid img-circle" alt="Foto do perfil" title="Foto do perfil">
                         @else
                             @if (Gravatar::exists($user->email))
-                                <img src="{{ Gravatar::get($user->email) }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
+                                <img src="{{ Gravatar::get($user->email) }}" id="img-avatar" name="img-avatar" class="profile-user-img img-fluid img-circle" alt="Foto do perfil" title="Foto do perfil">
                             @else
-                                <img src="{{ asset('img/avatares/no-photo.png') }}" id="img-avatar" name="img-avatar" width="120px" class="img-circle" alt="Foto do perfil" title="Foto do perfil">
+                                <img src="{{ asset('img/avatares/no-photo.png') }}" id="img-avatar" name="img-avatar" class="profile-user-img img-fluid img-circle" alt="Foto do perfil" title="Foto do perfil">
                             @endif
                         @endif
 
@@ -129,7 +128,7 @@
                                 <span class="text-red">*</span>
                             </label>
 
-                            <select name="roles[]" id="roles" class="select2 form-control">
+                            <select name="roles" id="roles" class="select2 form-control">
                                 <option>Selecione uma das opções...</option>
                                 @foreach($roles as $id => $roles)
                                 @if($roles == "SuperAdmin")
@@ -171,8 +170,6 @@
 @stop
 
 @section('css')
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-
 <style>
     .div-avatar {
         position: relative;
@@ -190,8 +187,6 @@
 @stop
 
 @section('js')
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-
 <script>
     $(function() {
         $("#roles").select2();

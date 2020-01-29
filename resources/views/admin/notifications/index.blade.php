@@ -14,7 +14,7 @@
     @widget('NotificationsNotReadCount')
 </div>
 
-<div class="card">
+<div class="card card-primary card-outline">
     <div class="card-header">
 
         <div class="float-left">

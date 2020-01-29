@@ -11,11 +11,7 @@
 <form method="post" action="{{ route('admin.roles.store') }}" enctype="multipart/form-data">
     @csrf
 
-    <div class="card">
-        <div class="card-header">
-            <i class="fas fa-new"></i> Cadastramento de um novo papel
-        </div>
-
+    <div class="card card-primary card-outline">
         <div class="card-body">
             <div class="row">
                 <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }} col-md-12">

@@ -183,7 +183,9 @@ class UserController extends Controller
 
                 alert()->success('O avatar deste usuário foi salvo com sucesso!')->toToast('top-end');
             } catch (\Throwable $th) {
-                alert()->error('Houve algum problema e o avatar deste usuário não pode ser salvo no sistema!')->toToast('top-end');
+                alert()
+                    ->error('Houve algum problema e o avatar deste usuário não pode ser salvo no sistema!')
+                    ->toToast('top-end');
             }
         }
     }
@@ -384,11 +386,31 @@ class UserController extends Controller
             $newContent .= "<span class='badge badge-primary'>".$newRoles[$i]->title.'</span> ';
         }
 
-        $fields[] = ['field' => 'ID', 'oldvalue' => $old->id, 'newvalue' => $new->id];
-        $fields[] = ['field' => 'Nome do Usuário', 'oldvalue' => $old->name, 'newvalue' => $new->name];
-        $fields[] = ['field' => 'Email', 'oldvalue' => $old->email, 'newvalue' => $new->email];
-        $fields[] = ['field' => 'Usuário Ativo?', 'oldvalue' => ($old->active == 1) ? 'Sim' : 'Não', 'newvalue' => ($new->active == 1) ? 'Sim' : 'Não'];
-        $fields[] = ['field' => 'Papéis', 'oldvalue' => $oldContent, 'newvalue' => $newContent];
+        $fields[] = [
+            'field' => 'ID',
+            'oldvalue' => $old->id,
+            'newvalue' => $new->id,
+        ];
+        $fields[] = [
+            'field' => 'Nome do Usuário',
+            'oldvalue' => $old->name,
+            'newvalue' => $new->name,
+        ];
+        $fields[] = [
+            'field' => 'Email',
+            'oldvalue' => $old->email,
+            'newvalue' => $new->email,
+        ];
+        $fields[] = [
+            'field' => 'Usuário Ativo?',
+            'oldvalue' => ($old->active == 1) ? 'Sim' : 'Não',
+            'newvalue' => ($new->active == 1) ? 'Sim' : 'Não',
+        ];
+        $fields[] = [
+            'field' => 'Papéis',
+            'oldvalue' => $oldContent,
+            'newvalue' => $newContent,
+        ];
 
         $content = '
             <table class="table table-striped" width="100%">

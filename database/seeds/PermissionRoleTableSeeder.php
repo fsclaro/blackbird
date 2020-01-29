@@ -13,11 +13,9 @@ class PermissionRoleTableSeeder extends Seeder
      */
     public function run()
     {
-
         $this->command->info('Associando as permissões aos papéis...');
 
         $permissions = Permission::all();
-
 
         // atribui as permissões para o papel super_admin
         $this->command->info('- Associando as permissões ao papel SuperAdmin.');
@@ -30,7 +28,6 @@ class PermissionRoleTableSeeder extends Seeder
             ->permissions()
             ->sync($permissionSuperAdmin->pluck('id'));
 
-
         // atribui as permissões para o papel admin
         $this->command->info('- Associando as permissões ao papel Admin.');
 
@@ -41,7 +38,6 @@ class PermissionRoleTableSeeder extends Seeder
         Role::findOrFail(2)
             ->permissions()
             ->sync($permissionAdmin->pluck('id'));
-
 
         // atribui as permissões para o papel user
         $this->command->info('- Associando as permissões ao papel User.');

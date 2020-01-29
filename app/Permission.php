@@ -6,7 +6,6 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Role;
 
 class Permission extends Model
 {
@@ -26,7 +25,8 @@ class Permission extends Model
         'deleted_at',
     ];
 
-    public function roles() {
+    public function roles()
+    {
         return $this->belongsToMany(Role::class, 'permission_role');
     }
 

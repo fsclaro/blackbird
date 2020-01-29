@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Gate;
 use Auth;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -27,8 +27,7 @@ class UpdateUserRequest extends FormRequest
             'email'    => ['required', 'email:rfc,dns,spoof', Rule::unique('users')->ignore($this->id)],
             'active'   => ['required', 'integer'],
             'password' => $password_rule,
-            'roles.*'  => ['integer'],
-            'roles'    => ['required', 'array'],
+            'roles'    => ['required', 'integer'],
         ];
     }
 
@@ -41,7 +40,8 @@ class UpdateUserRequest extends FormRequest
             'password.min'    => 'A senha deve ter no mínimo 8 caracteres',
             'active.required' => 'Escolha uma das opções',
             'active.integer'  => 'Escolha uma das opções',
-            'roles.required'  => 'Escolha pelo menos um papel para este usuário',
+            'roles.required'  => 'Escolha pelo menos um papel para este usuário1',
+            'roles.integer'   => 'Escolha pelo menos um papel para este usuário2',
         ];
     }
 }

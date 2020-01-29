@@ -262,14 +262,46 @@ class SettingController extends Controller
      */
     public function prepareDetailsUpdate($old, $new)
     {
-        $fields[] = ['field' => 'ID', 'oldvalue' => $old->id, 'newvalue' => $new->id];
-        $fields[] = ['field' => 'Descrição do Parâmetro', 'oldvalue' => $old->description, 'newvalue' => $new->description];
-        $fields[] = ['field' => 'Slug', 'oldvalue' => $old->name, 'newvalue' => $new->name];
-        $fields[] = ['field' => 'Tipo de Parâmetro', 'oldvalue' => $old->type, 'newvalue' => $new->type];
-        $fields[] = ['field' => 'Radio / Seleção', 'oldvalue' => $old->dataenum, 'newvalue' => $new->dataenum];
-        $fields[] = ['field' => 'Texto de Ajuda', 'oldvalue' => $old->helder, 'newvalue' => $new->helper];
-        $fields[] = ['field' => 'Conteúdo', 'oldvalue' => $old->content, 'newvalue' => $new->content];
-        $fields[] = ['field' => 'Pode Excluir?', 'oldvalue' => $old->can_delete, 'newvalue' => $new->can_delete];
+        $fields[] = [
+            'field' => 'ID',
+            'oldvalue' => $old->id,
+            'newvalue' => $new->id,
+        ];
+        $fields[] = [
+            'field' => 'Descrição do Parâmetro',
+            'oldvalue' => $old->description,
+            'newvalue' => $new->description,
+        ];
+        $fields[] = [
+            'field' => 'Slug',
+            'oldvalue' => $old->name,
+            'newvalue' => $new->name,
+        ];
+        $fields[] = [
+            'field' => 'Tipo de Parâmetro',
+            'oldvalue' => $old->type,
+            'newvalue' => $new->type,
+        ];
+        $fields[] = [
+            'field' => 'Radio / Seleção',
+            'oldvalue' => $old->dataenum,
+            'newvalue' => $new->dataenum,
+        ];
+        $fields[] = [
+            'field' => 'Texto de Ajuda',
+            'oldvalue' => $old->helder,
+            'newvalue' => $new->helper,
+        ];
+        $fields[] = [
+            'field' => 'Conteúdo',
+            'oldvalue' => $old->content,
+            'newvalue' => $new->content,
+        ];
+        $fields[] = [
+            'field' => 'Pode Excluir?',
+            'oldvalue' => $old->can_delete,
+            'newvalue' => $new->can_delete,
+        ];
 
         $content = '
             <table class="table table-striped" width="100%">

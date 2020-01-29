@@ -105,11 +105,7 @@
                         </td>
 
                         <td class="align-middle">
-                            @if($user->active == 1)
-                            <span class="badge badge-success">Sim</span>
-                            @else
-                            <span class="badge badge-danger">Não</span>
-                            @endif
+                            <span class="badge badge-{{ App\User::ACTIVE_COLOR[$user->active]}}">{{ App\User::ACTIVE_STATUS[$user->active] }}</span>
                         </td>
 
                         <td class="text-left align-middle">
@@ -168,19 +164,13 @@
                 url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
             },
             columns: [
-                {
-                    orderable: false,
-                    searchable: false,
-                }, // checkbox
+                { orderable: false, searchable: false }, // checkbox
                 null, // id
                 null, // nome do usuário
                 null, // email
                 null, // papéis
                 null, // ativo
-                {
-                    orderable: false,
-                    searchable: false,
-                }, // actions
+                { orderable: false, searchable: false }, // actions
             ],
             order: [
                 [1, "asc"]

@@ -12,8 +12,8 @@ class SettingTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->command->info("Criando os settings do sistema...");
-        
+        $this->command->info('Criando os settings do sistema...');
+
         Setting::insert([
             'description' => 'Brand do Sistema',
             'name' => 'brand_sistema',

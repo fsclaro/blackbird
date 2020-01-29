@@ -75,7 +75,7 @@
                             <span class="text-red">*</span>
                         </label>
 
-                        <select id="active" name="active" class="form-control">
+                        <select id="active" name="active" class="select2 form-control">
                             <option>Selecione uma das opções...</option>
                             <option value=0>Não - O usuário não poderá acessar o sistema</option>
                             <option value=1>Sim - O usuário poderá acessar o sistema</option>
@@ -91,14 +91,16 @@
 
                 <div class="row">
                     <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }} col-md-6">
-                        <label for="title">Senha</label>
+                        <label for="title">Senha
+                            <span class="text-red">*</span>
+                        </label>
                         <input type="password" id="password" name="password" class="form-control" value="" placeholder="A senha deve ter pelo menos 8 caracteres">
 
                         @if($errors->has('password'))
                         <small class="form-text text-red text-bold">
-                            @endif
                             {{ $errors->first('password') }}
                         </small>
+                        @endif
                     </div>
                 </div> <!-- row -->
 
@@ -109,11 +111,12 @@
                         </label>
 
                         <select name="roles[]" id="roles" class="select2 form-control">
+                            <option>Selecione uma das opções...</option>
                             @foreach($roles as $id => $roles)
-                            @if($roles == "SuperAdmin")
-                                @continue
-                            @endif
-                            <option value="{{ $id }}">{{ $roles }}</option>
+                                @if($roles == "SuperAdmin")
+                                    @continue
+                                @endif
+                                <option value="{{ $id }}">{{ $roles }}</option>
                             @endforeach
                         </select>
 
@@ -127,8 +130,13 @@
             </div> <!-- card-body-->
 
             <div class="card-footer">
-                <a href="{{ route('admin.users.index') }}" class="btn btn-flat btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
-                <button type="submit" class="btn btn-flat btn-success"><i class="fas fa-fw fa-save"></i> Salvar</button>
+                <a href="{{ route('admin.users.index') }}" class="btn btn-flat btn-default">
+                    <i class="fas fa-fw fa-reply"></i> Voltar
+                </a>
+
+                <button type="submit" class="btn btn-flat btn-success">
+                    <i class="fas fa-fw fa-save"></i> Salvar
+                </button>
             </div> <!-- panel-footer -->
         </div> <!-- card -->
     </div> <!-- col-lg-9 -->
@@ -162,10 +170,10 @@
 @section('js')
 <script>
     $(function() {
-        $("#roles").select2({
-            placeholder: "Selecione o papel deste usuário",
-            allowClear: true,
-        });
+        $("#roles").select2();
+
+        $("#active").select2();
+
     });
 
     function changeAvatar(e) {

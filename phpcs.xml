@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="PHP_CodeSniffer">
-    <description>The coding standard for our project.</description>
+    <description>The coding standard for our Laravel project.</description>
     <rule ref="PSR2"/>
 
     <file>app</file>
@@ -16,6 +16,9 @@
     <exclude-pattern>*/migrations/*</exclude-pattern>
     <exclude-pattern>*/seeds/*</exclude-pattern>
     <exclude-pattern>*.blade.php</exclude-pattern>
+    <exclude-pattern>*/lang/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/config/*</exclude-pattern>
     <exclude-pattern>*.js</exclude-pattern>
 
     <!-- Show progression -->

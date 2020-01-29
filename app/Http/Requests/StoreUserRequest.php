@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Gate;
 use Auth;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserRequest extends FormRequest
 {
@@ -21,8 +21,7 @@ class StoreUserRequest extends FormRequest
             'email'    => ['required', 'email:rfc,dns,spoof', Rule::unique('users')->ignore($this->id)],
             'password' => ['required', 'min:8'],
             'active'   => ['required', 'integer'],
-            'roles.*'  => ['integer'],
-            'roles'    => ['required', 'array'],
+            'roles'    => ['required', 'integer'],
         ];
     }
 
@@ -37,6 +36,7 @@ class StoreUserRequest extends FormRequest
             'active.required'   => 'Escolha uma das opções',
             'active.integer'    => 'Escolha uma das opções',
             'roles.required'    => 'Escolha pelo menos um papel para este usuário',
+            'roles.integer'     => 'Escolha pelo menos um papel para este usuário'
         ];
     }
 }

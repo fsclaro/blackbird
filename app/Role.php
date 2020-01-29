@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\User;
 
 class Role extends Model
 {
@@ -28,7 +27,8 @@ class Role extends Model
         return $this->belongsToMany(Permission::class);
     }
 
-    public function users() {
+    public function users()
+    {
         return $this->belongsToMany(User::class, 'role_user');
     }
 }

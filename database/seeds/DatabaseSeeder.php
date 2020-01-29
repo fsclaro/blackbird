@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Role;
 use App\User;
 use App\Permission;
-use App\Role;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,13 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
         $execute = true;
 
         if (User::count() > 0) {
             $this->command->warn('Confirma executar as seeds do sistema? Os registros atuais do banco de dados serão apagados.');
             $question = $this->command->ask('Responda com "S" para sim ou outra tecla qualquer para cancelar');
-            if ($question != "S" && $question != "s") {
+            if ($question != 'S' && $question != 's') {
                 $execute = false;
             } else {
                 $this->TruncTables();
@@ -42,8 +41,7 @@ class DatabaseSeeder extends Seeder
 
     public function TruncTables()
     {
-
-        DB::statement("SET foreign_key_checks=0");
+        DB::statement('SET foreign_key_checks=0');
 
         $this->command->info('- Excluindo os registros da tabela users...');
         User::truncate();
@@ -60,6 +58,6 @@ class DatabaseSeeder extends Seeder
         $this->command->info('- Excluindo os registros da tabela role_user...');
         DB::table('role_user')->truncate();
 
-        DB::statement("SET foreign_key_checks=1");
+        DB::statement('SET foreign_key_checks=1');
     }
 }

@@ -4,8 +4,13 @@ namespace App\Helpers;
 
 class AppUnsplash
 {
-    public static function getPhoto($featured = true, $username = null, $query = 'abstract', $width = 720, $height = null)
-    {
+    public static function getPhoto(
+        $featured = true,
+        $username = null,
+        $query = 'abstract',
+        $width = 720,
+        $height = null
+    ) {
         if (env('UNSPLASH')) {
             \Crew\Unsplash\HttpClient::init([
                 'applicationId' => env('UNSPLASH_ACCESS_KEY'),

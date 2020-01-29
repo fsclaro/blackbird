@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Auth;
 use Hash;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
@@ -15,6 +14,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable implements HasMedia
 {
     use SoftDeletes, Notifiable, HasMediaTrait;
+
+    const ACTIVE_STATUS = [
+        0 => 'Não',
+        1 => 'Sim',
+    ];
+
+    const ACTIVE_COLOR = [
+        0 => 'danger',
+        1 => 'success',
+    ];
 
     protected $fillable = [
         'name',
@@ -127,28 +136,27 @@ class User extends Authenticatable implements HasMedia
         return $urlAvatar;
     }
 
-
-
-    public function getMyRoleName() {
+    public function getMyRoleName()
+    {
         $roles = self::roles()->first();
 
-        if (null ==$roles) {
+        if (null == $roles) {
             return false;
         }
 
         return $roles->title;
     }
 
-    public function getMyRoleID() {
+    public function getMyRoleID()
+    {
         $roles = self::roles()->first();
 
-        if (null ==$roles) {
+        if (null == $roles) {
             return false;
         }
 
         return $roles->id;
     }
-
 
     /**
      * -------------------------------------------------------------------
@@ -159,10 +167,8 @@ class User extends Authenticatable implements HasMedia
      */
     public function numRoles()
     {
-
         return self::roles()->count();
     }
-
 
     /**
      * -------------------------------------------------------------------
@@ -212,7 +218,6 @@ class User extends Authenticatable implements HasMedia
         return self::is_superadmin;
     }
 
-
     /**
      * -------------------------------------------------------------------
      * get datetime of email verificated
@@ -225,7 +230,7 @@ class User extends Authenticatable implements HasMedia
     public function getEmailVerifiedAtAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)
-            ->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
+            ->format(config('panel.date_format').' '.config('panel.time_format')) : null;
     }
 
     /**
@@ -239,7 +244,7 @@ class User extends Authenticatable implements HasMedia
      */
     public function setEmailVerifiedAtAttribute($value)
     {
-        $this->attributes['email_verified_at'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' .
+        $this->attributes['email_verified_at'] = $value ? Carbon::createFromFormat(config('panel.date_format').' '.
             config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
     }
 

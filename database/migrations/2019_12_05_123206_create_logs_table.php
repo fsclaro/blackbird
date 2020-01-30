@@ -19,9 +19,10 @@ class CreateLogsTable extends Migration
             $table->string('externalip')->nullable();
             $table->string('useragent')->nullable();
             $table->string('url')->nullable();
-            $table->string('action')->nullable();
+            $table->text('title')->nullable();
             $table->longText('details')->nullable();
             $table->integer('user_id')->nullable();
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

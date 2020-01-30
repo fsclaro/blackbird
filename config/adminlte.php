@@ -200,13 +200,13 @@ return [
             ],
         ],
 
-        [
-            'text' => 'Notificações',
-            'icon' => 'fas fa-fw fa-bell',
-            'icon_color' => 'green',
-            'can' => 'notification_access',
-            'route' => 'admin.notifications.index',
-        ],
+        // [
+        //     'text' => 'Notificações',
+        //     'icon' => 'fas fa-fw fa-bell',
+        //     'icon_color' => 'green',
+        //     'can' => 'notification_access',
+        //     'route' => 'admin.notifications.index',
+        // ],
 
         [
             'header' => 'ADMINISTRAÇÃO DO SITE',

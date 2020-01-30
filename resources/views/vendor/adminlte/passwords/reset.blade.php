@@ -22,7 +22,7 @@
         <div class="login-logo">
             <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
         </div>
-        <div class="card">
+        <div class="card shadow bg-white rounded"">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">{{ trans('adminlte::adminlte.password_reset_message') }}</p>
                 <form action="{{ $password_reset_url }}" method="post">

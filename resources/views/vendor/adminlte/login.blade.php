@@ -61,7 +61,7 @@
 @section('body')
 <div class="login-box">
     <div class="card">
-        <div class="card-body login-card-body">
+        <div class="card-body login-card-body shadow bg-white rounded">
             <div class="login-logo">
                 <a href="{{ $dashboard_url }}">{!! (Session::exists('brand_sistema')) ? Session::get('brand_sistema') : config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
             </div>

@@ -16,7 +16,7 @@
 @endif
 
 @section('body')
-    <div class="login-box">
+    <div class="login-box shadow bg-white rounded">
         <div class="login-logo">
             <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
         </div>

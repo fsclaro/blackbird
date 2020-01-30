@@ -49,7 +49,7 @@
 
 @section('body')
 <div class="login-box">
-    <div class="card">
+    <div class="card shadow bg-white rounded"">
         <div class="card-body login-card-body">
             <div class="login-logo">
                 <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>

@@ -14,7 +14,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="#atividades" data-toggle="tab">Atividades
                         @if($logs->total() > 0)
-                        <span class="badge badge-warning float-right ml-0" style="font-size:0.6em;">{{ $logs->total() }}</span>
+                        <span class="badge badge-warning badge-pill ml-1">{{ $logs->total() }}</span>
                         @endif
                     </a>
                 </li>

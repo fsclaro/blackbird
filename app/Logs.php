@@ -2,9 +2,9 @@
 
 namespace App;
 
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Auth;
 
 class Logs extends Model
 {
@@ -39,16 +39,16 @@ class Logs extends Model
     }
 
     /**
-     * return a local ip
+     * return a local ip.
      *
      * @return void
      */
     public static function getIP()
     {
         //se possível, obtém o endereço ip da máquina do cliente
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        if (! empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        } elseif (! empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             //verifica se o ip está passando pelo proxy
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
         } else {
@@ -59,7 +59,7 @@ class Logs extends Model
     }
 
     /**
-     * return a external ip
+     * return a external ip.
      *
      * @return void
      */
@@ -69,7 +69,7 @@ class Logs extends Model
     }
 
     /**
-     * store a record log
+     * store a record log.
      *
      * @param string $title
      * @param string $details
@@ -100,9 +100,8 @@ class Logs extends Model
         ]);
     }
 
-
     /**
-     * return logs for a authenticated user
+     * return logs for a authenticated user.
      *
      * @param [type] $nroRecords
      *
@@ -124,7 +123,7 @@ class Logs extends Model
     }
 
     /**
-     * return all logs for a user
+     * return all logs for a user.
      *
      * @param int $user_id
      *
@@ -132,19 +131,19 @@ class Logs extends Model
      */
     public static function getLogs($user_id)
     {
-        if (!isset($user_id)) {
-            return null;
+        if (! isset($user_id)) {
+            return;
         }
 
         $logs = Logs::where('user_id', $user_id)
             ->orderBy('created_at', 'desc')
             ->get();
+
         return $logs;
     }
 
-
     /**
-     * return only read logs for a user
+     * return only read logs for a user.
      *
      * @param int $user_id
      *
@@ -152,20 +151,20 @@ class Logs extends Model
      */
     public static function getLogsRead($user_id)
     {
-        if (!isset($user_id)) {
-            return null;
+        if (! isset($user_id)) {
+            return;
         }
 
         $logs = Logs::where('user_id', $user_id)
             ->where('is_read', true)
             ->orderBy('created_at', 'desc')
             ->get();
+
         return $logs;
     }
 
-
     /**
-     * return only no read logs for a user
+     * return only no read logs for a user.
      *
      * @param int $user_id
      *
@@ -173,14 +172,15 @@ class Logs extends Model
      */
     public static function getLogsNotReaded($user_id)
     {
-        if (!isset($user_id)) {
-            return null;
+        if (! isset($user_id)) {
+            return;
         }
 
         $logs = Logs::where('user_id', $user_id)
             ->where('is_read', false)
             ->orderBy('created_at', 'desc')
             ->get();
+
         return $logs;
     }
 }

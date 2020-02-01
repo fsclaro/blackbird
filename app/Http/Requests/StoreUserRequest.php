@@ -36,7 +36,7 @@ class StoreUserRequest extends FormRequest
             'active.required'   => 'Escolha uma das opções',
             'active.integer'    => 'Escolha uma das opções',
             'roles.required'    => 'Escolha pelo menos um papel para este usuário',
-            'roles.integer'     => 'Escolha pelo menos um papel para este usuário'
+            'roles.integer'     => 'Escolha pelo menos um papel para este usuário',
         ];
     }
 }

@@ -7,7 +7,7 @@ return [
      | -----------------------------------------------------------------
      */
 
-    'theme' => 'bootstrap-3',
+    'theme' => 'bootstrap-4',
 
     /* -----------------------------------------------------------------
      |  Route settings
@@ -24,7 +24,7 @@ return [
 
             'namespace'  => 'Arcanedev\\RouteViewer\\Http\\Controllers',
 
-            // 'middleware' => [],
+            'middleware' => [ 'web', 'auth'],
         ],
     ],
 

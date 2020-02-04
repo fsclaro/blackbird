@@ -325,7 +325,7 @@ class UserController extends Controller
      * =================================================================.
      *
      * @param array $new
-     * 
+     *
      * @return void
      */
     public function prepareDetailsNew($new)

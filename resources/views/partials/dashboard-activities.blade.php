@@ -4,7 +4,7 @@
     } else {
         $nro_registros = 5;
     }
-    $logs = App\Logs::getUserLogs($nro_registros);
+    $activities = App\Activity::getUserActivities($nro_registros);
 @endphp
 
 <div class="col-lg-8">
@@ -13,8 +13,8 @@
             <ul class="nav nav-pills">
                 <li class="nav-item">
                     <a class="nav-link active" href="#atividades" data-toggle="tab">Atividades
-                        @if($logs->total() > 0)
-                        <span class="badge badge-warning badge-pill ml-1">{{ $logs->total() }}</span>
+                        @if($activities->count() > 0)
+                        <span class="badge badge-warning badge-pill ml-1">{{ $activities->count() }}</span>
                         @endif
                     </a>
                 </li>
@@ -31,22 +31,30 @@
                     <div class="table-responsible">
                         <table class="table table-striped table-condensed datatable" id="table-atividades">
                             <tbody>
-                                @foreach($logs as $log)
+                                @foreach($activities as $activity)
                                 <tr>
                                     <td>
                                         <small>
                                             <i class="fas fa-clock"></i>
-                                            {{ $log->created_at->format("d/m/Y - H:i:s") }}
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <i class="fas fa-globe"></i>
-                                            {{ $log->ipaddress }} @if($log->externalip) / {{ $log->externalip }} @endif
+                                            {{ $activity->created_at->format("d/m/Y - H:i:s") }}
+                                            <span class="ml-5">
+                                                <i class="fas fa-globe"></i>
+                                                {{ $activity->ipaddress }} @if($activity->externalip) / {{ $activity->externalip }} @endif
+                                            </span>
+                                            <div class="float-right">
+                                                @if($activity->is_read)
+                                                    <span class="badge badge-pill badge-danger">Lido</span>
+                                                @else
+                                                    <span class="badge badge-pill badge-warning">Não Lido</span>
+                                                @endif
+                                            </div>
                                         </small>
                                         <br>
                                         <div class="float-left">
-                                            <span>{!! $log->action !!}</span>
+                                            <span>{!! $activity->title !!}</span>
                                         </div>
                                         <div class="float-right">
-                                            <a href="{{ route('admin.logs.show', $log->id) }}" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>
+                                            <a href="{{ route('admin.activities.show', $activity->id) }}" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -55,7 +63,7 @@
                         </table>
                         <div>
                             <div class="float-right">
-                                {{ $logs->links() }}
+                                {{ $activities->links() }}
                             </div>
                         </div>
                     </div> <!-- table-responsive -->
@@ -63,7 +71,7 @@
 
                 <div class="tab-pane" id="mensagens">
                     <div class="jumbotron">
-                        <h2 class="display-9">Olá!! {{ auth()->user()->name }}</h2>
+                        <h2 class="display-9">Olá!! {{ Auth::user()->name }}</h2>
                         <p class="lead">Até o presente momento você não possui mensagens de outros usuários.</p>
                         <hr class="my-4">
                     </div>

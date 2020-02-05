@@ -3,8 +3,8 @@
 @section('title', Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.title'))
 
 @section('content_header')
-<span style="font-size:20px"> <i class="fas fa-flag"></i> Logs de Atividades</span>
-{{ Breadcrumbs::render('logs_show') }}
+<span style="font-size:20px"> <i class="fas fa-flag"></i> Atividades</span>
+{{ Breadcrumbs::render('activities_show') }}
 @stop
 
 @section('content')
@@ -14,48 +14,49 @@
             <tbody>
                 <tr>
                     <th style="width:18%">ID</th>
-                    <td>{{ $log->id }}</td>
+                    <td>{{ $activity->id }}</td>
                 </tr>
 
                 <tr>
                     <th style="width:18%">Usuário</th>
-                    <td>{{ $log->user->name }}</td>
+                    <td>{{ $activity->user->name }}</td>
                 </tr>
 
                 <tr>
                     <th style="width:18%">Endereço IP</th>
                     <td>
-                        <span class="text-blue">Local:</span> {{ $log->ipaddress }} -
-                        <span class="text-blue">Externo:</span> {{ $log->externalip ?? "não definido" }}
+                        <span class="text-blue">Local:</span> {{ $activity->ipaddress ?? "não definido" }} -
+                        <span class="text-blue">Externo:</span> {{ $activity->externalip ?? "não definido" }}
                     </td>
                 </tr>
 
                 <tr>
                     <th style="width:18%">Navegador</th>
-                    <td>{{ $log->useragent }}</td>
+                    <td>{{ $activity->useragent }}</td>
                 </tr>
 
                 <tr>
                     <th style="width:18%">URL</th>
-                    <td>{{ $log->url }}</td>
+                    <td>{{ $activity->url }}</td>
                 </tr>
 
                 <tr>
-                    <th style="width:18%">Ação</th>
-                    <td>{!! $log->action !!}</td>
+                    <th style="width:18%">Título</th>
+                    <td>{!! $activity->title !!}</td>
                 </tr>
 
+                @if(null != $activity->details)
                 <tr>
                     <th style="width:18%">Detalhes</th>
-                    <td>{!! $log->details !!}</td>
+                    <td>{!! $activity->details !!}</td>
                 </tr>
-
+                @endif
 
                 <tr>
                     <th style="width:18%">Ocorrido em</th>
                     <td>
-                        @if($log->created_at)
-                        {{ $log->created_at->format("d/m/Y H:i:s") }}
+                        @if($activity->created_at)
+                        {{ $activity->created_at->format("d/m/Y H:i:s") }}
                         @else
                         <span class="text-red">Informação não disponível</span>
                         @endif
@@ -65,7 +66,13 @@
         </table>
     </div>
     <div class="card-footer">
-        <a href="{{ route('admin.logs.index') }}" class="btn btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
+        @if(Session::get('return_point') == 'admin')
+        <a href="{{ route('admin.activities.index') }}" class="btn btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
+        @elseif(Session::get('return_point') == 'user')
+        <a href="{{ route('admin.activities.user') }}" class="btn btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
+        @else
+        <a href="{{ route('home') }}" class="btn btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
+        @endif
     </div>
 </div>
 @stop

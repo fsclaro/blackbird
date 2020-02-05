@@ -3,14 +3,13 @@
 @section('title', Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.title'))
 
 @section('content_header')
-<span style="font-size:20px"> <i class="fas fa-fw fa-users"></i> Cadastro de Usuários</span>
-{{ Breadcrumbs::render('users_access') }}
+<span style="font-size:20px"> <i class="fas fa-flag"></i> Atividades</span>
+{{ Breadcrumbs::render('activities_access') }}
 @stop
 
 @section('content')
 <div class="row">
-    @widget('UsersActivesCount')
-    @widget('UsersInactivesCount')
+    @widget('ActivitiesCount')
 </div>
 
 <div class="card card-primary card-outline">
@@ -21,115 +20,84 @@
                     <i class="fas fa-bolt"></i> Ações
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" onclick="proccess(1);"><i class="fas fa-fw fa-check text-success"></i> Ativar Selecionados</a>
-                    <a class="dropdown-item" href="#" onclick="proccess(2);"><i class="fas fa-fw fa-times text-red"></i> Desativar Selecionados</a>
+                    <a class="dropdown-item" href="#" onclick="proccess(1);">
+                        <i class="fas fa-fw fa-check text-success"></i> Marcar atividades como Lidas
+                    </a>
+                    <a class="dropdown-item" href="#" onclick="proccess(2);">
+                        <i class="fas fa-fw fa-times text-red"></i> Marcar atividades como Não Lidas
+                    </a>
+                    @if(Auth::user()->is_superadmin)
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" onclick="proccess(3);"><i class="fas fa-fw fa-trash text-danger"></i> Excluir Selecionados</a>
+                    @endif
                 </div>
             </div>
         </div>
 
         <div class="float-right">
-
-            <a class="btn btn-primary btn-flat btn-sm" href="{{ route('admin.users.index') }}">
+            <a class="btn btn-flat btn-primary btn-sm" href="{{ route('admin.activities.index') }}">
                 <i class="fas fa-sync"></i> Atualizar a Tela
             </a>
-
-            @if(Auth::user()->is_superadmin || Auth::user()->can('user_create'))
-            <a class="btn btn-success btn-flat btn-sm" href="{{ route('admin.users.create') }}">
-                <i class="fas fa-plus-circle"></i> Adicionar Novo Usuário
-            </a>
-            @endif
-
         </div>
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped table-hover datatable" id="users-table">
+            <table class="table table-striped table-hover datatable" id="activities-table">
                 <thead class="thead-light">
                     <tr>
                         <th>
-                            <input type="checkbox" class="checkbox" name="chk-users" id="chk-users" onchange="changeCheckbox();">
+                            <input type="checkbox" class="checkbox" name="chk-activities" id="chk-activities" onchange="changeCheckbox();">
                         </th>
                         <th>ID</th>
-                        <th>Nome do Usuário</th>
-                        <th>Email</th>
-                        <th>Papel</th>
-                        <th>Ativo?</th>
+                        <th>IP</th>
+                        <th>Usuário</th>
+                        <th>Título</th>
+                        <th>Data</th>
+                        <th>Lida?</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $key => $user)
-                    <tr data-entry-id="{{ $user->id }}">
+                    @foreach($activities as $key => $activity)
+                    <tr data-entry-id="{{ $activity->id }}">
                         <td class="align-middle">
-                            @if($user->id != Auth::user()->id && !$user->is_superadmin)
-                            <input type="checkbox" name="ids[]" id="ids[]" class="checkbox" value="{{ $user->id }}">
-                            @endif
+                            <input type="checkbox" name="ids[]" id="ids[]" class="checkbox" value="{{ $activity->id }}">
                         </td>
-
+                        <td class="align-middle"> {{ $activity->id }} </td>
                         <td class="align-middle">
-                            {{ $user->id }}
+                            {{ $activity->ipaddress }}
                         </td>
-
                         <td class="align-middle">
-                            @if($user->getAvatar($user->id))
-                                <img src="{{ $user->getAvatar($user->id) }}" width="48px" class="img-circle" alt="User Image">
+                            {{ $activity->user->name }}
+                        </td>
+                        <td class="align-middle">
+                            {!! $activity->title !!}
+                        </td>
+                        <td class="align-middle">
+                            @if($activity->created_at)
+                            {{ $activity->created_at->format('d/m/Y H:i') }}
                             @else
-                                @if (Gravatar::exists($user->email))
-                                    <img src="{{ Gravatar::get($user->email) }}" class="img-circle" width="48px" alt="User Image">
-                                @else
-                                    <img src="{{ asset('img/avatares/no-photo.png') }}" width="48px" class="img-circle" alt="User Image">
-                                @endif
+                            <span class="badge badge-danger">Data não definida</span>
                             @endif
-
-                            {{ $user->name }}
                         </td>
                         <td class="align-middle">
-                            {{ $user->email }}
+                            @if($activity->is_read == 1)
+                                <span class="badge badge-success">Sim</span>
+                            @else
+                                <span class="badge badge-danger">Não</span>
+                            @endif
                         </td>
-
-                        <td class="align-middle">
-                            @foreach($user->roles as $key => $role)
-                                @if($role->title == 'SuperAdmin')
-                                    <span class="badge badge-primary">{{ $role->title }}&nbsp;</span>
-                                @elseif($role->title == 'Admin')
-                                    <span class="badge badge-danger">{{ $role->title }}&nbsp;</span>
-                                @else
-                                    <span class="badge badge-secondary">{{ $role->title }}&nbsp;</span>
-                                @endif
-                            @endforeach
-                        </td>
-
-                        <td class="align-middle">
-                            <span class="badge badge-{{ App\User::ACTIVE_COLOR[$user->active]}}">{{ App\User::ACTIVE_STATUS[$user->active] }}</span>
-                        </td>
-
                         <td class="text-left align-middle">
-                            @if(
-                                (Auth::user()->is_superadmin    && !$user->is_superadmin) ||
-                                (Auth::user()->can('user_show') && !$user->is_superadmin)
-                            )
-                            <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', $user->id) }}">
+                            @if(Auth::user()->is_superadmin || Auth::user()->can("activity_show"))
+                            <a class="btn btn-xs btn-primary" href="{{ route('admin.activities.show', $activity->id) }}">
                                 <i class="fas fa-fw fa-eye"></i>
                             </a>
                             @endif
 
-                            @if(
-                                (Auth::user()->is_superadmin && !$user->is_superadmin) ||
-                                (Auth::user()->can('user_edit') && !$user->is_superadmin && Auth::user()->id != $user->id)
-                            )
-                                <a class="btn btn-xs btn-warning" href="{{ route('admin.users.edit', $user->id) }}">
-                                    <i class="fas fa-fw fa-pencil-alt"></i>
-                                </a>
-                            @endif
-
-                            @if(
-                                (Auth::user()->is_superadmin && !$user->is_superadmin) ||
-                                (Auth::user()->can('user_delete') && !$user->is_superadmin && Auth::user()->id != $user->id)
-                            )
-                            <a href="javascript;" onclick="deleteRecord(event,{{ $user->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
+                            @if(Auth::user()->is_superadmin)
+                            <a href="javascript;" onclick="deleteRecord(event,{{ $activity->id }});" id="deleteRecord"
+                                class="btn btn-xs btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                             @endif
@@ -152,26 +120,31 @@
 
 @section('js')
 <script>
-    $(function() {
-        $("#users-table").DataTable({
+    $(function () {
+        $("#activities-table").DataTable({
             lengthMenu: [
-                [10, 20, 50, 100, 200, -1],
-                [10, 20, 50, 100, 200, "Todos"]
+                [5, 10, 20, 50, 100, 200, -1],
+                [5, 10, 20, 50, 100, 200, "Todos"]
             ],
             language: {
                 url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
             },
             columns: [
                 { orderable: false, searchable: false }, // checkbox
-                null, // id
-                null, // nome do usuário
-                null, // email
-                null, // papéis
-                null, // ativo
-                { orderable: false, searchable: false }, // actions
+                { width: "40px" }, // id
+                null, // ipaddress
+                null, // description
+                null, // user name
+                null, // date
+                null, // is_read
+            {
+                orderable: false,
+                searchable: false,
+                width: "90px"
+            }, // actions buttons
             ],
             order: [
-                [1, "asc"]
+                [4, "desc"]
             ]
         });
     });
@@ -181,7 +154,7 @@
 
         var dataId = id;
         var token = "{{ csrf_token() }}";
-        var url = "{{ url('admin/users') }}" + '/' + id;
+        var url = "{{ url('admin/activities') }}" + '/' + id;
 
         Swal.fire({
             type: 'warning',
@@ -203,7 +176,7 @@
                         _token: token,
                         _method: 'DELETE',
                     },
-                    success: function() {
+                    success: function () {
                         Swal.fire({
                             type: 'success',
                             title: 'Sucesso',
@@ -213,7 +186,7 @@
                         });
                         location.reload();
                     },
-                    error: function() {
+                    error: function () {
                         Swal.fire({
                             type: 'error',
                             title: 'Falhou',
@@ -235,7 +208,7 @@
     };
 
     function changeCheckbox() {
-        var checkBox = document.getElementById('chk-users');
+        var checkBox = document.getElementById('chk-activities');
         var allCheckBox = document.getElementsByName('ids[]');
 
         for (let i = 0; i < allCheckBox.length; i++) {
@@ -267,33 +240,33 @@
             return;
         }
 
-        // active users
+        // change status to read
         if (type == 1) {
-            active_users(arrIds);
+            changeToRead(arrIds);
         }
 
-        // deactive users
+        // change status to unread
         if (type == 2) {
-            desactive_users(arrIds);
+            changeToUnRead(arrIds);
         }
 
-        // delete users
+        // delete activities
         if (type == 3) {
-            delete_users(arrIds);
+            deleteActivities(arrIds);
         }
     }
 
 
-    function active_users(data) {
-        var url = "{{ route('admin.users.active') }}";
+    function changeToRead(data) {
+        var url = "{{ route('admin.activities.read') }}";
         var token = "{{ csrf_token() }}";
 
         Swal.fire({
             type: 'warning',
             title: 'Você tem certeza?',
-            text: 'Esta ação mudará o status de todos os usuários selecionados.',
+            text: 'Esta ação mudará o status de todas as atividades selecionadas.',
             showCancelButton: true,
-            confirmButtonText: 'Sim - Ative os usuários',
+            confirmButtonText: 'Sim - Altere as atividades',
             cancelButtonText: 'Não - Cancele esta ação',
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -313,7 +286,7 @@
                         Swal.fire({
                             type: 'success',
                             title: 'Sucesso',
-                            text: 'Os status dos usuários foram alterados.',
+                            text: 'Os status das atividades foram alteradas.',
                             showConfirmButton: false,
                             timer: 1500,
                         });
@@ -323,7 +296,7 @@
                         Swal.fire({
                             type: 'error',
                             title: 'Falhou',
-                            text: 'Houve um problema. Os status dos usuários não foram alterados.',
+                            text: 'Houve um problema. Os status das atividades não foram alteradas.',
                             timer: 2500,
                         });
                     }
@@ -340,16 +313,16 @@
         });
     }
 
-    function desactive_users(data) {
-        var url = "{{ route('admin.users.desactive') }}";
+    function changeToUnRead(data) {
+        var url = "{{ route('admin.activities.unread') }}";
         var token = "{{ csrf_token() }}";
 
         Swal.fire({
             type: 'warning',
             title: 'Você tem certeza?',
-            text: 'Esta ação mudará o status de todos os usuários selecionados.',
+            text: 'Esta ação mudará o status de todas as atividades selecionados.',
             showCancelButton: true,
-            confirmButtonText: 'Sim - Desative os usuários',
+            confirmButtonText: 'Sim - Altere as atividades',
             cancelButtonText: 'Não - Cancele esta ação',
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -369,7 +342,7 @@
                         Swal.fire({
                             type: 'success',
                             title: 'Sucesso',
-                            text: 'Os status dos usuários foram alterados.',
+                            text: 'Os status das atividades foram alteradas.',
                             showConfirmButton: false,
                             timer: 1500,
                         });
@@ -379,7 +352,7 @@
                         Swal.fire({
                             type: 'error',
                             title: 'Falhou',
-                            text: 'Houve um problema. Os status dos usuários não foram alterados.',
+                            text: 'Houve um problema. Os status das atividades não foram alteradas.',
                             timer: 2500,
                         });
                     }
@@ -396,16 +369,16 @@
         });
     }
 
-    function delete_users(data) {
-        var url = "{{ route('admin.users.deleteusers') }}";
+    function deleteAtivities(data) {
+        var url = "{{ route('admin.activities.deleteactivities') }}";
         var token = "{{ csrf_token() }}";
 
         Swal.fire({
             type: 'warning',
             title: 'Você tem certeza?',
-            text: 'Esta ação EXCLUIRÁ todos os usuários selecionados.',
+            text: 'Esta ação EXCLUIRÁ todas as atividades selecionadas.',
             showCancelButton: true,
-            confirmButtonText: 'Sim - Excluir os usuários',
+            confirmButtonText: 'Sim - Excluir as atividades',
             cancelButtonText: 'Não - Cancele esta ação',
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -425,7 +398,7 @@
                         Swal.fire({
                             type: 'success',
                             title: 'Sucesso',
-                            text: 'Os usuários foram excluídos.',
+                            text: 'As atividades foram excluídas.',
                             showConfirmButton: false,
                             timer: 1500,
                         });
@@ -435,7 +408,7 @@
                         Swal.fire({
                             type: 'error',
                             title: 'Falhou',
-                            text: 'Houve um problema. Os usuários não foram excluídos.',
+                            text: 'Houve um problema. As atividades não foram excluídas.',
                             timer: 2500,
                         });
                     }

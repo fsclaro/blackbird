@@ -111,16 +111,16 @@ Breadcrumbs::for('settings_content', function ($trail) {
 });
 
 // ================================================================================
-// Logs
+// Activities
 // ================================================================================
 
-Breadcrumbs::for('logs_access', function ($trail) {
+Breadcrumbs::for('activities_access', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push('Log de Atividades', route('admin.logs.index'));
+    $trail->push('Atividades', route('admin.activities.index'));
 });
 
-Breadcrumbs::for('logs_show', function ($trail) {
-    $trail->parent('logs_access');
+Breadcrumbs::for('activities_show', function ($trail) {
+    $trail->parent('activities_access');
     $trail->push('Detalhes');
 });
 

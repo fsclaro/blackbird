@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use Alert;
-use App\Logs;
+use App\Activity;
 use App\User;
 use Socialite;
 use App\Setting;
@@ -30,14 +30,18 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
+     * =================================================================
      * Where to redirect users after login.
+     * =================================================================
      *
      * @var string
      */
     protected $redirectTo = '/home';
 
     /**
+     * =================================================================
      * Create a new controller instance.
+     * =================================================================
      *
      * @return void
      */
@@ -46,8 +50,16 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // adicionado para só permitir acesso ao sistema de usuários
-    // ativos
+    /**
+     * =================================================================
+     * adicionado para só permitir acesso ao sistema de usuários
+     * ativos
+     * =================================================================
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return void
+     */
     public function login(Request $request)
     {
         $user = User::where('email', $request->email)->first();
@@ -73,7 +85,7 @@ class LoginController extends Controller
         if ($this->attemptLogin($request)) {
             // Carrega para a Sessão os valores da tabela de parâmetros
             $this->loadSettings();
-            Logs::registerLog('Fez <span class="text-red text-bold">login</span> no sistema');
+            Activity::storeActivity('Fez <span class="text-red text-bold">login</span> no sistema');
             alert()
                 ->success("<span class='text-blue'>".$user->name.'</span>, você está logado no sistema.')
                 ->toToast('top-end')
@@ -91,9 +103,18 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
+    /**
+     * =================================================================
+     * logout user
+     * =================================================================
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return void
+     */
     public function logout(Request $request)
     {
-        Logs::registerLog('Fez <span class="text-red text-bold">logout</span> do sistema');
+        Activity::storeActivity('Fez <span class="text-red text-bold">logout</span> do sistema');
 
         $this->guard()->logoutCurrentDevice();
 
@@ -102,6 +123,13 @@ class LoginController extends Controller
         return $this->loggedOut($request) ?: redirect('/');
     }
 
+    /**
+     * =================================================================
+     * load settiong values and put it in a session
+     * =================================================================
+     *
+     * @return void
+     */
     public function loadSettings()
     {
         $settings = Setting::all();
@@ -111,11 +139,29 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * =================================================================
+     * redirect to social network provider
+     * =================================================================
+     *
+     * @param string $provider
+     *
+     * @return void
+     */
     public function redirectToProvider($provider)
     {
         return Socialite::driver($provider)->redirect();
     }
 
+    /**
+     * =================================================================
+     * handler for call back provider
+     * =================================================================
+     *
+     * @param string $provider
+     *
+     * @return void
+     */
     public function handleProviderCallback($provider)
     {
         try {
@@ -130,6 +176,16 @@ class LoginController extends Controller
         return redirect($this->redirectTo);
     }
 
+    /**
+     * =================================================================
+     * find or create user record for login via provider
+     * =================================================================
+     *
+     * @param string $providerUser
+     * @param string $provider
+     *
+     * @return void
+     */
     public function findOrCreateUser($providerUser, $provider)
     {
         $account = SocialIdentity::whereProviderName($provider)

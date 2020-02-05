@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Auth;
-use App\Logs;
+use App\Activity;
 use App\Notification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -63,13 +63,13 @@ class NotificationController extends Controller
         try {
             Notification::where('id', $id)->delete();
 
-            Logs::registerLog('Excluiu uma notificação do sistema.');
+            Activity::storeActivity('Excluiu uma notificação do sistema.');
             alert()->success('Notificação excluída com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Esta notificação não pode ser excluída')->toToast('top-end');
         }
 
-        Logs::registerLog('Excluiu a notificação ID '.$id);
+        Activity::storeActivity('Excluiu a notificação ID ' . $id);
 
         return back();
     }
@@ -85,7 +85,7 @@ class NotificationController extends Controller
      */
     public function updateIsReadAttribute(Notification $notification)
     {
-        if (! $notification->is_read) {
+        if (!$notification->is_read) {
             $record = [
                 'id' => $notification->id,
                 'user_id' => $notification->user_id,
@@ -150,7 +150,7 @@ class NotificationController extends Controller
                     'is_read' => true,
                     'updated_at' => now(),
                 ]);
-            Logs::registerLog('Mudou o status da notificação ID '.$ids[$i].' para LIDO');
+            Activity::storeActivity('Mudou o status da notificação ID ' . $ids[$i] . ' para LIDO');
         }
     }
 
@@ -174,7 +174,7 @@ class NotificationController extends Controller
                     'is_read' => false,
                     'updated_at' => now(),
                 ]);
-            Logs::registerLog('Mudou o status da notificação ID '.$ids[$i].' para NÃO LIDO');
+            Activity::storeActivity('Mudou o status da notificação ID ' . $ids[$i] . ' para NÃO LIDO');
         }
     }
 
@@ -197,7 +197,7 @@ class NotificationController extends Controller
                 ->update([
                     'deleted_at' => now(),
                 ]);
-            Logs::registerLog('Excluiu a notificação ID '.$ids[$i]);
+            Activity::storeActivity('Excluiu a notificação ID ' . $ids[$i]);
         }
     }
 }

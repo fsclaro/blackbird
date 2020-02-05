@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Auth;
 use Session;
-use App\Logs;
+use App\Activity;
 use App\Permission;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
@@ -60,7 +60,7 @@ class PermissionController extends Controller
             $permission = Permission::create($request->all());
 
             $details = $this->prepareDetailsNew($permission);
-            Logs::registerLog('Cadastrou uma nova permissão no sistema.', $details);
+            Activity::storeActivity('Cadastrou uma nova permissão no sistema.', $details);
             alert()->success('Permissão criada com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu um erro. Este registro não pode ser criado!')->toToast('top-end');
@@ -122,7 +122,7 @@ class PermissionController extends Controller
 
             $details = $this->prepareDetailsUpdate($this->getPermission(), $permission);
 
-            Logs::registerLog('Alterou dados de uma permissão do sistema.', $details);
+            Activity::storeActivity('Alterou dados de uma permissão do sistema.', $details);
             alert()->success('Permissão alterada com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Ocorreu um erro. Este registro não pode ser alterado!')->toToast('top-end');
@@ -147,7 +147,7 @@ class PermissionController extends Controller
         try {
             Permission::where('id', $id)->delete();
 
-            Logs::registerLog('Excluiu uma permissão do sistema.');
+            Activity::storeActivity('Excluiu uma permissão do sistema.');
             alert()->success('Permissão excluída com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Esta permissão não pode ser excluída')->toToast('top-end');
@@ -183,8 +183,8 @@ class PermissionController extends Controller
         for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
-                <td>'.$fields[$i]['field'].'</td>
-                <td>'.$fields[$i]['value'].'</td>
+                <td>' . $fields[$i]['field'] . '</td>
+                <td>' . $fields[$i]['value'] . '</td>
             </tr>';
         }
         $content .= '
@@ -223,9 +223,9 @@ class PermissionController extends Controller
         for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
-                <td>'.$fields[$i]['field'].'</td>
-                <td>'.$fields[$i]['oldvalue'].'</td>
-                <td>'.$fields[$i]['newvalue'].'</td>
+                <td>' . $fields[$i]['field'] . '</td>
+                <td>' . $fields[$i]['oldvalue'] . '</td>
+                <td>' . $fields[$i]['newvalue'] . '</td>
             </tr>';
         }
         $content .= '

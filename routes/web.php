@@ -59,8 +59,9 @@ Route::group(
         Route::post('settings/content/save', 'SettingController@saveContent')->name('settings.savecontent');
         Route::resource('settings', 'SettingController');
 
-        /* Rotas da tabela de logs de atividades */
-        Route::resource('logs', 'LogsController')->except(['create', 'edit', 'update', 'store']);
+        /* Rotas da tabela de atividades */
+        Route::get('activities/user', 'ActivityController@getAllUserActivities')->name('activities.user');
+        Route::resource('activities', 'ActivityController')->except(['create', 'edit', 'update', 'store']);
 
         /* Rotas da tabela de notificações */
         Route::resource('notifications', 'NotificationController');

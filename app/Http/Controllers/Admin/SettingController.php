@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Auth;
 use Session;
-use App\Logs;
+use App\Activity;
 use App\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -55,7 +55,7 @@ class SettingController extends Controller
 
             $details = $this->prepareDetailsNew($setting);
 
-            Logs::registerLog('Cadastrou um novo parâmetro do sistema.', $details);
+            Activity::storeActivity('Cadastrou um novo parâmetro do sistema.', $details);
 
             $this->updateSession();
 
@@ -77,7 +77,7 @@ class SettingController extends Controller
     {
         abort_unless(Gate::allows('setting_show') || Auth::user()->is_superadmin, 403);
 
-        Logs::registerLog('Visualizou os detalhes de um parâmetro do sistema.');
+        Activity::storeActivity('Visualizou os detalhes de um parâmetro do sistema.');
 
         return view('admin.settings.show', compact('setting'));
     }
@@ -113,7 +113,7 @@ class SettingController extends Controller
 
             $details = $this->prepareDetailsUpdate($this->getSetting(), $setting);
 
-            Logs::registerLog('Alterou dados de um parâmetro do sistema.', $details);
+            Activity::storeActivity('Alterou dados de um parâmetro do sistema.', $details);
 
             $this->updateSession();
 
@@ -138,7 +138,7 @@ class SettingController extends Controller
         try {
             Setting::where('id', $id)->delete();
 
-            Logs::registerLog('Excluiu um parâmetro do sistema.');
+            Activity::storeActivity('Excluiu um parâmetro do sistema.');
             alert()->success('Configuração excluído com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Este Parâmetro não pode ser excluído')->toToast('top-end');
@@ -191,7 +191,7 @@ class SettingController extends Controller
 
             $details = $this->prepareDetailsUpdateContent($this->getSetting(), $fields);
             alert()->success('Parâmetros atualizados com sucesso!')->toToast('top-end');
-            Logs::registerLog('Alterou os valores dos parâmetros do sistema.', $details);
+            Activity::storeActivity('Alterou os valores dos parâmetros do sistema.', $details);
         } else {
             alert()->error('Algum Parâmetro não pôde ser atualizado')->toToast('top-end');
         }
@@ -239,8 +239,8 @@ class SettingController extends Controller
         for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
-                <td>'.$fields[$i]['field'].'</td>
-                <td>'.$fields[$i]['value'].'</td>
+                <td>' . $fields[$i]['field'] . '</td>
+                <td>' . $fields[$i]['value'] . '</td>
             </tr>';
         }
         $content .= '
@@ -315,9 +315,9 @@ class SettingController extends Controller
         for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
-                <td>'.$fields[$i]['field'].'</td>
-                <td>'.$fields[$i]['oldvalue'].'</td>
-                <td>'.$fields[$i]['newvalue'].'</td>
+                <td>' . $fields[$i]['field'] . '</td>
+                <td>' . $fields[$i]['oldvalue'] . '</td>
+                <td>' . $fields[$i]['newvalue'] . '</td>
             </tr>';
         }
         $content .= '
@@ -370,9 +370,9 @@ class SettingController extends Controller
         for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
-                <td>'.$fields[$i]['field'].'</td>
-                <td>'.$fields[$i]['oldvalue'].'</td>
-                <td>'.$fields[$i]['newvalue'].'</td>
+                <td>' . $fields[$i]['field'] . '</td>
+                <td>' . $fields[$i]['oldvalue'] . '</td>
+                <td>' . $fields[$i]['newvalue'] . '</td>
             </tr>';
         }
         $content .= '

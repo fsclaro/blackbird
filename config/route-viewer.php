@@ -24,7 +24,7 @@ return [
 
             'namespace'  => 'Arcanedev\\RouteViewer\\Http\\Controllers',
 
-            'middleware' => [ 'web', 'auth'],
+            'middleware' => ['web', 'auth'],
         ],
     ],
 

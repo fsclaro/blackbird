@@ -2,10 +2,10 @@
 
 namespace App\Widgets;
 
-use App\Logs;
+use App\Activity;
 use Arrilot\Widgets\AbstractWidget;
 
-class LogsCount extends AbstractWidget
+class ActivitiesCount extends AbstractWidget
 {
     /**
      * The configuration array.
@@ -21,10 +21,10 @@ class LogsCount extends AbstractWidget
     public function run()
     {
         $this->config = [
-            'count' => Logs::count(),
+            'count' => Activity::count(),
         ];
 
-        return view('widgets.logs_count', [
+        return view('widgets.activities_count', [
             'config' => $this->config,
         ]);
     }

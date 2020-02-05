@@ -200,13 +200,13 @@ return [
             ],
         ],
 
-        // [
-        //     'text' => 'Notificações',
-        //     'icon' => 'fas fa-fw fa-bell',
-        //     'icon_color' => 'green',
-        //     'can' => 'notification_access',
-        //     'route' => 'admin.notifications.index',
-        // ],
+        [
+            'text' => 'Atividades',
+            'icon' => 'fas fa-fw fa-flag',
+            'icon_color' => 'green',
+            'can' => 'activity_access',
+            'route' => 'admin.activities.user',
+        ],
 
         [
             'header' => 'ADMINISTRAÇÃO DO SITE',
@@ -271,10 +271,10 @@ return [
             'can'     => 'support_access',
             'submenu' => [
                 [
-                    'text' => 'Log de Atividades',
+                    'text' => 'Atividades',
                     'icon' => 'fas fa-fw fa-flag',
-                    'can' => 'log_access',
-                    'route' => 'admin.logs.index',
+                    'can' => 'activity_access',
+                    'route' => 'admin.activities.index',
                     'shift' => 'ml-4',
                 ],
                 [

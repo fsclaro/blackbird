@@ -60,16 +60,15 @@ class PermissionsTableSeeder extends Seeder
         Permission::insert(['title' => 'Excluir configuração', 'slug' => 'setting_delete', 'created_at' => now()]);
         Permission::insert(['title' => 'Definir valores das configurações', 'slug' => 'setting_content', 'created_at' => now()]);
 
-        // Logs
-        $this->command->info('- Permissões de acesso ao cadastro de logs.');
-        Permission::insert(['title' => 'Acessar log de atividades', 'slug' => 'log_access', 'created_at' => now()]);
-        Permission::insert(['title' => 'Acessar Log-Viewer', 'slug' => 'log_viewer_access', 'created_at' => now()]);
-        Permission::insert(['title' => 'Excluir log do sistema', 'slug' => 'log_delete', 'created_at' => now()]);
-        Permission::insert(['title' => 'Exibir log do sistema', 'slug' => 'log_show', 'created_at' => now()]);
+        // Atividades
+        $this->command->info('- Permissões de acesso ao cadastro de atividades.');
+        Permission::insert(['title' => 'Acessar às atividades', 'slug' => 'activity_access', 'created_at' => now()]);
+        Permission::insert(['title' => 'Exibir atividade', 'slug' => 'activity_show', 'created_at' => now()]);
 
         // Área de suporte
         $this->command->info('- Permissões de acesso à área de suporte.');
         Permission::insert(['title' => 'Acessar área de suporte', 'slug' => 'support_access', 'created_at' => now()]);
+        Permission::insert(['title' => 'Acessar Log-Viewer', 'slug' => 'log_viewer_access', 'created_at' => now()]);
         Permission::insert(['title' => 'Acessar Route-Viewer', 'slug' => 'route_viewer_access', 'created_at' => now()]);
         Permission::insert(['title' => 'Exibir PHPInfo', 'slug' => 'phpinfo_viewer', 'created_at' => now()]);
 

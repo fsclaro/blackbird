@@ -37,16 +37,14 @@
                                         <small>
                                             <i class="fas fa-clock"></i>
                                             {{ $activity->created_at->format("d/m/Y - H:i:s") }}
+
                                             <span class="ml-5">
                                                 <i class="fas fa-globe"></i>
                                                 {{ $activity->ipaddress }} @if($activity->externalip) / {{ $activity->externalip }} @endif
                                             </span>
+
                                             <div class="float-right">
-                                                @if($activity->is_read)
-                                                    <span class="badge badge-pill badge-danger">Lido</span>
-                                                @else
-                                                    <span class="badge badge-pill badge-warning">Não Lido</span>
-                                                @endif
+                                                <a href="{{ route('admin.activities.show', $activity->id) }}" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>
                                             </div>
                                         </small>
                                         <br>
@@ -54,7 +52,11 @@
                                             <span>{!! $activity->title !!}</span>
                                         </div>
                                         <div class="float-right">
-                                            <a href="{{ route('admin.activities.show', $activity->id) }}" class="btn btn-info btn-xs"><i class="fas fa-eye"></i></a>
+                                            @if($activity->is_read)
+                                                <span class="badge badge-pill badge-danger">Lido</span>
+                                            @else
+                                                <span class="badge badge-pill badge-warning">Não Lido</span>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

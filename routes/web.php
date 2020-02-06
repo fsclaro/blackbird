@@ -62,6 +62,10 @@ Route::group(
         /* Rotas da tabela de atividades */
         Route::get('activities/user', 'ActivityController@getAllUserActivities')->name('activities.user');
         Route::resource('activities', 'ActivityController')->except(['create', 'edit', 'update', 'store']);
+        Route::post('activities/read', 'ActivityController@readActivities')->name('activities.read');
+        Route::post('activities/unread', 'ActivityController@unreadActivities')->name('activities.unread');
+        Route::post('activities/deleteactivities', 'ActivityController@deleteActivities')
+            ->name('activities.deleteactivities');
 
         /* Rotas da tabela de notificações */
         Route::resource('notifications', 'NotificationController');

@@ -369,7 +369,7 @@
         });
     }
 
-    function deleteAtivities(data) {
+    function deleteActivities(data) {
         var url = "{{ route('admin.activities.deleteactivities') }}";
         var token = "{{ csrf_token() }}";
 

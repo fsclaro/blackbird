@@ -6,6 +6,8 @@ use Auth;
 use App\Activity;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
+
 use Session;
 
 class ActivityController extends Controller
@@ -39,7 +41,7 @@ class ActivityController extends Controller
      */
     public function show(Activity $activity)
     {
-        abort_unless(Gate::allows('activity_access') || Auth::user()->is_superadmin, 403);
+        abort_unless(Gate::allows('activity_show') || Auth::user()->is_superadmin, 403);
 
         $activity->update(['is_read' => 1]);
 
@@ -84,5 +86,63 @@ class ActivityController extends Controller
 
         return view('admin.activities.index', compact('activities'));
     }
+
+    /**
+     * ---------------------------------------------------------------
+     * change activities attribute is_read to true
+     * ---------------------------------------------------------------.
+     *
+     * @param Request $request
+     */
+    public function readActivities(Request $request)
+    {
+        abort_unless(Gate::allows('activity_access') || Auth::user()->is_superadmin, 403);
+
+        $ids = $request->data;
+        for ($i = 0; $i < count($ids); $i++) {
+            Activity::where('id', $ids[$i])->update(['is_read' => true]);
+        }
+    }
+
+    /**
+     * ---------------------------------------------------------------
+     * change activities attribute is_read to false
+     * ---------------------------------------------------------------.
+     *
+     * @param Request $request
+     */
+    public function unreadActivities(Request $request)
+    {
+        abort_unless(Gate::allows('activity_access') || Auth::user()->is_superadmin, 403);
+
+        $ids = $request->data;
+        for ($i = 0; $i < count($ids); $i++) {
+            Activity::where('id', $ids[$i])->update(['is_read' => false]);
+        }
+    }
+
+    /**
+     * ---------------------------------------------------------------
+     * delete activities from a user
+     * ---------------------------------------------------------------
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function deleteActivities(Request $request)
+    {
+        abort_unless(Gate::allows('activity_access') || Auth::user()->is_superadmin, 403);
+
+        $ids = $request->data;
+
+        $ids = $request->data;
+        for ($i = 0; $i < count($ids); $i++) {
+            Activity::where('id', $ids[$i])->delete();
+            Activity::storeActivity('Excluiu a atividade de ID ' . $ids[$i]);
+        }
+    }
+
+
 
 }

@@ -100,8 +100,8 @@ config('adminlte.classes_body')
 
                     @include('vendor.adminlte.partials.messages')
 
-                    @if(Auth::user()->notifications()->where('is_read', 0)->count() > 0)
-                    @include('vendor.adminlte.partials.notifications')
+                    @if(Auth::user()->activities()->where('is_read', 0)->count() > 0)
+                    @include('vendor.adminlte.partials.activities')
                     @endif
 
                     <!-- botão sair -->

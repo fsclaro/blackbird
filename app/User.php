@@ -97,9 +97,9 @@ class User extends Authenticatable implements HasMedia
      *
      * @return void
      */
-    public function notifications()
+    public function activities()
     {
-        return $this->hasMany(Notification::class);
+        return $this->hasMany(Activity::class);
     }
 
     /**

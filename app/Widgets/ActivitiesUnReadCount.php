@@ -2,10 +2,10 @@
 
 namespace App\Widgets;
 
-use Auth;
 use Arrilot\Widgets\AbstractWidget;
+use App\Activity;
 
-class NotificationsNotReadCount extends AbstractWidget
+class ActivitiesUnReadCount extends AbstractWidget
 {
     /**
      * The configuration array.
@@ -21,10 +21,10 @@ class NotificationsNotReadCount extends AbstractWidget
     public function run()
     {
         $this->config = [
-            'count' => Auth::user()->notifications()->where('is_read', false)->count(),
-        ];
+            'count' => Activity::where('is_read', false)->count()
+         ];
 
-        return view('widgets.notifications_not_read_count', [
+        return view('widgets.activities_unread_count', [
             'config' => $this->config,
         ]);
     }

@@ -28,12 +28,18 @@
                             @php
                                 $canDeleteAvatar = true;
                             @endphp
-                            <img src="{{ $user->getAvatar($user->id) }}" id="img-avatar" name="img-avatar" class="profile-user-img img-fluid img-circle" alt="Foto do perfil" title="Foto do perfil">
+                            <img src="{{ $user->getAvatar($user->id) }}" id="img-avatar" name="img-avatar"
+                                class="profile-user-img img-fluid img-circle" alt="Foto do perfil"
+                                title="Foto do perfil">
                         @else
                             @if (Gravatar::exists(Auth::user()->email))
-                                <img src="{{ Gravatar::get(Auth::user()->email) }}" id="img-avatar" name="img-avatar" class="profile-user-img img-fluid img-circle" alt="Foto do perfil" title="Foto do perfil">
+                                <img src="{{ Gravatar::get(Auth::user()->email) }}" id="img-avatar" name="img-avatar"
+                                class="profile-user-img img-fluid img-circle" alt="Foto do perfil"
+                                title="Foto do perfil">
                             @else
-                                <img src="{{ asset('img/avatares/no-photo.png') }}" id="img-avatar" name="img-avatar" class="profile-user-img img-fluid img-circle" alt="Foto do perfil" title="Foto do perfil">
+                                <img src="{{ asset('img/avatares/no-photo.png') }}" id="img-avatar" name="img-avatar"
+                                class="profile-user-img img-fluid img-circle" alt="Foto do perfil"
+                                title="Foto do perfil">
                             @endif
                         @endif
 

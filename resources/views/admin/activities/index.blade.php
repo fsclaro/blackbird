@@ -3,13 +3,14 @@
 @section('title', Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.title'))
 
 @section('content_header')
-<span style="font-size:20px"> <i class="fas fa-flag"></i> Atividades</span>
+<span style="font-size:20px"> <i class="fas fa-flag"></i> Relação de Atividades</span>
 {{ Breadcrumbs::render('activities_access') }}
 @stop
 
 @section('content')
 <div class="row">
     @widget('ActivitiesCount')
+    @widget('ActivitiesUnReadCount')
 </div>
 
 <div class="card card-primary card-outline">

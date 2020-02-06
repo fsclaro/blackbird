@@ -12,11 +12,7 @@
         <div class="card-header p-2">
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#atividades" data-toggle="tab">Atividades
-                        @if($activities->count() > 0)
-                        <span class="badge badge-warning badge-pill ml-1">{{ $activities->count() }}</span>
-                        @endif
-                    </a>
+                    <a class="nav-link active" href="#atividades" data-toggle="tab">Atividades</a>
                 </li>
 
                 <li class="nav-item">
@@ -35,7 +31,7 @@
                                 <tr>
                                     <td>
                                         <small>
-                                            <i class="fas fa-clock"></i>
+                                            <i class="fas fa-calendar-alt"></i>
                                             {{ $activity->created_at->format("d/m/Y - H:i:s") }}
 
                                             <span class="ml-5">

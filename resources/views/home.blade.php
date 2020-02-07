@@ -23,6 +23,7 @@
         @widget('PermissionsCount')
         @widget('RolesCount')
         @widget('SettingsCount')
+        @widget('UsersLogin7Days')
     </div>
     @endif
 
@@ -36,4 +37,9 @@
 @stop
 
 @section('js')
+
+@stop
+
+@section('css')
+
 @stop

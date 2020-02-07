@@ -22,6 +22,7 @@
         "arcanedev/log-viewer": "^5.1",
         "arcanedev/route-viewer": "^2.1",
         "arrilot/laravel-widgets": "^3.13",
+        "consoletvs/charts": "^6.5",
         "creativeorange/gravatar": "^1.0",
         "davejamesmiller/laravel-breadcrumbs": "^5.3",
         "fideloper/proxy": "^4.0",

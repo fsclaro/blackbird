@@ -98,26 +98,25 @@ config('adminlte.classes_body')
 
                     @if(Auth::user())
 
-                    @include('vendor.adminlte.partials.messages')
+                        @include('vendor.adminlte.partials.messages')
 
-                    @if(Auth::user()->activities()->where('is_read', 0)->count() > 0)
-                    @include('vendor.adminlte.partials.activities')
-                    @endif
+                        @if(Auth::user()->activities()->where('is_read', 0)->count() > 0)
+                            @include('vendor.adminlte.partials.activities')
+                        @endif
 
-                    <!-- botão sair -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="fa fa-fw fa-power-off"></i> {{ __('adminlte::adminlte.log_out') }}
-                        </a>
+                        <!-- botão sair -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fa fa-fw fa-power-off"></i> {{ __('adminlte::adminlte.log_out') }}
+                            </a>
 
-                        <form id="logout-form" action="{{ $logout_url }}" method="POST" style="display: none;">
-                            @if(config('adminlte.logout_method'))
-                            {{ method_field(config('adminlte.logout_method')) }}
-                            @endif
-                            {{ csrf_field() }}
-                        </form>
-                    </li> <!-- botão sair -->
-
+                            <form id="logout-form" action="{{ $logout_url }}" method="POST" style="display: none;">
+                                @if(config('adminlte.logout_method'))
+                                    {{ method_field(config('adminlte.logout_method')) }}
+                                @endif
+                                {{ csrf_field() }}
+                            </form>
+                        </li> <!-- botão sair -->
                     @endif
 
                     @if(config('adminlte.right_sidebar'))
@@ -166,6 +165,7 @@ config('adminlte.classes_body')
                     <div class="info">
                         <a href="{{ route('admin.users.profile', Auth::user()->id) }}" class="d-block">{{ auth()->user()->name }}</a>
                     </div>
+
                 </div>
 
                 <ul class="nav nav-pills nav-sidebar flex-column {{config('adminlte.classes_sidebar_nav', '')}}" data-widget="treeview" role="menu" @if(config('adminlte.sidebar_nav_animation_speed') !=300) data-animation-speed="{{config('adminlte.sidebar_nav_animation_speed')}}" @endif @if(!config('adminlte.sidebar_nav_accordion')) data-accordion="false" @endif>

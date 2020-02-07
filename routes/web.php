@@ -53,6 +53,8 @@ Route::group(
         Route::post('users/active', 'UserController@activeUsers')->name('users.active');
         Route::post('users/desactive', 'UserController@desactiveUsers')->name('users.desactive');
         Route::post('users/deleteusers', 'UserController@deleteUsers')->name('users.deleteusers');
+        Route::get('users/login7days', 'UserController@getLogin7Days')->name('users.login7days');
+        Route::get('users/login30days', 'UserController@getLogin30Days')->name('users.login30days');
 
         /* Rotas da tabela de parâmetros */
         Route::get('settings/content', 'SettingController@getContent')->name('settings.content');
@@ -66,12 +68,6 @@ Route::group(
         Route::post('activities/unread', 'ActivityController@unreadActivities')->name('activities.unread');
         Route::post('activities/deleteactivities', 'ActivityController@deleteActivities')
             ->name('activities.deleteactivities');
-
-        /* Rotas da tabela de notificações */
-        Route::resource('notifications', 'NotificationController');
-        Route::post('notifications/read', 'NotificationController@read')->name('notifications.read');
-        Route::post('notifications/unread', 'NotificationController@unread')->name('notifications.unread');
-        Route::post('notifications/deleteall', 'NotificationController@deleteall')->name('notifications.deleteall');
     }
 );
 

@@ -18,7 +18,7 @@
         @foreach($activities as $activity)
         <div class="dropdown-divider"></div>
         <a href="{{ route('admin.activities.show', $activity->id) }}" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> {{ \Str::limit($activity->title,32) }}
+            <i class="fas fa-envelope mr-2"></i> {!! $activity->title !!}
         </a>
         @endforeach
 

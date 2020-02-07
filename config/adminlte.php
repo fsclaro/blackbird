@@ -179,7 +179,7 @@ return [
         ],
         [
             'text' => 'Mensageiro',
-            'icon' => 'fas fa-fw fa-inbox',
+            'icon' => 'fas fa-fw fa-mail-bulk',
             'icon_color' => 'green',
             // 'can' => '',
             'submenu' => [
@@ -192,7 +192,7 @@ return [
                 ],
                 [
                     'text' => 'Ler Mensagens',
-                    'icon' => 'fas fa-fw fa-envelope-open',
+                    'icon' => 'fas fa-fw fa-inbox',
                     'shift' => ' ml-4',
                     // 'can' => '',
                     // 'route' => ''

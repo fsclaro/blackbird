@@ -92,6 +92,10 @@ class LoginController extends Controller
                 ->autoClose(2500)
                 ->toHtml();
 
+            // Atualiza a data do último login do usuário autenticado
+            User::where('id', Auth::user()->id)
+                ->update([ 'last_login' => now() ]);
+
             return $this->sendLoginResponse($request);
         }
 

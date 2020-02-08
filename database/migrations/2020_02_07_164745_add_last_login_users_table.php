@@ -14,7 +14,7 @@ class AddLastLoginUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->date('last_login')->nullable()->after('is_superadmin');
+            $table->datetime('last_login')->nullable()->after('is_superadmin');
         });
     }
 

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -93,8 +94,7 @@ class LoginController extends Controller
                 ->toHtml();
 
             // Atualiza a data do último login do usuário autenticado
-            User::where('id', Auth::user()->id)
-                ->update([ 'last_login' => now() ]);
+            User::where('id', Auth::user()->id)->update([ 'last_login' => Carbon::now() ]);
 
             return $this->sendLoginResponse($request);
         }

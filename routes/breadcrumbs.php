@@ -81,6 +81,11 @@ Breadcrumbs::for('users_profile', function ($trail) {
     $trail->push('Edita');
 });
 
+Breadcrumbs::for('users_never_access', function ($trail) {
+    $trail->parent('users_access');
+    $trail->push('Detalhes');
+});
+
 // ================================================================================
 // Settings
 // ================================================================================

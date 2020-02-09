@@ -46,6 +46,7 @@ Route::group(
         Route::post('roles/deleteroles', 'RoleController@deleteRoles')->name('roles.deleteroles');
 
         /* Rotas da tabela de usuários */
+        Route::get('users/neveraccess', 'UserController@neverAccess')->name('users.neveraccess');
         Route::resource('users', 'UserController');
         Route::get('users/delete/avatar/{user}', 'UserController@deleteAvatar')->name('users.delete.avatar');
         Route::get('users/profile/{user}', 'UserController@changeProfile')->name('users.profile');

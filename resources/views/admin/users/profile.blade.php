@@ -37,7 +37,7 @@
                                 class="profile-user-img img-fluid img-circle" alt="Foto do perfil"
                                 title="Foto do perfil">
                             @else
-                                <img src="{{ asset('img/avatares/no-photo.png') }}" id="img-avatar" name="img-avatar"
+                                <img src="{{ asset('img/avatares/Others/no-photo.png') }}" id="img-avatar" name="img-avatar"
                                 class="profile-user-img img-fluid img-circle" alt="Foto do perfil"
                                 title="Foto do perfil">
                             @endif

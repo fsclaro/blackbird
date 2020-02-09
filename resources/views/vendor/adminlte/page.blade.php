@@ -157,7 +157,7 @@ config('adminlte.classes_body')
                             @if (Gravatar::exists(Auth::user()->email))
                                 <img src="{{ Gravatar::get(Auth::user()->email) }}" class="img-circle elevation-2" alt="User Image">
                             @else
-                                <img src="{{ asset('img/avatares/no-photo.png') }}" class="img-circle elevation-2" alt="User Image">
+                                <img src="{{ asset('img/avatares/Others/no-photo.png') }}" class="img-circle elevation-2" alt="User Image">
                             @endif
                         @endif
                     </div>

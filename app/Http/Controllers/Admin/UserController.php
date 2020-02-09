@@ -465,4 +465,18 @@ class UserController extends Controller
 
         return $r;
     }
+
+    /**
+     * =================================================================
+     * return user that never access the system
+     * =================================================================
+     *
+     * @return void
+     */
+    public function neverAccess()
+    {
+        $users = User::whereNull('last_login')->get();
+
+        return view('admin.users.never_access', compact('users'));
+    }
 }

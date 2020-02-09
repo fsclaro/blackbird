@@ -24,6 +24,7 @@
         @widget('RolesCount')
         @widget('SettingsCount')
         @widget('UsersLogin30Days')
+        @widget('UsersNeverAccessed')
     </div>
     @endif
 

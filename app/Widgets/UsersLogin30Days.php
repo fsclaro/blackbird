@@ -31,15 +31,15 @@ class UsersLogin30Days extends AbstractWidget
             $date = Carbon::now()->subDays($countDown);
             $days[$i] = $date->format('d/m');
 
-            $count[$i] = User::where('last_login', $date->format('Y-m-d'))->count();
+            $count[$i] = User::whereRaw('date_format(last_login, "%Y%m%d") = "' . $date->format('Ymd') . '"')->count();
             $countDown--;
         }
 
         $usersChart30Days = new UsersLogin30DaysChart;
         $usersChart30Days->labels($days);
-        $usersChart30Days->dataset('Quantidade de Acessos', 'line', $count);
-        $usersChart30Days->height(200);
-        $usersChart30Days->title('Acessos nos últimos 30 dias');
+        $usersChart30Days->dataset('Nº de usuários', 'line', $count);
+        $usersChart30Days->height(282);
+        $usersChart30Days->title('Nº de usuários que acessaram o sistema nos últimos 30 dias');
         $usersChart30Days->displayLegend(false);
 
         return view('widgets.users_login_30days', [

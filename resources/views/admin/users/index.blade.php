@@ -80,7 +80,7 @@
                                 @if (Gravatar::exists($user->email))
                                     <img src="{{ Gravatar::get($user->email) }}" class="img-circle" width="48px" alt="User Image">
                                 @else
-                                    <img src="{{ asset('img/avatares/no-photo.png') }}" width="48px" class="img-circle" alt="User Image">
+                                    <img src="{{ asset('img/avatares/Others/no-photo.png') }}" width="48px" class="img-circle" alt="User Image">
                                 @endif
                             @endif
 

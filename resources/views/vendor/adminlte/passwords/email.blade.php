@@ -1,5 +1,13 @@
-{{ App\Helpers\AppSession::getSession() }}
-@php $background = App\Helpers\AppUnsplash::getPhoto(); @endphp
+@php
+use App\Helpers\Helpers;
+
+Helpers::getSession();
+$background = Helpers::getUnsplashPicture();
+if (null == $background) {
+    $background = asset('img/background/background03.jpg');
+}
+@endphp
+
 
 @extends('adminlte::master')
 

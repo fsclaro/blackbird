@@ -1,4 +1,4 @@
-<div class="col-md-8">
+<div class="col-md-7">
     <div class="card card-outline card-primary">
         <div class="card-body">
             {!! $usersChart30Days->container() !!}

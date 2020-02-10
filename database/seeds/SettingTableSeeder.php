@@ -46,5 +46,39 @@ class SettingTableSeeder extends Seeder
             'can_delete' => false,
             'created_at' => now(),
         ]);
+
+        Setting::insert([
+            'description' => 'Utilizar imagens do Unsplash?',
+            'name' => 'use_unsplash',
+            'content' => 0,
+            'type' => 'select',
+            'dataenum' => '0|Não,1|Sim',
+            'helper' => 'Utilizar imagens do Unsplash nas telas de logins?',
+            'can_delete' => false,
+            'created_at' => now(),
+        ]);
+
+        Setting::insert([
+            'description' => 'Obter IP Externo?',
+            'name' => 'get_external_ip',
+            'content' => 1,
+            'type' => 'select',
+            'dataenum' => '0|Não,1|Sim',
+            'helper' => 'Obter o endereço do IP externo?',
+            'can_delete' => false,
+            'created_at' => now(),
+        ]);
+
+        Setting::insert([
+            'description' => 'URL para obter o IP Externo',
+            'name' => 'url_external_ip',
+            'content' => 'https://api.ipify.org',
+            'type' => 'text',
+            'dataenum' => null,
+            'helper' => 'Informe a url do servidor que fornecerá o IP externo.',
+            'can_delete' => false,
+            'created_at' => now(),
+        ]);
+
     }
 }

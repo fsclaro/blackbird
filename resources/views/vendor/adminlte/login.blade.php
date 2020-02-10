@@ -3,7 +3,9 @@ use App\Helpers\Helpers;
 
 Helpers::getSession();
 $background = Helpers::getUnsplashPicture();
-
+if (null == $background) {
+    $background = asset('img/background/background07.jpg');
+}
 @endphp
 
 @extends('adminlte::master')
@@ -67,10 +69,47 @@ $background = Helpers::getUnsplashPicture();
 <div class="login-box">
     <div class="card">
         <div class="card-body login-card-body shadow bg-white rounded">
+
             <div class="login-logo">
                 <a href="{{ $dashboard_url }}">{!! (Session::exists('brand_sistema')) ? Session::get('brand_sistema') : config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
             </div>
+
+            @if(env('USE_SOCIALITE'))
+            <p class="mt-3 mb-3 text-center">
+                @if(env('GITHUB_CLIENT_ID'))
+                    <a href="{{ url('login/github') }}" class="mr-2">
+                        <i class="fab fa-github fa-2x" style="color:#4078c0"></i>
+                    </a>
+                @endif
+
+                @if(env('FACEBOOK_CLIENT_ID'))
+                    <a href="{{ url('login/facebook') }}" class="mr-2">
+                        <i class="fab fa-facebook fa-2x" style="color:#38569b"></i>
+                    </a>
+                @endif
+
+                @if(env('TWITTER_CLIENT_ID'))
+                    <a href="{{ url('login/twitter') }}" class="mr-2">
+                        <i class="fab fa-twitter fa-2x" style="color:#4fadf0"></i>
+                    </a>
+                @endif
+
+                @if(env('LINKEDIN_CLIENT_ID'))
+                    <a href="{{ url('login/linkedin') }}" class="mr-2">
+                        <i class="fab fa-linkedin fa-2x" style="color:#3778b7"></i>
+                    </a>
+                @endif
+
+                @if(env('GOOGLE_CLIENT_ID'))
+                    <a href="{{ url('login/google') }}" style="color:#ea4335">
+                        <i class="fab fa-google-plus fa-2x"></i>
+                    </a>
+                @endif
+            </p>
+            @endif
+
             <p class="login-box-msg">{{ __('adminlte::adminlte.login_message') }}</p>
+
             <form action="{{ $login_url }}" method="post">
                 {{ csrf_field() }}
                 <div class="input-group mb-3">
@@ -113,13 +152,14 @@ $background = Helpers::getUnsplashPicture();
                     </div>
                 </div>
             </form>
-            <p class="mt-2 mb-1 text-center">
+
+            <p class="mt-3 mb-1 text-center">
                 <a href="{{ $password_reset_url }}">
                     {{ __('adminlte::adminlte.i_forgot_my_password') }}
                 </a>
             </p>
             @if ($register_url && route::has('register'))
-            <p class="mb-0">
+            <p class="mb-0 text-center">
                 <a href="{{ $register_url }}">
                     {{ __('adminlte::adminlte.register_a_new_membership') }}
                 </a>

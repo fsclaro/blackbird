@@ -1,7 +1,7 @@
-<div class="col-md-4">
+<div class="col-md-5">
     <div class="card card-danger card-outline">
         <div class="card-header">
-            <h3 class="card-title">Usuários que nunca acessaram o sistema</h3>
+            <h3 class="card-title">Nunca acessaram o sistema</h3>
 
             <div class="card-tools">
                 @if(count($users) > 0)

@@ -1,3 +1,7 @@
+@php
+use Carbon\Carbon;
+@endphp
+
 @extends('adminlte::page')
 
 @section('title', Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.title'))
@@ -81,6 +85,19 @@
                 </tr>
 
                 <tr>
+                    <th>Dias sem acesso</th>
+                    <td>
+                        <span class="badge badge-danger">
+                            @if(null == $user->last_login)
+                            {{ (new Carbon($user->created_at))->diffInDays(Carbon::now()) }}
+                            @else
+                            {{ (new Carbon($user->last_login))->diffInDays(Carbon::now()) }}
+                            @endif
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
                     <th>Atualizado em</th>
                     <td>
                         @if($user->updated_at)
@@ -95,7 +112,7 @@
     </div>
 
     <div class="card-footer">
-        <a href="{{ route('admin.users.index') }}" class="btn btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
+        <a href="{{ Session::get('return_path') }}" class="btn btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
     </div>
 </div>
 @stop

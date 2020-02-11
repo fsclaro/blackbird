@@ -1,3 +1,7 @@
+@php
+use Carbon\Carbon;
+@endphp
+
 @extends('adminlte::page')
 
 @section('title', Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.title'))
@@ -29,6 +33,7 @@
                         <th>Papel</th>
                         <th>Ativo?</th>
                         <th>Cadastrado em</th>
+                        <th>Dias sem acesso</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -74,6 +79,14 @@
 
                         <td class="align-middle">
                             {{ $user->created_at->format('d/m/Y - H:i:s') }}
+                        </td>
+
+                        <td class="text-center">
+                            @if(null == $user->last_login)
+                            {{ (new Carbon($user->created_at))->diffInDays(Carbon::now()) }}
+                            @else
+                            {{ (new Carbon($user->last_login))->diffInDays(Carbon::now()) }}
+                            @endif
                         </td>
 
                         <td class="text-left align-middle">
@@ -126,6 +139,7 @@
                 null, // papéis
                 null, // ativo
                 null, // created_at
+                null, // qty days not access
                 { orderable: false, searchable: false }, // actions
             ],
         });

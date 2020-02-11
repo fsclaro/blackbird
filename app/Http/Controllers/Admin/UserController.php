@@ -27,6 +27,8 @@ class UserController extends Controller
 
         $users = User::all();
 
+        Session::put('return_path', route('admin.users.index'));
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -476,6 +478,8 @@ class UserController extends Controller
     public function neverAccess()
     {
         $users = User::whereNull('last_login')->get();
+
+        Session::put('return_path', route('admin.users.neveraccess'));
 
         return view('admin.users.never_access', compact('users'));
     }

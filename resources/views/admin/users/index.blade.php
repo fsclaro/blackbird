@@ -109,7 +109,8 @@
                         <td class="text-left align-middle">
                             @if(
                                 (Auth::user()->is_superadmin    && !$user->is_superadmin) ||
-                                (Auth::user()->can('user_show') && !$user->is_superadmin)
+                                (Auth::user()->can('user_show') && !$user->is_superadmin) ||
+                                (Auth::user()->is_superadmin)
                             )
                             <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', $user->id) }}">
                                 <i class="fas fa-fw fa-eye"></i>
@@ -118,7 +119,8 @@
 
                             @if(
                                 (Auth::user()->is_superadmin && !$user->is_superadmin) ||
-                                (Auth::user()->can('user_edit') && !$user->is_superadmin && Auth::user()->id != $user->id)
+                                (Auth::user()->can('user_edit') && !$user->is_superadmin &&
+                                 Auth::user()->id != $user->id)
                             )
                                 <a class="btn btn-xs btn-warning" href="{{ route('admin.users.edit', $user->id) }}">
                                     <i class="fas fa-fw fa-pencil-alt"></i>
@@ -127,7 +129,8 @@
 
                             @if(
                                 (Auth::user()->is_superadmin && !$user->is_superadmin) ||
-                                (Auth::user()->can('user_delete') && !$user->is_superadmin && Auth::user()->id != $user->id)
+                                (Auth::user()->can('user_delete') && !$user->is_superadmin &&
+                                 Auth::user()->id != $user->id)
                             )
                             <a href="javascript;" onclick="deleteRecord(event,{{ $user->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
                                 <i class="fas fa-trash-alt"></i>

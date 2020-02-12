@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use Alert;
-use App\Activity;
 use App\User;
 use Socialite;
 use App\Setting;
+use App\Activity;
+use Carbon\Carbon;
 use App\SocialIdentity;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -33,7 +33,7 @@ class LoginController extends Controller
     /**
      * =================================================================
      * Where to redirect users after login.
-     * =================================================================
+     * =================================================================.
      *
      * @var string
      */
@@ -42,7 +42,7 @@ class LoginController extends Controller
     /**
      * =================================================================
      * Create a new controller instance.
-     * =================================================================
+     * =================================================================.
      *
      * @return void
      */
@@ -55,7 +55,7 @@ class LoginController extends Controller
      * =================================================================
      * adicionado para só permitir acesso ao sistema de usuários
      * ativos
-     * =================================================================
+     * =================================================================.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -94,7 +94,7 @@ class LoginController extends Controller
                 ->toHtml();
 
             // Atualiza a data do último login do usuário autenticado
-            User::where('id', Auth::user()->id)->update([ 'last_login' => Carbon::now() ]);
+            User::where('id', Auth::user()->id)->update(['last_login' => Carbon::now()]);
 
             return $this->sendLoginResponse($request);
         }
@@ -110,7 +110,7 @@ class LoginController extends Controller
     /**
      * =================================================================
      * logout user
-     * =================================================================
+     * =================================================================.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -130,7 +130,7 @@ class LoginController extends Controller
     /**
      * =================================================================
      * load settiong values and put it in a session
-     * =================================================================
+     * =================================================================.
      *
      * @return void
      */
@@ -146,7 +146,7 @@ class LoginController extends Controller
     /**
      * =================================================================
      * redirect to social network provider
-     * =================================================================
+     * =================================================================.
      *
      * @param string $provider
      *
@@ -160,7 +160,7 @@ class LoginController extends Controller
     /**
      * =================================================================
      * handler for call back provider
-     * =================================================================
+     * =================================================================.
      *
      * @param string $provider
      *
@@ -183,7 +183,7 @@ class LoginController extends Controller
     /**
      * =================================================================
      * find or create user record for login via provider
-     * =================================================================
+     * =================================================================.
      *
      * @param string $providerUser
      * @param string $provider

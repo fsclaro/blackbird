@@ -2,8 +2,8 @@
 
 namespace App\Widgets;
 
-use Arrilot\Widgets\AbstractWidget;
 use App\Activity;
+use Arrilot\Widgets\AbstractWidget;
 
 class ActivitiesUnReadCount extends AbstractWidget
 {
@@ -21,7 +21,7 @@ class ActivitiesUnReadCount extends AbstractWidget
     public function run()
     {
         $this->config = [
-            'count' => Activity::where('is_read', false)->count()
+            'count' => Activity::where('is_read', false)->count(),
          ];
 
         return view('widgets.activities_unread_count', [

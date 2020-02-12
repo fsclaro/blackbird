@@ -2,10 +2,10 @@
 
 namespace App\Widgets;
 
+use App\User;
+use Carbon\Carbon;
 use Arrilot\Widgets\AbstractWidget;
 use App\Charts\UsersLogin30DaysChart;
-use Carbon\Carbon;
-use App\User;
 
 class UsersLogin30Days extends AbstractWidget
 {
@@ -26,12 +26,11 @@ class UsersLogin30Days extends AbstractWidget
         $count = [];
 
         $countDown = 30;
-        for ($i=0; $i<=30; $i++)
-        {
+        for ($i = 0; $i <= 30; $i++) {
             $date = Carbon::now()->subDays($countDown);
             $days[$i] = $date->format('d/m');
 
-            $count[$i] = User::whereRaw('date_format(last_login, "%Y%m%d") = "' . $date->format('Ymd') . '"')->count();
+            $count[$i] = User::whereRaw('date_format(last_login, "%Y%m%d") = "'.$date->format('Ymd').'"')->count();
             $countDown--;
         }
 

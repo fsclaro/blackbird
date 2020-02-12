@@ -2,11 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Helpers\Helpers;
 use Auth;
 use Session;
+use App\Helpers\Helpers;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Activity extends Model
 {
@@ -37,7 +37,7 @@ class Activity extends Model
     /**
      * =================================================================
      * store a user activity.
-     * =================================================================
+     * =================================================================.
      *
      * @param string $title
      * @param string $details
@@ -71,7 +71,7 @@ class Activity extends Model
     /**
      * =================================================================
      * return all activities for a user.
-     * =================================================================
+     * =================================================================.
      *
      * @param int $user_id
      *
@@ -79,7 +79,7 @@ class Activity extends Model
      */
     public static function getActivities($user_id)
     {
-        if (!isset($user_id)) {
+        if (! isset($user_id)) {
             return;
         }
 
@@ -89,10 +89,11 @@ class Activity extends Model
 
         return $activity;
     }
+
     /**
      * =================================================================
      * return activities for a authenticated user.
-     * =================================================================
+     * =================================================================.
      *
      * @param int $nroRecords
      *
@@ -114,10 +115,11 @@ class Activity extends Model
 
         return $activities;
     }
+
     /**
      * =================================================================
      * return only read activities for a user.
-     * =================================================================
+     * =================================================================.
      *
      * @param int $user_id
      *
@@ -125,7 +127,7 @@ class Activity extends Model
      */
     public static function getActivitiesRead($user_id)
     {
-        if (!isset($user_id)) {
+        if (! isset($user_id)) {
             return;
         }
 
@@ -140,7 +142,7 @@ class Activity extends Model
     /**
      * =================================================================
      * return only no read activities for a user.
-     * =================================================================
+     * =================================================================.
      *
      * @param int $user_id
      *
@@ -148,7 +150,7 @@ class Activity extends Model
      */
     public static function getActivitiesNotReaded($user_id)
     {
-        if (!isset($user_id)) {
+        if (! isset($user_id)) {
             return;
         }
 

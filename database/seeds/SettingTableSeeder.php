@@ -79,6 +79,5 @@ class SettingTableSeeder extends Seeder
             'can_delete' => false,
             'created_at' => now(),
         ]);
-
     }
 }

@@ -42,8 +42,7 @@ class Helpers
         $query = 'abstract',
         $width = 720,
         $height = null
-    )
-    {
+    ) {
         if (env('UNSPLASH') || Session::get('use_unsplash')) {
             try {
                 \Crew\Unsplash\HttpClient::init([
@@ -67,10 +66,10 @@ class Helpers
 
                 return $url;
             } catch (\Throwable $th) {
-                return null;
+                return;
             }
         } else {
-            return null;
+            return;
         }
     }
 
@@ -89,7 +88,7 @@ class Helpers
             try {
                 $external_ip = file_get_contents(Session::get('url_external_ip'));
             } catch (\Throwable $th) {
-                return null;
+                return;
             }
         }
 

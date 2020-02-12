@@ -2,8 +2,8 @@
 
 namespace App\Widgets;
 
-use Arrilot\Widgets\AbstractWidget;
 use App\User;
+use Arrilot\Widgets\AbstractWidget;
 
 class UsersNeverAccessed extends AbstractWidget
 {

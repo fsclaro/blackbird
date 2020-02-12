@@ -3,19 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use Auth;
+use Session;
 use App\Activity;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Http\Request;
-
-use Session;
 
 class ActivityController extends Controller
 {
     /**
      * =================================================================
      * Display a listing of the resource.
-     * =================================================================
+     * =================================================================.
      *
      * @return \Illuminate\Http\Response
      */
@@ -29,14 +28,13 @@ class ActivityController extends Controller
         return view('admin.activities.index', compact('activities'));
     }
 
-
     /**
      * =================================================================
      * Display the specified resource.
-     * =================================================================
+     * =================================================================.
      *
      * @param  \App\Activity  $activities
-
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Activity $activity)
@@ -51,7 +49,7 @@ class ActivityController extends Controller
     /**
      * =================================================================
      * Remove the specified resource from storage.
-     * =================================================================
+     * =================================================================.
      *
      * @param  \App\Activity  $activities
      *
@@ -65,7 +63,7 @@ class ActivityController extends Controller
             $activity = Activity::find($id);
             Activity::where('id', $id)->delete();
 
-            Activity::storeActivity('Excluiu uma atividade de ID ' . $activity->id . ' do sistema.');
+            Activity::storeActivity('Excluiu uma atividade de ID '.$activity->id.' do sistema.');
             alert()->success('Atividade excluída com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Esta atividade não pode ser excluída')->toToast('top-end');
@@ -124,7 +122,7 @@ class ActivityController extends Controller
     /**
      * ---------------------------------------------------------------
      * delete activities from a user
-     * ---------------------------------------------------------------
+     * ---------------------------------------------------------------.
      *
      * @param Request $request
      *
@@ -139,10 +137,7 @@ class ActivityController extends Controller
         $ids = $request->data;
         for ($i = 0; $i < count($ids); $i++) {
             Activity::where('id', $ids[$i])->delete();
-            Activity::storeActivity('Excluiu a atividade de ID ' . $ids[$i]);
+            Activity::storeActivity('Excluiu a atividade de ID '.$ids[$i]);
         }
     }
-
-
-
 }

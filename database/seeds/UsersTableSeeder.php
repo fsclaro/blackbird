@@ -14,8 +14,13 @@ class UsersTableSeeder extends Seeder
     {
         $this->command->info('Criando os usuários do sistema...');
 
+        /*
+         * =======================================
+         * Usuário superadmin
+         * =======================================
+         */
         $this->command->info('- Criando o usuário SuperAdmin.');
-        User::insert([
+        $user = User::insert([
             'name' => 'SuperAdmin',
             'email' => 'superadmin@blackbird.test',
             'password' => Hash::make('superman'),
@@ -24,9 +29,18 @@ class UsersTableSeeder extends Seeder
             'is_superadmin' => true,
             'created_at' => now(),
         ]);
+        $user = User::find(1);
+        $user->addMedia(public_path('img/avatares/Others/superman.png'))
+            ->preservingOriginal()
+            ->toMediaCollection('avatars');
 
+        /*
+         * =======================================
+         * Usuário admin
+         * =======================================
+         */
         $this->command->info('- Criando o usuário Admin.');
-        User::insert([
+        $user = User::insert([
             'name' => 'Admin',
             'email' => 'admin@blackbird.test',
             'password' => Hash::make('12345678'),
@@ -35,9 +49,18 @@ class UsersTableSeeder extends Seeder
             'is_superadmin' => false,
             'created_at' => now(),
         ]);
+        $user = User::find(2);
+        $user->addMedia(public_path('img/avatares/Others/admin.png'))
+            ->preservingOriginal()
+            ->toMediaCollection('avatars');
 
+        /*
+         * =======================================
+         * Usuário user
+         * =======================================
+         */
         $this->command->info('- Criando o usuário User.');
-        User::insert([
+        $user = User::insert([
             'name' => 'User',
             'email' => 'user@blackbird.test',
             'password' => Hash::make('12345678'),
@@ -46,5 +69,9 @@ class UsersTableSeeder extends Seeder
             'is_superadmin' => false,
             'created_at' => now(),
         ]);
+        $user = User::find(3);
+        $user->addMedia(public_path('img/avatares/Male/avatar_001.png'))
+            ->preservingOriginal()
+            ->toMediaCollection('avatars');
     }
 }

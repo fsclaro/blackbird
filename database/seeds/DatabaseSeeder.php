@@ -58,6 +58,17 @@ class DatabaseSeeder extends Seeder
         $this->command->info('- Excluindo os registros da tabela role_user...');
         DB::table('role_user')->truncate();
 
+        $this->command->info('- Excluindo os registros da tabela media...');
+        DB::table('media')->truncate();
+
+        $this->command->info('- Excluindo os registros da tabela settings...');
+        DB::table('settings')->truncate();
+
+        $this->command->info('- Excluindo os registros da tabela telescope...');
+        DB::table('telescope_entries')->truncate();
+        DB::table('telescope_entries_tags')->truncate();
+        DB::table('telescope_monitoring')->truncate();
+
         DB::statement('SET foreign_key_checks=1');
     }
 }

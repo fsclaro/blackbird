@@ -61,11 +61,11 @@ class UserController extends Controller
             $user = User::create($request->all());
             $user->roles()->sync($request->input('roles', []));
 
-            $details = $this->prepareDetailsNew($user);
-
             if (isset($request['avatar'])) {
                 $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
             }
+
+            $details = $this->prepareDetailsNew($user);
 
             Activity::storeActivity('Cadastrou o usuário '.$user->name.' no sistema.', $details);
             alert()->success('Usuário criado com sucesso!')->toToast('top-end');

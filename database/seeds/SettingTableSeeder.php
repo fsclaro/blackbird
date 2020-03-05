@@ -28,7 +28,7 @@ class SettingTableSeeder extends Seeder
         Setting::insert([
             'description' => 'Texto do rodapé do lado esquerdo',
             'name' => 'footer_left',
-            'content' => '<span>Copyright © 2019 by <a href="https://github.com/fsclaro/blackbird"><span class="text-bold">Blackbird</span></a>. Todos os direitos reservados.</span>',
+            'content' => '<span>© 2019-2020 by <a href="https://github.com/fsclaro/blackbird"><span class="text-bold">Blackbird</span></a>. Todos os direitos reservados.</span>',
             'type' => 'text',
             'dataenum' => null,
             'helper' => '',

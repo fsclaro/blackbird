@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
          * Usuário superadmin
          * =======================================
          */
-        $this->command->info('- Criando o usuário SuperAdmin.');
+        $this->command->info(' Criando o usuário SuperAdmin.');
         $user = User::insert([
             'name' => 'SuperAdmin',
             'email' => 'superadmin@blackbird.test',
@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder
          * Usuário admin
          * =======================================
          */
-        $this->command->info('- Criando o usuário Admin.');
+        $this->command->info(' Criando o usuário Admin.');
         $user = User::insert([
             'name' => 'Admin',
             'email' => 'admin@blackbird.test',
@@ -59,7 +59,7 @@ class UsersTableSeeder extends Seeder
          * Usuário user
          * =======================================
          */
-        $this->command->info('- Criando o usuário User.');
+        $this->command->info(' Criando o usuário User.');
         $user = User::insert([
             'name' => 'User',
             'email' => 'user@blackbird.test',

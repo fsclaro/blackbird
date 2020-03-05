@@ -43,28 +43,28 @@ class DatabaseSeeder extends Seeder
     {
         DB::statement('SET foreign_key_checks=0');
 
-        $this->command->info('- Excluindo os registros da tabela users...');
+        $this->command->info(' Excluindo os registros da tabela users...');
         User::truncate();
 
-        $this->command->info('- Excluindo os registros da tabela de permissions...');
+        $this->command->info(' Excluindo os registros da tabela de permissions...');
         Permission::truncate();
 
-        $this->command->info('- Excluindo os registros da tabela roles...');
+        $this->command->info(' Excluindo os registros da tabela roles...');
         Role::truncate();
 
-        $this->command->info('- Excluindo os registros da tabela permission_role...');
+        $this->command->info(' Excluindo os registros da tabela permission_role...');
         DB::table('permission_role')->truncate();
 
-        $this->command->info('- Excluindo os registros da tabela role_user...');
+        $this->command->info(' Excluindo os registros da tabela role_user...');
         DB::table('role_user')->truncate();
 
-        $this->command->info('- Excluindo os registros da tabela media...');
+        $this->command->info(' Excluindo os registros da tabela media...');
         DB::table('media')->truncate();
 
-        $this->command->info('- Excluindo os registros da tabela settings...');
+        $this->command->info(' Excluindo os registros da tabela settings...');
         DB::table('settings')->truncate();
 
-        $this->command->info('- Excluindo os registros da tabela telescope...');
+        $this->command->info(' Excluindo os registros da tabela telescope...');
         DB::table('telescope_entries')->truncate();
         DB::table('telescope_entries_tags')->truncate();
         DB::table('telescope_monitoring')->truncate();

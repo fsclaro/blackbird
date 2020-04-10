@@ -67,8 +67,7 @@ Route::group(
         Route::resource('activities', 'ActivityController')->except(['create', 'edit', 'update', 'store']);
         Route::post('activities/read', 'ActivityController@readActivities')->name('activities.read');
         Route::post('activities/unread', 'ActivityController@unreadActivities')->name('activities.unread');
-        Route::post('activities/deleteactivities', 'ActivityController@deleteActivities')
-            ->name('activities.deleteactivities');
+        Route::post('activities/deleteactivities', 'ActivityController@deleteActivities')->name('activities.deleteactivities');
     }
 );
 

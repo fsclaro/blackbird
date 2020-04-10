@@ -15,7 +15,7 @@ class CreateNotificationsTable extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('title')->nullable();
             $table->text('content')->nullable();
             $table->string('icon')->nullable();
@@ -23,6 +23,8 @@ class CreateNotificationsTable extends Migration
             $table->boolean('is_read')->default(false);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign("user_id")->references("id")->on("users");
         });
     }
 

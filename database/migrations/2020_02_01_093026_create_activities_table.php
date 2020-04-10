@@ -21,10 +21,13 @@ class CreateActivitiesTable extends Migration
             $table->string('url')->nullable();
             $table->text('title')->nullable();
             $table->longText('details')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->boolean('is_read')->default(false);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign("user_id")->references("id")->on("users");
+
         });
     }
 

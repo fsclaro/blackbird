@@ -45,7 +45,5 @@ class Setting extends Model
     public function getSetting($setting)
     {
         $param = $this->where('name', $setting);
-
-        dd($param);
     }
 }

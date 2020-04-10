@@ -60,10 +60,9 @@ class ActivityController extends Controller
         abort_unless(Gate::allows('activity_access') || Auth::user()->is_superadmin, 403);
 
         try {
-            $activity = Activity::find($id);
             Activity::where('id', $id)->delete();
 
-            Activity::storeActivity('Excluiu uma atividade de ID '.$activity->id.' do sistema.');
+            Activity::storeActivity('Excluiu uma atividade de ID '.$id.' do sistema.');
             alert()->success('Atividade excluída com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Esta atividade não pode ser excluída')->toToast('top-end');
@@ -134,7 +133,6 @@ class ActivityController extends Controller
 
         $ids = $request->data;
 
-        $ids = $request->data;
         for ($i = 0; $i < count($ids); $i++) {
             Activity::where('id', $ids[$i])->delete();
             Activity::storeActivity('Excluiu a atividade de ID '.$ids[$i]);

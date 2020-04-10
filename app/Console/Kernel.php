@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        // Meus comandos personalizados
+        Commands\DBDescribeTable::class,
+        Commands\CrudGenerator::class,
     ];
 
     /**

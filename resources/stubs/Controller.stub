@@ -1,0 +1,285 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Auth;
+use Session;
+use App\{{modelName}};
+use App\Activity;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\Update{{modelName}}Request;
+use App\Http\Requests\Store{{modelName}}Request;
+
+class {{modelName}}Controller extends Controller
+{
+    /**
+     * =================================================================
+     * Display a listing of the resource.
+     * =================================================================.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        abort_unless(Gate::allows('{{modelNameSingularLowerCase}}_access') || Auth::user()->is_superadmin, 403);
+
+        ${{modelNamePluralLowerCase}} = {{modelName}}::all();
+
+        return view('admin.{{modelNamePluralLowerCase}}.index', compact('{{modelNamePluralLowerCase}}'));
+    }
+
+    /**
+     * =================================================================
+     * Show the form for creating a new resource.
+     * =================================================================
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        abort_unless(Gate::allows('{{modelNameSingularLowerCase}}_create') || Auth::user()->is_superadmin, 403);
+
+        return view('admin.{{modelNamePluralLowerCase}}.create');
+    }
+
+    /**
+     * =================================================================
+     * Store a newly created resource in storage.
+     * =================================================================
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Store{{modelName}}Request $request)
+    {
+        abort_unless(Gate::allows('{{modelNameSingularLowerCase}}_create') || Auth::user()->is_superadmin, 403);
+
+        try {
+            ${{modelNameSingularLowerCase}} = {{modelName}}::create($request->all());
+
+            $details = $this->prepareDetailsNew(${{modelNameSingularLowerCase}});
+
+            Activity::storeActivity('Cadastrou um novo registro no sistema', $details);
+
+            alert()->success('Registro criado com sucesso!')->toToast('top-end');
+        } catch (\Throwable $th) {
+            alert()->error('Ocorreu um erro. Este registro não foi criado.')->toToast('top-end');
+        }
+
+        return redirect()->route('admin.{{modelNamePluralLowerCase}}.index');
+    }
+
+    /**
+     * =================================================================
+     * Display the specified resource.
+     * =================================================================.
+     *
+     * @param  \App\{{modelName}}  ${{modelNamePluralLowerCase}}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show({{modelName}} ${{modelNameSingularLowerCase}})
+    {
+        abort_unless(Gate::allows('{{modelNameSingularLowerCase}}_show') || Auth::user()->is_superadmin, 403);
+
+        return view('admin.{{modelNamePluralLowerCase}}.show', compact('{{modelNameSingularLowerCase}}'));
+    }
+
+    /**
+     * =================================================================
+     * Show the form for editing the specified resource.
+     * =================================================================
+     *
+     * @param  \App\{{modelName}}  ${{modelNamePluralLowerCase}}
+     * @return \Illuminate\Http\Response
+     */
+    public function edit({{modelName}} ${{modelNameSingularLowerCase}})
+    {
+        abort_unless(Gate::allows('{{modelNameSingularLowerCase}}_edit') || Auth::user()->is_superadmin, 403);
+
+        $this->save{{modelName}}(${{modelNameSingularLowerCase}});
+
+        return view('admin.{{modelNamePluralLowerCase}}.edit', compact('{{modelNameSingularLowerCase}}'));
+    }
+
+    /**
+     * =================================================================
+     * Update the specified resource in storage.
+     * =================================================================
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\{{modelName}}  ${{modelNamePluralLowerCase}}
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Update{{modelName}}Request $request, {{modelName}} ${{modelNameSingularLowerCase}})
+    {
+        abort_unless(Gate::allows('{{modelNameSingularLowerCase}}_edit') || Auth::user()->is_superadmin, 403);
+
+        try {
+            ${{modelNameSingularLowerCase}}->update($request->all());
+
+            $details = $this->prepareDetailsUpdate($this->get{{modelName}}(), ${{modelNameSingularLowerCase}});
+
+            Activity::storeActivity('Alterou dados da tabela {{modelName}} do sistema.', $details);
+
+            alert()->success('Dados alterados com sucesso!')->toToast('top-end');
+        } catch (\Throwable $th) {
+            alert()->error('Ocorreu um erro. As alterações não foram salvas')->toToast('top-end');
+        }
+
+        return redirect()->route('admin.{{modelNamePluralLowerCase}}.index');
+    }
+
+    /**
+     * =================================================================
+     * Remove the specified resource from storage.
+     * =================================================================
+     *
+     * @param  \App\{{modelName}}  ${{modelNamePluralLowerCase}}
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        abort_unless(Gate::allows('{{modelNameSingularLowerCase}}_delete') || Auth::user()->is_superadmin, 403);
+
+        try {
+            {{modelName}}::where('id', $id)->delete();
+
+            Activity::storeActivity('Excluiu da tabela {{modelName}} um registro com ID=' . $id);
+
+            alert()->success('Registro excluído com sucesso!')->toToast('top-end');
+        } catch (\Throwable $th) {
+            alert()->error('Este registro não pode ser excluído')->toToast('top-end');
+        }
+
+        return back();
+    }
+
+    /**
+     * =================================================================
+     * Mass delete {{modelNamePluralLowerCase}} records
+     * =================================================================
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
+    public function massDelete{{modelName}}(Request $request)
+    {
+        abort_unless(Gate::allows('{{modelNameSingularLowerCase}}_access') || Auth::user()->is_superadmin, 403);
+
+        $ids = $request->data;
+
+        for ($i = 0; $i < count($ids); $i++) {
+            {{modelName}}::where('id', $ids[$i])->delete();
+            Activity::storeActivity('Excluiu da tabela {{modelName}} um registro com ID=' . $ids[$i]);
+        }
+    }
+
+    /**
+     * =================================================================
+     * prepara a linha de detalhes do registro na inclusão
+     * =================================================================.
+     *
+     * @param array $new
+     * @return void
+     */
+    public function prepareDetailsNew($new)
+    {
+        $content = '';
+
+        $fields[] = ['field' => 'ID', 'value' => $new->id];
+        // TODO: adicionar os outros campos da tabela
+
+        $content = '
+            <table class="table table-striped" width="100%">
+                <thead class="thead-light">
+                    <th>Campo</th>
+                    <th>Valor</th>
+                </thead>
+                <tbody>';
+
+        for ($i = 0; $i < count($fields); $i++) {
+            $content .= '
+            <tr>
+                <td>'.$fields[$i]['field'].'</td>
+                <td>'.$fields[$i]['value'].'</td>
+            </tr>';
+        }
+        $content .= '
+                </tbody>
+            </table>
+        ';
+
+        return $content;
+    }
+
+    /**
+     * =================================================================
+     * prepara a linha de detalhes do registro na operação de alteração
+     * =================================================================.
+     *
+     * @param array $old
+     * @param array $new
+     * @return void
+     */
+    public function prepareDetailsUpdate($old, $new)
+    {
+        $fields[] = ['field' => 'ID', 'oldvalue' => $old->id, 'newvalue' => $new->id];
+        // TODO: adicionar os outros campos da tabela
+
+        $content = '
+            <table class="table table-striped" width="100%">
+                <thead class="thead-light">
+                    <th>Campo</th>
+                    <th>Valor Anterior</th>
+                    <th>Valor Novo</th>
+                </thead>
+                <tbody>';
+
+        for ($i = 0; $i < count($fields); $i++) {
+            $content .= '
+            <tr>
+                <td>'.$fields[$i]['field'].'</td>
+                <td>'.$fields[$i]['oldvalue'].'</td>
+                <td>'.$fields[$i]['newvalue'].'</td>
+            </tr>';
+        }
+        $content .= '
+                </tbody>
+            </table>
+        ';
+
+        return $content;
+    }
+
+    /**
+     * =================================================================
+     * salva numa session os dados do registro atual
+     * =================================================================.
+     *
+     * @param array ${{modelNameSingularLowerCase}}
+     * @return void
+     */
+    private function save{{modelName}}(${{modelNameSingularLowerCase}})
+    {
+        Session::put('{{modelNameSingularLowerCase}}', ${{modelNameSingularLowerCase}});
+    }
+
+    /**
+     * =================================================================
+     * recupera os dados salvos do registro atual
+     * =================================================================.
+     *
+     * @return void
+     */
+    private function get{{modelName}}()
+    {
+        $r = Session::get('{{modelNameSingularLowerCase}}');
+        Session::forget('{{modelNameSingularLowerCase}}');
+
+        return $r;
+    }
+}

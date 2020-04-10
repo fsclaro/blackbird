@@ -1,0 +1,59 @@
+@extends('adminlte::page')
+
+@section('title', Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.title'))
+
+@section('content_header')
+<span style="font-size:20px"> <i class="fas fa-bell"></i> Detalhes do {{modelName}}</span>
+{{ Breadcrumbs::render('{{modelNamePluralLowerCase}}_show') }}
+@stop
+
+@section('content')
+<div class="card card-primary card-outline">
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <th style="width:18%">ID</th>
+                    <td>{{ ${{modelNameSingularLowerCase}}->id }}</td>
+                </tr>
+
+                <!-- colocar as demais linhas -->
+
+                <tr>
+                    <th style="width:18%">Criado em</th>
+                    <td>
+                        @if(${{modelNameSingularLowerCase}}->created_at)
+                        {{ ${{modelNameSingularLowerCase}}->created_at->format("d/m/Y H:i:s") }}
+                        @else
+                        <span class="text-red">Informação não disponível</span>
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width:18%">Atualizado em</th>
+                    <td>
+                        @if(${{modelNameSingularLowerCase}}->updated_at)
+                        {{ ${{modelNameSingularLowerCase}}->updated_at->format("d/m/Y H:i:s") }}
+                        @else
+                        <span class="text-red">Informação não disponível</span>
+                        @endif
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <a href="{{ route('admin.{{modelNamePluralLowerCase}}.index') }}" class="btn btn-default"><i class="fas fa-fw fa-reply"></i> Voltar</a>
+    </div>
+</div>
+@stop
+
+@section('footer')
+@include('vendor.adminlte.footer')
+@stop
+
+@section('css')
+@stop
+
+@section('js')
+@stop

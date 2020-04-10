@@ -1,0 +1,61 @@
+@extends('adminlte::page')
+
+@section('title', Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.title'))
+
+@section('content_header')
+<span style="font-size:20px"> <i class="fas fa-key"></i> Cadastro de {{modelNamePlural}}</span>
+{{ Breadcrumbs::render('{{modelNamePluralLowerCase}}_create') }}
+@stop
+
+@section('content')
+<form method="post" action="{{ route('admin.{{modelNamePluralLowerCase}}.store') }}" enctype="multipart/form-data">
+    @csrf
+
+    <div class="card card-primary card-outline">
+        <div class="card-body">
+            <div class="row">
+
+                <!-- trocar as referências de "campo" no bloco abaixo pelo nome do atributo da tabela -->
+
+                <div class="form-group {{ $errors->has('campo') ? 'has-error' : '' }} col-md-12">
+                    <label for="campo">Campo
+                        <span class="text-red">*</span>
+                    </label>
+                    <input type="text" id="campo" name="campo" class="form-control" value="{{ old('campo', isset(${{modelNameSingularLowerCase}}) ? ${{modelNameSingularLowerCase}}->campo : '') }}">
+
+                    @if($errors->has('campo'))
+                    <small class="form-text text-red text-bold">
+                        {{ $errors->first('campo') }}
+                    </small>
+                    @endif
+                </div>
+            </div> <!-- row -->
+
+            <!-- colocar os outros campos da tabela -->
+
+        </div> <!-- card-body -->
+
+        <div class="card-footer">
+            <a href="{{ route('admin.{{modelNamePluralLowerCase}}.index') }}" class="btn btn-default">
+                <i class="fas fa-fw fa-reply"></i> Voltar
+            </a>
+
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-fw fa-save"></i> Salvar
+            </button>
+
+        </div> <!-- card-footer -->
+
+    </div> <!-- card/card-primary/card-outline -->
+</form>
+@stop
+
+@section('footer')
+@include('vendor.adminlte.footer')
+@stop
+
+@section('css')
+@stop
+
+@section('js')
+@stop

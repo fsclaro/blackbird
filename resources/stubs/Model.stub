@@ -1,0 +1,31 @@
+<?php
+
+namespace App;
+
+use Auth;
+use Session;
+use App\Helpers\Helpers;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class {{modelName}} extends Model
+{
+    use SoftDeletes;
+
+    protected $table = '{{modelNamePluralLowerCase}}';
+
+    protected $fillable = [
+        // Colocar todos os campos obrigatórios
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
+    protected $guarded = [
+        'id'
+    ];
+
+}

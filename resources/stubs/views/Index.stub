@@ -1,0 +1,165 @@
+@extends('adminlte::page')
+
+@section('title', Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.title'))
+
+@section('content_header')
+<span style="font-size:20px"> <i class="fas fa-key"></i> Cadastro de {{modelNamePlural}}</span>
+{{ Breadcrumbs::render("{{modelNamePluralLowerCase}}_access") }}
+@stop
+
+@section('content')
+
+<div class="row">
+    @widget('{{modelNamePlural}}Count')
+</div>
+
+<div class="card card-primary card-outline">
+    <div class="card-header">
+        <div class="float-right">
+            <a class="btn btn-flat btn-primary btn-sm" href="{{ route('admin.{{modelNamePluralLowerCase}}.index') }}">
+                <i class="fas fa-sync"></i> Atualizar a Tela
+            </a>
+
+            @if(Auth::user()->is_superadmin || Auth::user()->can('{{modelNameSingularLowerCase}}_create'))
+            <a class="btn btn-flat btn-success btn-sm" href="{{ route('admin.{{modelNamePluralLowerCase}}.create') }}">
+                <i class="fas fa-plus-circle"></i> Adicionar Nova {{modelName}}
+            </a>
+            @endif
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-striped table-hover datatable" id="{{modelNameSingularLowerCase}}-table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>ID</th>
+                        <!-- adicionar as demais colunas -->
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(${{modelNamePluralLowerCase}} as $key => ${{modelNameSingularLowerCase}})
+                    <tr data-entry-id="{{ ${{modelNameSingularLowerCase}}->id }}">
+                        <td class="align-middle">
+                            {{ ${{modelNameSingularLowerCase}}->id }}
+                        </td>
+
+                        <!-- adicionar as demais colunas -->
+
+                        <!-- botões de ações -->
+                        <td class="text-left align-middle">
+                            <!-- botão de exibição de detalhes -->
+                            @if((Auth::user()->is_superadmin || Auth::user()->can("{{modelNameSingularLowerCase}}_show")))
+                            <a class="btn btn-xs btn-primary" href="{{ route('admin.{{modelNamePluralLowerCase}}.show', ${{modelNameSingularLowerCase}}->id) }}">
+                                <i class="fas fa-fw fa-eye"></i>
+                            </a>
+                            @endif
+
+                            <!-- botão de alteração -->
+                            @if((Auth::user()->is_superadmin || Auth::user()->can("{{modelNameSingularLowerCase}}_edit")))
+                            <a class="btn btn-xs btn-warning" href="{{ route('admin.{{modelNamePluralLowerCase}}.edit', ${{modelNameSingularLowerCase}}->id) }}">
+                                <i class="fas fa-fw fa-pencil-alt"></i>
+                            </a>
+                            @endif
+
+                            <!-- botão de exclusão -->
+                            @if(Auth::user()->is_superadmin || Auth::user()->can("{{modelNameSingularLowerCase}}_delete"))
+                            <a href="javascript;" onclick="deleteRecord(event,{{ ${{modelNameSingularLowerCase}}->id }});" id="deleteRecord" class="btn btn-xs btn-danger">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                            @endif
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@stop
+
+@section('footer')
+@include('vendor.adminlte.footer')
+@stop
+
+@section('css')
+@stop
+
+@section('js')
+<script>
+    $(function() {
+        $("#{{modelNameSingularLowerCase}}-table").DataTable({
+            lengthMenu: [
+                [5, 10, 20, 50, 100, 200, -1],
+                [5, 10, 20, 50, 100, 200, "Todos"]
+            ],
+            language: {
+                url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
+            },
+            columns: [
+                { width: "40px" }, // id
+                // colocar as demais colunas
+                { width: "90px", orderable: false, searchable: false }, // actions buttons
+            ],
+        });
+    });
+
+    function deleteRecord(e, id) {
+        e.preventDefault();
+
+        var dataId = id;
+        var token = "{{ csrf_token() }}";
+        var url = "{{ url('admin/{{modelNamePluralLowerCase}}') }}" + '/' + id;
+
+        Swal.fire({
+            type: 'warning',
+            title: 'Você tem certeza?',
+            text: 'Esta ação não poderá ser desfeita no futuro.',
+            showCancelButton: true,
+            confirmButtonText: 'Sim - Exclua este registro',
+            cancelButtonText: 'Não - Cancele esta ação',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            focusCancel: true,
+            width: '35rem',
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        _token: token,
+                        _method: 'DELETE',
+                    },
+                    success: function() {
+                        Swal.fire({
+                            type: 'success',
+                            title: 'Sucesso',
+                            text: 'O registro foi excluído com sucesso.',
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                        location.reload();
+                    },
+                    error: function() {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Falhou',
+                            text: 'Houve um problema. O registro não foi excluído.',
+                            timer: 2500,
+                        });
+                    }
+                })
+            } else {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Cancelado',
+                    text: 'Operação de exclusão cancelada.',
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            }
+        });
+    };
+</script>
+@stop

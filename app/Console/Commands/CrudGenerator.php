@@ -203,7 +203,7 @@ class CrudGenerator extends Command
         File::append(
             base_path('routes/web.php'),
             '
-            /** Rotas para a tabela ' . $this->modelName . ' **/
+            /** Rotas para a tabela '.$this->modelName.' **/
 
             Route::resource(\''.$this->modelNamePluralLowerCase."', '{$this->modelName}Controller');
 
@@ -211,15 +211,16 @@ class CrudGenerator extends Command
         );
     }
 
-    protected function createMigration() {
+    protected function createMigration()
+    {
         $table = Str::snake($this->modelName);
 
-        $this->call('make:migration', ['name' => 'create_' . $table . '_table', '--create' => $table]);
+        $this->call('make:migration', ['name' => 'create_'.$table.'_table', '--create' => $table]);
     }
 
     protected function views()
     {
-        $path = resource_path('views/admin/' . $this->modelNamePluralLowerCase);
+        $path = resource_path('views/admin/'.$this->modelNamePluralLowerCase);
         if (! file_exists($path)) {
             mkdir($path, 0777, true);
         }
@@ -230,7 +231,8 @@ class CrudGenerator extends Command
         $this->viewShow();
     }
 
-    protected function viewIndex() {
+    protected function viewIndex()
+    {
         $viewIndexTemplate = str_replace(
             [
                 '{{modelName}}',
@@ -247,10 +249,11 @@ class CrudGenerator extends Command
             $this->getStub('views/Index')
         );
 
-        file_put_contents(resource_path("views/admin/" . $this->modelNamePluralLowerCase . "/index.blade.php"), $viewIndexTemplate);
+        file_put_contents(resource_path('views/admin/'.$this->modelNamePluralLowerCase.'/index.blade.php'), $viewIndexTemplate);
     }
 
-    protected function viewCreate() {
+    protected function viewCreate()
+    {
         $viewCreateTemplate = str_replace(
             [
                 '{{modelName}}',
@@ -267,10 +270,11 @@ class CrudGenerator extends Command
             $this->getStub('views/Create')
         );
 
-        file_put_contents(resource_path("views/admin/" . $this->modelNamePluralLowerCase . "/create.blade.php"), $viewCreateTemplate);
+        file_put_contents(resource_path('views/admin/'.$this->modelNamePluralLowerCase.'/create.blade.php'), $viewCreateTemplate);
     }
 
-    protected function viewEdit() {
+    protected function viewEdit()
+    {
         $viewEditTemplate = str_replace(
             [
                 '{{modelName}}',
@@ -287,11 +291,11 @@ class CrudGenerator extends Command
             $this->getStub('views/Edit')
         );
 
-        file_put_contents(resource_path("views/admin/" . $this->modelNamePluralLowerCase . "/edit.blade.php"), $viewEditTemplate);
+        file_put_contents(resource_path('views/admin/'.$this->modelNamePluralLowerCase.'/edit.blade.php'), $viewEditTemplate);
     }
 
-
-    protected function viewShow() {
+    protected function viewShow()
+    {
         $viewShowTemplate = str_replace(
             [
                 '{{modelName}}',
@@ -308,10 +312,8 @@ class CrudGenerator extends Command
             $this->getStub('views/Show')
         );
 
-        file_put_contents(resource_path("views/admin/" . $this->modelNamePluralLowerCase . "/show.blade.php"), $viewShowTemplate);
+        file_put_contents(resource_path('views/admin/'.$this->modelNamePluralLowerCase.'/show.blade.php'), $viewShowTemplate);
     }
-
-
 
     protected function getStub($type)
     {

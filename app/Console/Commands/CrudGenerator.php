@@ -15,19 +15,20 @@ class CrudGenerator extends Command
      */
     protected $signature = 'crud:generator
         {name : Class name on singular mode. Example: User}
-        {--all : Generate controller, model, requests, routes and views}
+        {--all : Generate controller, model, requests, routes, migration and views}
         {--controller : Generate controller}
         {--model : Generate model}
         {--request : Generate requests (Update and Store)}
         {--views : Generate views}
-        {--routes : Generate routes}';
+        {--routes : Generate routes}
+        {--migration : Generate migration}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate an basic CRUD for any class';
+    protected $description = 'Generate an basic CRUD for any Class';
 
     /**
      * The model name.
@@ -83,23 +84,33 @@ class CrudGenerator extends Command
         $this->modelNamePluralLowerCase = Str::lower(Str::plural($name));
 
         if ($options['controller'] || $options['all']) {
+            $this->info('Generating the controller...');
             $this->controller();
         }
 
         if ($options['model'] || $options['all']) {
+            $this->info('Generating the model...');
             $this->model();
         }
 
         if ($options['request'] || $options['all']) {
+            $this->info('Generating the requests...');
             $this->request();
         }
 
         if ($options['routes'] || $options['all']) {
+            $this->info('Generating the rota...');
             $this->routes();
         }
 
         if ($options['views'] || $options['all']) {
+            $this->info('Generating the views...');
             $this->views();
+        }
+
+        if ($options['migration'] || $options['all']) {
+            $this->info('Generating the migration...');
+            $this->createMigration();
         }
     }
 
@@ -191,8 +202,19 @@ class CrudGenerator extends Command
     {
         File::append(
             base_path('routes/web.php'),
-            'Route::resource(\''.$this->modelNamePluralLowerCase."', '{$this->modelName}Controller');"
+            '
+            /** Rotas para a tabela ' . $this->modelName . ' **/
+
+            Route::resource(\''.$this->modelNamePluralLowerCase."', '{$this->modelName}Controller');
+
+            "
         );
+    }
+
+    protected function createMigration() {
+        $table = Str::snake($this->modelName);
+
+        $this->call('make:migration', ['name' => 'create_' . $table . '_table', '--create' => $table]);
     }
 
     protected function views()

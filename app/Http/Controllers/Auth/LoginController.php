@@ -88,7 +88,7 @@ class LoginController extends Controller
             $this->loadSettings();
             Activity::storeActivity('Fez <span class="text-red text-bold">login</span> no sistema');
             alert()
-                ->success("<span class='text-blue'>".$user->name.'</span>, você está logado no sistema.')
+                ->success("<span class='text-blue'>" . $user->name . '</span>, você está logado no sistema.')
                 ->toToast('top-end')
                 ->autoClose(2500)
                 ->toHtml();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Menufilter;
+namespace App\MenuFilter;
 
 use Auth;
 use JeroenNoten\LaravelAdminLte\Menu\Builder;

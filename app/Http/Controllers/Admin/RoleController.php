@@ -155,7 +155,7 @@ class RoleController extends Controller
             $role = Role::find($id);
             Role::where('id', $id)->delete();
 
-            Activity::storeActivity('Excluiu o papel com o ID '.$role->id.' e nome '.$role->title);
+            Activity::storeActivity('Excluiu o papel com o ID ' . $role->id . ' e nome ' . $role->title);
             alert()->success('Papel excluído com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Este papel não pode ser excluído')->toToast('top-end');
@@ -182,7 +182,7 @@ class RoleController extends Controller
             $permissions = $role->permissions;
 
             $newRole = [
-                'title' => $role->title.' cópia',
+                'title' => $role->title . ' cópia',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
@@ -190,8 +190,8 @@ class RoleController extends Controller
             $role = Role::create($newRole);
             $role->permissions()->sync($permissions);
 
-            Activity::storeActivity('Clonou o papel <span class="text-red text-bold">'.$role->title.
-                '</span> com o nome <span class="text-red text-bold">'.$role->title.' cópia</span>');
+            Activity::storeActivity('Clonou o papel <span class="text-red text-bold">' . $role->title .
+                '</span> com o nome <span class="text-red text-bold">' . $role->title . ' cópia</span>');
         }
     }
 
@@ -211,7 +211,7 @@ class RoleController extends Controller
         for ($i = 0; $i < count($ids); $i++) {
             $role = Role::find($ids[$i]);
             Role::where('id', $ids[$i])->delete();
-            Activity::storeActivity('Excluiu o papel <span class="text-red text-bold">'.$role->title.'</span>');
+            Activity::storeActivity('Excluiu o papel <span class="text-red text-bold">' . $role->title . '</span>');
         }
     }
 
@@ -228,7 +228,7 @@ class RoleController extends Controller
         $content = '';
         $permissions = $new->permissions;
         for ($i = 0; $i < count($permissions); $i++) {
-            $content .= "<span class='badge badge-primary'>".$permissions[$i]->title.'</span> ';
+            $content .= "<span class='badge badge-primary'>" . $permissions[$i]->title . '</span> ';
         }
 
         $fields[] = ['field' => 'ID', 'value' => $new->id];
@@ -245,8 +245,8 @@ class RoleController extends Controller
         for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
-                <td>'.$fields[$i]['field'].'</td>
-                <td>'.$fields[$i]['value'].'</td>
+                <td>' . $fields[$i]['field'] . '</td>
+                <td>' . $fields[$i]['value'] . '</td>
             </tr>';
         }
         $content .= '
@@ -272,12 +272,12 @@ class RoleController extends Controller
         $newContent = '';
         $oldPermissions = $old->permissions;
         for ($i = 0; $i < count($oldPermissions); $i++) {
-            $oldContent .= "<span class='badge badge-primary'>".$oldPermissions[$i]->title.'</span> ';
+            $oldContent .= "<span class='badge badge-primary'>" . $oldPermissions[$i]->title . '</span> ';
         }
 
         $newPermissions = $new->permissions;
         for ($i = 0; $i < count($newPermissions); $i++) {
-            $newContent .= "<span class='badge badge-primary'>".$newPermissions[$i]->title.'</span> ';
+            $newContent .= "<span class='badge badge-primary'>" . $newPermissions[$i]->title . '</span> ';
         }
 
         $fields[] = ['field' => 'ID', 'oldvalue' => $old->id, 'newvalue' => $new->id];
@@ -296,9 +296,9 @@ class RoleController extends Controller
         for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
-                <td>'.$fields[$i]['field'].'</td>
-                <td>'.$fields[$i]['oldvalue'].'</td>
-                <td>'.$fields[$i]['newvalue'].'</td>
+                <td>' . $fields[$i]['field'] . '</td>
+                <td>' . $fields[$i]['oldvalue'] . '</td>
+                <td>' . $fields[$i]['newvalue'] . '</td>
             </tr>';
         }
         $content .= '

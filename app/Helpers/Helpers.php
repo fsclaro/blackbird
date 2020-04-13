@@ -62,7 +62,7 @@ class Helpers
 
                 $photo = \Crew\Unsplash\Photo::random($filter);
 
-                $url = $photo->urls['thumb'].'&dpi=1';
+                $url = $photo->urls['thumb'] . '&dpi=1';
 
                 return $url;
             } catch (\Throwable $th) {

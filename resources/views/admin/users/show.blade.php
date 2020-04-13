@@ -7,24 +7,28 @@ use Carbon\Carbon;
 @section('title', Session::has('brand_sistema') ? Session::get('brand_sistema') : config('adminlte.title'))
 
 @section('content_header')
-<span style="font-size:20px"> <i class="fas fa-fw fa-users"></i> Cadastro de Usuários</span>
+<span style="font-size:20px">
+    <i class="fas fa-fw fa-users"></i> Cadastro de Usuários
+</span>
+
 {{ Breadcrumbs::render('users_show') }}
 @stop
 
 @section('content')
-
 <div class="card card-primary card-outline">
     <div class="card-body">
         <table class="table table-bordered table-striped">
             <tbody>
                 <tr>
-                    <td style="width:18%">ID</td>
+                    <th style="width:18%">ID</th>
                     <td>{{ $user->id }}</td>
                 </tr>
+
                 <tr>
                     <th>Nome do Usuário</th>
                     <td>{{ $user->name }}</td>
                 </tr>
+
                 <tr>
                     <th>E-mail</th>
                     <td>{{ $user->email }}</td>
@@ -65,7 +69,7 @@ use Carbon\Carbon;
                     </td>
                 </tr>
 
-                @if(!$user->password)
+                @if(! $user->password)
                 <tr>
                     <th>Senha de Acesso</th>
                     <td>
@@ -73,16 +77,6 @@ use Carbon\Carbon;
                     </td>
                 </tr>
                 @endif
-                <tr>
-                    <th>Criado em</th>
-                    <td>
-                        @if($user->created_at)
-                        {{ $user->created_at->format('d/m/Y h:i') }}
-                        @else
-                        <span class="text-red">Informação não disponível</span>
-                        @endif
-                    </td>
-                </tr>
 
                 <tr>
                     <th>Dias sem acesso</th>
@@ -94,6 +88,17 @@ use Carbon\Carbon;
                             {{ (new Carbon($user->last_login))->diffInDays(Carbon::now()) }}
                             @endif
                         </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Criado em</th>
+                    <td>
+                        @if($user->created_at)
+                        {{ $user->created_at->format('d/m/Y h:i') }}
+                        @else
+                        <span class="text-red">Informação não disponível</span>
+                        @endif
                     </td>
                 </tr>
 

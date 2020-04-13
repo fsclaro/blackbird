@@ -30,7 +30,7 @@ class UsersLogin30Days extends AbstractWidget
             $date = Carbon::now()->subDays($countDown);
             $days[$i] = $date->format('d/m');
 
-            $count[$i] = User::whereRaw('date_format(last_login, "%Y%m%d") = "'.$date->format('Ymd').'"')->count();
+            $count[$i] = User::whereRaw('date_format(last_login, "%Y%m%d") = "' . $date->format('Ymd') . '"')->count();
             $countDown--;
         }
 

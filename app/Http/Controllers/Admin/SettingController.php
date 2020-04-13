@@ -239,8 +239,8 @@ class SettingController extends Controller
         for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
-                <td>'.$fields[$i]['field'].'</td>
-                <td>'.$fields[$i]['value'].'</td>
+                <td>' . $fields[$i]['field'] . '</td>
+                <td>' . $fields[$i]['value'] . '</td>
             </tr>';
         }
         $content .= '
@@ -315,9 +315,9 @@ class SettingController extends Controller
         for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
-                <td>'.$fields[$i]['field'].'</td>
-                <td>'.$fields[$i]['oldvalue'].'</td>
-                <td>'.$fields[$i]['newvalue'].'</td>
+                <td>' . $fields[$i]['field'] . '</td>
+                <td>' . $fields[$i]['oldvalue'] . '</td>
+                <td>' . $fields[$i]['newvalue'] . '</td>
             </tr>';
         }
         $content .= '
@@ -370,9 +370,9 @@ class SettingController extends Controller
         for ($i = 0; $i < count($fields); $i++) {
             $content .= '
             <tr>
-                <td>'.$fields[$i]['field'].'</td>
-                <td>'.$fields[$i]['oldvalue'].'</td>
-                <td>'.$fields[$i]['newvalue'].'</td>
+                <td>' . $fields[$i]['field'] . '</td>
+                <td>' . $fields[$i]['oldvalue'] . '</td>
+                <td>' . $fields[$i]['newvalue'] . '</td>
             </tr>';
         }
         $content .= '

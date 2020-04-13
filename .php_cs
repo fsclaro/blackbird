@@ -16,4 +16,11 @@ return (new MattAllan\LaravelCodeStyle\Config())
     )
     ->setRules([
         '@Laravel' => true,
+        '@PSR2' => true,
+        'concat_space' => ['spacing' => 'one'],
+        'cast_spaces' => ['space' => 'single'],
+        'no_unused_imports' => true,
+        'blank_line_before_statement' => true,
+        'trailing_comma_in_multiline_array' => true,
+        'single_quote' => true
     ]);

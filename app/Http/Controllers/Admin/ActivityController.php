@@ -62,7 +62,7 @@ class ActivityController extends Controller
         try {
             Activity::where('id', $id)->delete();
 
-            Activity::storeActivity('Excluiu uma atividade de ID '.$id.' do sistema.');
+            Activity::storeActivity('Excluiu uma atividade de ID ' . $id . ' do sistema.');
             alert()->success('Atividade excluída com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Esta atividade não pode ser excluída')->toToast('top-end');
@@ -135,7 +135,7 @@ class ActivityController extends Controller
 
         for ($i = 0; $i < count($ids); $i++) {
             Activity::where('id', $ids[$i])->delete();
-            Activity::storeActivity('Excluiu a atividade de ID '.$ids[$i]);
+            Activity::storeActivity('Excluiu a atividade de ID ' . $ids[$i]);
         }
     }
 }

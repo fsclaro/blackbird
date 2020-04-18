@@ -153,10 +153,13 @@ class UserController extends Controller
         abort_unless(Gate::allows('user_delete') || Auth::user()->is_superadmin, 403);
 
         try {
+            $this->saveUser($user);
+            $details = $this->prepareDetailsDelete($this->getUser(), $user);
+            Activity::storeActivity('Excluiu o usuário ' . $user->name, $details);
+
             $user->roles()->sync($request->input('roles', true));
             $user->delete();
 
-            Activity::storeActivity('Excluiu o usuário ' . $user->name);
             alert()->success('Usuário excluído com sucesso!')->toToast('top-end');
         } catch (\Throwable $th) {
             alert()->error('Houve algum problema e este usuário não pode ser excluído!')->toToast('top-end');
@@ -430,6 +433,51 @@ class UserController extends Controller
                 <td>' . $fields[$i]['field'] . '</td>
                 <td>' . $fields[$i]['oldvalue'] . '</td>
                 <td>' . $fields[$i]['newvalue'] . '</td>
+            </tr>';
+        }
+        $content .= '
+                </tbody>
+            </table>
+        ';
+
+        return $content;
+    }
+
+    /**
+     * =================================================================
+     * prepara a linha de detalhes do registro na inclusão
+     * =================================================================.
+     *
+     * @param array $new
+     *
+     * @return void
+     */
+    public function prepareDetailsDelete($new)
+    {
+        $content = '';
+        $roles = $new->roles;
+        for ($i = 0; $i < count($roles); $i++) {
+            $content .= "<span class='badge badge-primary'>" . $roles[$i]->title . '</span> ';
+        }
+
+        $fields[] = ['field' => 'ID', 'value' => $new->id];
+        $fields[] = ['field' => 'Nome do Usuário', 'value' => $new->name];
+        $fields[] = ['field' => 'Email', 'value' => $new->email];
+        $fields[] = ['field' => 'Usuário Ativo?', 'value' => ($new->active == 1) ? 'Sim' : 'Não'];
+        $fields[] = ['field' => 'Papéis', 'value' => $content];
+
+        $content = '
+            <table class="table table-striped" width="100%">
+                <thead class="thead-light">
+                    <th>Campo</th>
+                    <th>Valor</th>
+                </thead>
+                <tbody>';
+        for ($i = 0; $i < count($fields); $i++) {
+            $content .= '
+            <tr>
+                <td>' . $fields[$i]['field'] . '</td>
+                <td>' . $fields[$i]['value'] . '</td>
             </tr>';
         }
         $content .= '

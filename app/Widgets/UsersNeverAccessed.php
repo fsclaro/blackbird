@@ -24,8 +24,12 @@ class UsersNeverAccessed extends AbstractWidget
 
         $this->config = $users;
 
-        return view('widgets.users_never_accessed', [
-            'users' => $this->config,
-        ]);
+        if (count($users) > 0) {
+            return view('widgets.users_never_accessed', [
+                'users' => $this->config,
+            ]);
+        }
+
+        return '';
     }
 }

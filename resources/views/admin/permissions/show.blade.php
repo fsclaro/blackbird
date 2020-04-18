@@ -16,14 +16,27 @@
                     <th style="width:18%">ID</th>
                     <td>{{ $permission->id }}</td>
                 </tr>
+
                 <tr>
                     <th style="width:18%">Título da Permissão</th>
                     <td>{{ $permission->title }}</td>
                 </tr>
+
                 <tr>
                     <th style="width:18%">Slug da Permissão</th>
                     <td>{{ $permission->slug }}</td>
                 </tr>
+
+                <tr>
+                    <th style="width:18%">Papéis Associados</th>
+                    <td>
+                        @foreach($permission->roles as $role)
+                        <span class="badge badge-primary">{{ $role->title }}</span>
+                        @endforeach
+                    </td>
+                </tr>
+
+
                 <tr>
                     <th style="width:18%">Criado em</th>
                     <td>
@@ -34,6 +47,7 @@
                         @endif
                     </td>
                 </tr>
+
                 <tr>
                     <th style="width:18%">Atualizado em</th>
                     <td>

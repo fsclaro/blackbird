@@ -201,7 +201,7 @@ return [
         ],
 
         [
-            'text' => 'Atividades',
+            'text' => 'Minhas Atividades',
             'icon' => 'fas fa-fw fa-flag',
             'icon_color' => 'green',
             'can' => 'activity_access',
@@ -271,7 +271,7 @@ return [
             'can'     => 'support_access',
             'submenu' => [
                 [
-                    'text' => 'Atividades',
+                    'text' => 'Todas as Atividades',
                     'icon' => 'fas fa-fw fa-flag',
                     'can' => 'activity_access',
                     'route' => 'admin.activities.index',

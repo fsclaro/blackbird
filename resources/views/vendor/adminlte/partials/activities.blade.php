@@ -6,19 +6,24 @@
 
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         @if(Auth::user()->activities()->where('is_read', 0)->count() == 1)
-        <span class="dropdown-item dropdown-header">1 Atividade Não Lida</span>
+        <span class="dropdown-item dropdown-header">Você tem <span class="text-red text-bold">1</span> atividade não lida</span>
         @else
-        <span class="dropdown-item dropdown-header">{{ Auth::user()->activities()->where('is_read', 0)->count() }} Atividades Não Lidas</span>
+        <span class="dropdown-item dropdown-header">Você tem <span class="text-red text-bold">{{ Auth::user()->activities()->where('is_read', 0)->count() }}</span> atividades não lidas</span>
         @endif
 
         @php
-            $activities = Auth::user()->activities()->where('is_read', 0)->take(5)->get();
+            $activities = Auth::user()
+                ->activities()
+                ->where('is_read', 0)
+                ->orderBy('id', 'desc')
+                ->take(5)
+                ->get();
         @endphp
 
         @foreach($activities as $activity)
         <div class="dropdown-divider"></div>
         <a href="{{ route('admin.activities.show', $activity->id) }}" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> {!! $activity->title !!}
+            {!! Str::limit(strip_tags($activity->title),30) !!}
         </a>
         @endforeach
 

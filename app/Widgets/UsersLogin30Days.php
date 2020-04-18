@@ -24,6 +24,12 @@ class UsersLogin30Days extends AbstractWidget
     {
         $days = [];
         $count = [];
+        $columnLarge = 12;
+
+        $userCount = User::whereNull('last_login')->count();
+        if ($userCount > 0) {
+            $columnLarge = 7;
+        }
 
         $countDown = 30;
         for ($i = 0; $i <= 30; $i++) {
@@ -43,6 +49,7 @@ class UsersLogin30Days extends AbstractWidget
 
         return view('widgets.users_login_30days', [
             'usersChart30Days' => $usersChart30Days,
+            'columns' => $columnLarge,
         ]);
     }
 }

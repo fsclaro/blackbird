@@ -92,7 +92,7 @@ class User extends Authenticatable implements HasMedia
 
     /**
      * -------------------------------------------------------------------
-     * define relationship between user and notifications
+     * define relationship between user and activities
      * -------------------------------------------------------------------.
      *
      * @return void

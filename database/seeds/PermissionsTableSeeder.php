@@ -71,11 +71,5 @@ class PermissionsTableSeeder extends Seeder
         Permission::insert(['title' => 'Acessar Log-Viewer', 'slug' => 'log_viewer_access', 'created_at' => now()]);
         Permission::insert(['title' => 'Acessar Route-Viewer', 'slug' => 'route_viewer_access', 'created_at' => now()]);
         Permission::insert(['title' => 'Exibir PHPInfo', 'slug' => 'phpinfo_viewer', 'created_at' => now()]);
-
-        // Notificações
-        $this->command->info(' Permissões de acesso ao cadastro de notificações.');
-        Permission::insert(['title' => 'Acessar notificações', 'slug' => 'notification_access', 'created_at' => now()]);
-        Permission::insert(['title' => 'Exibir notificação', 'slug' => 'notification_show', 'created_at' => now()]);
-        Permission::insert(['title' => 'Excluir notificação', 'slug' => 'notification_delete', 'created_at' => now()]);
     }
 }

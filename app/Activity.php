@@ -103,10 +103,12 @@ class Activity extends Model
     {
         if ($nroRecords > 0) {
             $activities = Activity::where('user_id', Auth::user()->id)
+                ->where('is_read', false)
                 ->orderBy('created_at', 'desc')
                 ->paginate($nroRecords);
         } else {
             $activities = Activity::where('user_id', Auth::user()->id)
+                ->where('is_read', false)
                 ->orderBy('created_at', 'desc')
                 ->paginate(5);
         }

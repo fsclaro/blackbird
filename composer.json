@@ -38,6 +38,7 @@
         "yajra/laravel-datatables-oracle": "^9.7"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.3",
         "barryvdh/laravel-ide-helper": "^2.6",
         "deployer/deployer": "^6.6",
         "facade/ignition": "^1.4",

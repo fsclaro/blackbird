@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Blackbird',
+    'title' => 'Blackbird 7',
     'title_prefix' => '{',
     'title_postfix' => '}',
 
@@ -30,12 +30,12 @@ return [
     |
     */
 
-    'logo' => 'Blackbird',
+    'logo' => 'Blackbird 7',
     'logo_img' => 'img/logo-sm.png',
     'logo_img_class' => 'brand-image-xl',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Blackbird',
+    'logo_img_alt' => 'Blackbird 7',
 
     /*
     |--------------------------------------------------------------------------
@@ -90,8 +90,8 @@ return [
     |
     */
 
-    'sidebar_mini' => true,
-    'sidebar_collapse' => false,
+    'sidebar_mini' => false,
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,

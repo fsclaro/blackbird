@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
         $this->command->info(' Criando o usuário SuperAdmin.');
         $user = User::insert([
             'name' => 'SuperAdmin',
-            'email' => 'superadmin@blackbird.test',
+            'email' => 'superadmin@bb7.test',
             'password' => Hash::make('superman'),
             'active' => true,
             'skin' => null,
@@ -42,8 +42,8 @@ class UsersTableSeeder extends Seeder
         $this->command->info(' Criando o usuário Admin.');
         $user = User::insert([
             'name' => 'Admin',
-            'email' => 'admin@blackbird.test',
-            'password' => Hash::make('12345678'),
+            'email' => 'admin@bb7.test',
+            'password' => Hash::make('admin'),
             'active' => true,
             'skin' => null,
             'is_superadmin' => false,
@@ -62,8 +62,8 @@ class UsersTableSeeder extends Seeder
         $this->command->info(' Criando o usuário User.');
         $user = User::insert([
             'name' => 'User',
-            'email' => 'user@blackbird.test',
-            'password' => Hash::make('12345678'),
+            'email' => 'user@bb7.test',
+            'password' => Hash::make('user'),
             'active' => true,
             'skin' => null,
             'is_superadmin' => false,
